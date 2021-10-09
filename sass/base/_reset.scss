@@ -88,6 +88,7 @@ video {
 }
 
 /* HTML5 display-role reset for older browsers */
+
 article,
 aside,
 details,
@@ -116,23 +117,23 @@ q {
   quotes: none;
 }
 
-blockquote:before, blockquote:after {
-  content: "";
-  content: none;
+blockquote {
+  &:before,
+  &:after {
+    content: "";
+    content: none;
+  }
 }
 
-q:before, q:after {
-  content: "";
-  content: none;
+q {
+  &:before,
+  &:after {
+    content: "";
+    content: none;
+  }
 }
 
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
-header {
-  text-align: center;
-  border: 1px solid red;
-}
-/*# sourceMappingURL=style.css.map */
