@@ -1,5 +1,31 @@
 @import "sass/base/reset";
+@import "sass/utils/variables";
+main {
+  width: 100%;
+  max-width: 1440px;
+  height: 100vh;
+  margin: auto;
+  border: $borderBlue;
+}
 header {
   text-align: center;
   border: 1px solid red;
+  img {
+    width: 268px;
+    height: 93px;
+  }
+}
+#search {
+  display: block;
+  margin: auto;
+  width: 88%;
+  height: 6.7%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-color: $color-primary;
+  border: none;
+  font-size: 18px;
+  font-family: "Lato";
+  font-weight: 400;
+  padding-left: 22px;
 }
