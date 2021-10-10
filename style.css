@@ -184,4 +184,71 @@ header img {
 #search:focus {
   outline: 2px solid #3282f7;
 }
+
+.btns {
+  width: auto;
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 6.1%;
+}
+
+.btn {
+  color: white;
+  font-size: 18px;
+  font-family: Lato;
+  font-weight: 700;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  margin-right: 20px;
+  width: 11%;
+  height: 69px;
+  border-radius: 5px;
+  border: none;
+}
+
+.btn__ingredients {
+  background-color: #3282f7;
+}
+
+.btn__appareil {
+  background-color: #68d9a4;
+}
+
+.btn__ustensiles {
+  background-color: #ed6454;
+}
+
+.btn:hover::after {
+  -webkit-transform: translateY(50%) rotate(-135deg);
+          transform: translateY(50%) rotate(-135deg);
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  right: 10px;
+  cursor: pointer;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
 /*# sourceMappingURL=style.css.map */

@@ -42,3 +42,49 @@ header {
     outline: 2px solid $color-ingredients;
   }
 }
+.btns {
+  width: auto;
+  height: auto;
+  display: flex;
+  margin-left: 6.1%;
+}
+.btn {
+  color: white;
+  font-size: 18px;
+  font-family: Lato;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-right: 20px;
+  width: 11%;
+  height: 69px;
+  border-radius: 5px;
+  border: none;
+  &__ingredients {
+    background-color: $color-ingredients;
+  }
+  &__appareil {
+    background-color: $color-appareil;
+  }
+  &__ustensiles {
+    background-color: $color-ustensiles;
+  }
+  &:hover::after {
+    transform: translateY(50%) rotate(-135deg);
+    transition: transform 0.2s linear;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border: 2px solid rgb(255, 255, 255);
+    border-top: none;
+    border-left: none;
+    right: 10px;
+    cursor: pointer;
+    transform: rotate(45deg);
+    transition: transform 0.2s linear;
+  }
+}
