@@ -63,6 +63,9 @@ header {
     background-color: $color-ingredients;
     border-radius: 5px;
     margin-right: 15px;
+    .croix {
+      cursor: pointer;
+    }
   }
 }
 .btns {
