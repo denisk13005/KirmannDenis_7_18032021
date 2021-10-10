@@ -218,6 +218,10 @@ header img {
   margin-right: 15px;
 }
 
+.choice .userChoice .croix {
+  cursor: pointer;
+}
+
 .btns {
   width: auto;
   height: auto;
