@@ -27,9 +27,10 @@ header {
 .loupe {
   position: absolute;
   right: 19px;
-  width: 2.58%;
-  height: 46.3%;
-  top: 18px;
+  // width: 2.58%;
+  // height: 46.3%;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
 }
 #search {
@@ -72,6 +73,7 @@ header {
   width: auto;
   height: auto;
   display: flex;
+  flex-wrap: wrap;
   margin-left: 6.1%;
   margin-bottom: 25px;
 }
@@ -82,7 +84,7 @@ header {
   align-items: center;
   position: relative;
   margin-right: 20px;
-  width: 13.4%;
+  width: 170px;
   height: 69px;
   border-radius: 5px;
   padding-left: 25px;
@@ -138,6 +140,7 @@ header {
   .description {
     width: 100%;
     height: 51.1%;
+    border: $borderGreen;
   }
   .nameAndTime {
     width: 90%;
@@ -155,9 +158,18 @@ header {
   }
   .ingredientsAndRecipe {
     width: 90%;
+    height: 100%;
     margin: auto;
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
+    border: $borderBlue;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    ul {
+      height: min-content;
+      color: green;
+      border: $borderBlack;
+    }
   }
 }
