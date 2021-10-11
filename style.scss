@@ -54,6 +54,9 @@ header {
   margin-bottom: 15px;
   display: flex;
   flex-wrap: wrap;
+  @media (max-width: 420px) {
+    justify-content: center;
+  }
   .userChoice {
     width: 107px;
     height: 37px;
@@ -77,6 +80,9 @@ header {
   flex-wrap: wrap;
   margin-left: 6.1%;
   margin-bottom: 25px;
+  @media (max-width: 620px) {
+    justify-content: center;
+  }
 }
 .btn {
   color: white;
