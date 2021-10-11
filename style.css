@@ -134,7 +134,9 @@ table {
 main {
   width: 100%;
   max-width: 1440px;
-  height: 100vh;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
   margin: auto;
   border: 1px solid blue;
   font-family: Lato;
@@ -152,7 +154,7 @@ header img {
 .search {
   width: 88%;
   margin: auto;
-  height: 6.7%;
+  height: auto;
   margin-top: 17px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -191,18 +193,20 @@ header img {
 
 .choice {
   width: 88%;
-  height: 3.61%;
+  height: auto;
   margin: auto;
   margin-top: 25px;
   margin-bottom: 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .choice .userChoice {
-  width: 8.4%;
-  height: 100%;
+  width: 107px;
+  height: 37px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -216,6 +220,7 @@ header img {
   background-color: #3282f7;
   border-radius: 5px;
   margin-right: 15px;
+  margin-bottom: 5px;
 }
 
 .choice .userChoice .croix {
@@ -245,6 +250,7 @@ header img {
           align-items: center;
   position: relative;
   margin-right: 20px;
+  margin-bottom: 10px;
   width: 170px;
   height: 69px;
   border-radius: 5px;
@@ -298,6 +304,8 @@ header img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   margin: auto;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
@@ -305,9 +313,17 @@ header img {
   border: 1px solid green;
 }
 
+@media (max-width: 900px) {
+  .container {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+
 .card {
-  width: 30%;
-  height: 35.54%;
+  width: 380px;
+  height: 364px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -315,8 +331,16 @@ header img {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border: 1px solid black;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 25px;
   border-radius: 5px;
+}
+
+@media (max-width: 900px) {
+  .card {
+    width: 100%;
+  }
 }
 
 .card .img {
