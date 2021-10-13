@@ -1,3 +1,6 @@
+/**
+ * @param {string} loupe url du svg loupe
+ */
 export default class Search{
   constructor(loupe){
     this.loupe = loupe
