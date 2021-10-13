@@ -193,14 +193,22 @@ header {
     display: flex;
     justify-content: space-between;
     border: $borderBlue;
-    overflow: hidden;
+
+    line-height: 1.05em;
 
     ul {
       color: green;
       border: $borderBlack;
+      overflow: hidden;
+      -webkit-line-clamp: 7;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
     }
     p {
       overflow: hidden;
+      -webkit-line-clamp: 7;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
     }
   }
 }

@@ -436,15 +436,22 @@ header img {
       -ms-flex-pack: justify;
           justify-content: space-between;
   border: 1px solid blue;
-  overflow: hidden;
+  line-height: 1.05em;
 }
 
 .card .ingredientsAndRecipe ul {
   color: green;
   border: 1px solid black;
+  overflow: hidden;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
 }
 
 .card .ingredientsAndRecipe p {
   overflow: hidden;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
 }
 /*# sourceMappingURL=style.css.map */
