@@ -218,7 +218,7 @@ header img {
   outline: 2px solid #3282f7;
 }
 
-.choice {
+.keyword {
   width: 88%;
   height: auto;
   margin: auto;
@@ -232,14 +232,14 @@ header img {
 }
 
 @media (max-width: 420px) {
-  .choice {
+  .keyword {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
   }
 }
 
-.choice .userChoice {
+.keyword .userChoice {
   width: 107px;
   height: 37px;
   display: -webkit-box;
@@ -252,13 +252,17 @@ header img {
       -ms-flex-align: center;
           align-items: center;
   color: white;
-  background-color: #3282f7;
+  background: #3282f7;
   border-radius: 5px;
   margin-right: 15px;
   margin-bottom: 5px;
 }
 
-.choice .userChoice .croix {
+.keyword .userChoice .green {
+  background-color: #68d9a4;
+}
+
+.keyword .userChoice .croix {
   cursor: pointer;
 }
 
@@ -342,7 +346,7 @@ header img {
 
 .container {
   width: 88%;
-  height: 100vh;
+  height: auto;
   margin-left: 6.1%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -436,15 +440,24 @@ header img {
       -ms-flex-pack: justify;
           justify-content: space-between;
   border: 1px solid blue;
-  overflow: hidden;
+  line-height: 1.05em;
 }
 
 .card .ingredientsAndRecipe ul {
+  width: 45%;
   color: green;
   border: 1px solid black;
+  overflow: hidden;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
 }
 
 .card .ingredientsAndRecipe p {
+  width: 55%;
   overflow: hidden;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
 }
 /*# sourceMappingURL=style.css.map */
