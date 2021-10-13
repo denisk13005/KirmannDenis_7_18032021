@@ -42,6 +42,7 @@ modif.style.background = "green";
 //génération des boutons de choix de recherche
 const btns = new SearchBtns(spread,'four','spatule').render()
 main.innerHTML+=btns
+document.querySelector('.btn__ingredients').addEventListener('click', ()=> document.querySelector('.ingredients__container').classList.toggle('ingredients__container--visible'))
 
 //génération du conteneur des recettes
 const container = document.createElement('div')

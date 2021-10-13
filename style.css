@@ -366,8 +366,19 @@ header img {
   transition: opacity 0.5s;
 }
 
+.ingredients__container--visible {
+  opacity: 1;
+}
+
 .ingredients__container span {
   margin: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.ingredients__container span:hover {
+  background-color: #0751bc;
 }
 
 .container {
