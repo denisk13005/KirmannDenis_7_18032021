@@ -111,6 +111,7 @@ header {
   border-radius: 5px;
   padding-left: 25px;
   border: none;
+  cursor: pointer;
   &__ingredients {
     background-color: $color-ingredients;
   }
@@ -133,11 +134,30 @@ header {
     border-top: none;
     border-left: none;
     right: 10px;
-    cursor: pointer;
     transform: rotate(45deg);
     transition: transform 0.2s linear;
   }
 }
+.ingredients {
+  position: relative;
+  &__container {
+    position: absolute;
+    top: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 800px;
+    height: 250px;
+    background-color: $color-ingredients;
+    color: white;
+    overflow-y: scroll;
+    opacity: 0;
+    transition: opacity 0.5s;
+    span {
+      margin: 15px;
+    }
+  }
+}
+
 .container {
   width: 88%;
   height: auto;
