@@ -444,6 +444,7 @@ header img {
 }
 
 .card .ingredientsAndRecipe ul {
+  width: 45%;
   color: green;
   border: 1px solid black;
   overflow: hidden;
@@ -453,6 +454,7 @@ header img {
 }
 
 .card .ingredientsAndRecipe p {
+  width: 55%;
   overflow: hidden;
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;

@@ -5,11 +5,13 @@
  * @param {string} recipe recette
  */
 export default class Recipe{
-  constructor(name,time,ingredient,recipe){
+  constructor({name,time,description,ingredients,quantity,unit}){
     this.name=name
     this.time=time
-    this.ingredient=ingredient
-    this.recipe=recipe
+    this.description=description
+    this.ingredients=ingredients
+    this.quantity = quantity
+    this.unit
   }
   render(){
     const card = 
@@ -21,14 +23,16 @@ export default class Recipe{
           <p class="name">${this.name}</p>
           <div class="time">
             <img class="clock" src="img/clock.png" alt="horloge" />
-            <p class="time">${this.time}</p>
+            <p class="time">${this.time} min</p>
           </div>
         </div>
         <div class="ingredientsAndRecipe">
-          <ul class="ingredients">
-            ${this.ingredient}
+          <ul class="ingredientsRecipe">
+            
+            ${this.ingredients.map(el =>  `<li>${el.ingredient} : ${el.quantity} ${el.unit}</li>` ).join('')}
+            
           </ul>
-          <p class="recipe">${recipe}</p>
+          <p class="recipe">${this.description}</p>
         </div>
       </div>
     </div>

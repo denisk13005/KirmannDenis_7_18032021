@@ -200,6 +200,7 @@ header {
     line-height: 1.05em;
 
     ul {
+      width: 45%;
       color: green;
       border: $borderBlack;
       overflow: hidden;
@@ -208,6 +209,7 @@ header {
       display: -webkit-box;
     }
     p {
+      width: 55%;
       overflow: hidden;
       -webkit-line-clamp: 7;
       -webkit-box-orient: vertical;
