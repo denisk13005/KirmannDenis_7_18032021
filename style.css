@@ -252,10 +252,14 @@ header img {
       -ms-flex-align: center;
           align-items: center;
   color: white;
-  background-color: #3282f7;
+  background: #3282f7;
   border-radius: 5px;
   margin-right: 15px;
   margin-bottom: 5px;
+}
+
+.keyword .userChoice .green {
+  background-color: #68d9a4;
 }
 
 .keyword .userChoice .croix {
@@ -342,7 +346,7 @@ header img {
 
 .container {
   width: 88%;
-  height: 100vh;
+  height: auto;
   margin-left: 6.1%;
   display: -webkit-box;
   display: -ms-flexbox;
