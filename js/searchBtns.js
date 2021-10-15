@@ -4,6 +4,7 @@ export default class SearchBtns{
     this.appareil=appareil
     this.ustensile=ustensile
   }
+
   render(){
     const btns =
     `
@@ -11,7 +12,7 @@ export default class SearchBtns{
       <div class="ingredients">
         <button class="btn btn__ingredients">Ingrédients</button>
         <div class = "ingredients__container">
-           ${this.ingredients.map(el => `<span class="list list__ingredients">${el}</span>`).join('')}
+           ${this.ingredients.sort().map(el => `<span class="list list__ingredients">${el}</span>`).join('')}
         </div>
       </div>
       <div class="appareil">
