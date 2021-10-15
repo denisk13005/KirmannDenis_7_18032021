@@ -50,7 +50,7 @@ header {
   @media (max-width: 623px) {
     padding-left: 10px;
     &::placeholder {
-      font-size: 10px;
+      font-size: 11px;
     }
   }
   &:focus {
@@ -145,11 +145,13 @@ header {
   position: relative;
   &__container {
     position: absolute;
+    z-index: 2;
     top: 70px;
     display: flex;
     flex-wrap: wrap;
     width: auto;
     height: 250px;
+    border-radius: 5px;
     background-color: $color-ingredients;
     color: white;
     overflow-y: scroll;
@@ -176,11 +178,13 @@ header {
   position: relative;
   &__container {
     position: absolute;
+    z-index: 2;
     top: 70px;
     display: flex;
     flex-wrap: wrap;
-    width: autopx;
+    width: auto;
     height: 250px;
+    border-radius: 5px;
     background-color: $color-appareil;
     color: white;
     overflow-y: scroll;
@@ -207,11 +211,13 @@ header {
   position: relative;
   &__container {
     position: absolute;
+    z-index: 2;
     top: 70px;
     display: flex;
     flex-wrap: wrap;
     width: 800px;
     height: 250px;
+    border-radius: 5px;
     background-color: $color-ustensiles;
     color: white;
     overflow-y: scroll;
