@@ -11,7 +11,8 @@ recipes.forEach((element) => {
   );
 });
 let setIngredients = new Set(ingredients);
-// setIngredients.forEach(el => console.log(el))
+let spread =[...setIngredients]
+console.log(spread);
 
 // génération des éléments DOM
 const body = document.body;
@@ -39,8 +40,11 @@ const modif = document.querySelector(".userChoice");
 modif.style.background = "green";
 
 //génération des boutons de choix de recherche
-const btns = new SearchBtns('patate','four','spatule').render()
+const btns = new SearchBtns(spread,'four','spatule').render()
 main.innerHTML+=btns
+document.querySelectorAll('.btn').forEach(el=> el.addEventListener('click',()=>el.classList.toggle('arrow')))
+document.querySelector('.btn__ingredients').addEventListener('click', ()=> document.querySelector('.ingredients__container').classList.toggle('ingredients__container--visible'))
+
 
 //génération du conteneur des recettes
 const container = document.createElement('div')

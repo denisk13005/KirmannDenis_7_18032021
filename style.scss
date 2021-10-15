@@ -111,6 +111,7 @@ header {
   border-radius: 5px;
   padding-left: 25px;
   border: none;
+  cursor: pointer;
   &__ingredients {
     background-color: $color-ingredients;
   }
@@ -120,10 +121,7 @@ header {
   &__ustensiles {
     background-color: $color-ustensiles;
   }
-  &:hover::after {
-    transform: translateY(50%) rotate(-135deg);
-    transition: transform 0.2s linear;
-  }
+
   &::after {
     content: "";
     position: absolute;
@@ -133,11 +131,46 @@ header {
     border-top: none;
     border-left: none;
     right: 10px;
-    cursor: pointer;
     transform: rotate(45deg);
     transition: transform 0.2s linear;
   }
 }
+.arrow {
+  &:hover::after {
+    transform: translateY(50%) rotate(-135deg);
+    transition: transform 0.2s linear;
+  }
+}
+.ingredients {
+  position: relative;
+  &__container {
+    position: absolute;
+    top: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 800px;
+    height: 250px;
+    background-color: $color-ingredients;
+    color: white;
+    overflow-y: scroll;
+    opacity: 0;
+    transition: opacity 0.5s;
+    &--visible {
+      opacity: 1;
+    }
+
+    span {
+      margin: 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      padding: 10px;
+      &:hover {
+        background-color: darken($color-ingredients, 20%);
+      }
+    }
+  }
+}
+
 .container {
   width: 88%;
   height: auto;

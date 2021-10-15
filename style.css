@@ -303,6 +303,7 @@ header img {
   border-radius: 5px;
   padding-left: 25px;
   border: none;
+  cursor: pointer;
 }
 
 .btn__ingredients {
@@ -317,15 +318,6 @@ header img {
   background-color: #ed6454;
 }
 
-.btn:hover::after {
-  -webkit-transform: translateY(50%) rotate(-135deg);
-          transform: translateY(50%) rotate(-135deg);
-  -webkit-transition: -webkit-transform 0.2s linear;
-  transition: -webkit-transform 0.2s linear;
-  transition: transform 0.2s linear;
-  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
-}
-
 .btn::after {
   content: "";
   position: absolute;
@@ -335,13 +327,58 @@ header img {
   border-top: none;
   border-left: none;
   right: 10px;
-  cursor: pointer;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
   -webkit-transition: -webkit-transform 0.2s linear;
   transition: -webkit-transform 0.2s linear;
   transition: transform 0.2s linear;
   transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.arrow:hover::after {
+  -webkit-transform: translateY(50%) rotate(-135deg);
+          transform: translateY(50%) rotate(-135deg);
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.ingredients {
+  position: relative;
+}
+
+.ingredients__container {
+  position: absolute;
+  top: 70px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 800px;
+  height: 250px;
+  background-color: #3282f7;
+  color: white;
+  overflow-y: scroll;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
+.ingredients__container--visible {
+  opacity: 1;
+}
+
+.ingredients__container span {
+  margin: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.ingredients__container span:hover {
+  background-color: #0751bc;
 }
 
 .container {
