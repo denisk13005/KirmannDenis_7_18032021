@@ -121,10 +121,7 @@ header {
   &__ustensiles {
     background-color: $color-ustensiles;
   }
-  &:hover::after {
-    transform: translateY(50%) rotate(-135deg);
-    transition: transform 0.2s linear;
-  }
+
   &::after {
     content: "";
     position: absolute;
@@ -135,6 +132,12 @@ header {
     border-left: none;
     right: 10px;
     transform: rotate(45deg);
+    transition: transform 0.2s linear;
+  }
+}
+.arrow {
+  &:hover::after {
+    transform: translateY(50%) rotate(-135deg);
     transition: transform 0.2s linear;
   }
 }
