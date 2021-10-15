@@ -136,7 +136,7 @@ header {
   }
 }
 .arrow {
-  &:hover::after {
+  &::after {
     transform: translateY(50%) rotate(-135deg);
     transition: transform 0.2s linear;
   }
@@ -148,14 +148,16 @@ header {
     top: 70px;
     display: flex;
     flex-wrap: wrap;
-    width: 800px;
+    width: auto;
     height: 250px;
     background-color: $color-ingredients;
     color: white;
     overflow-y: scroll;
+    visibility: hidden;
     opacity: 0;
     transition: opacity 0.5s;
     &--visible {
+      visibility: visible;
       opacity: 1;
     }
 
@@ -170,7 +172,70 @@ header {
     }
   }
 }
+.appliances {
+  position: relative;
+  &__container {
+    position: absolute;
+    top: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    width: autopx;
+    height: 250px;
+    background-color: $color-appareil;
+    color: white;
+    overflow-y: scroll;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s;
+    &--visible {
+      opacity: 1;
+      visibility: visible;
+    }
 
+    span {
+      margin: 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      padding: 10px;
+      &:hover {
+        background-color: darken($color-appareil, 20%);
+      }
+    }
+  }
+}
+.ustensiles {
+  position: relative;
+  &__container {
+    position: absolute;
+    top: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 800px;
+    height: 250px;
+    background-color: $color-ustensiles;
+    color: white;
+    overflow-y: scroll;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s;
+    &--visible {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    span {
+      margin: 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      padding: 10px;
+      &:hover {
+        background-color: darken($color-ustensiles, 20%);
+      }
+    }
+  }
+}
+
+//**************************partie fiche de recettes
 .container {
   width: 88%;
   height: auto;

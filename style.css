@@ -335,7 +335,7 @@ header img {
   transition: transform 0.2s linear, -webkit-transform 0.2s linear;
 }
 
-.arrow:hover::after {
+.arrow::after {
   -webkit-transform: translateY(50%) rotate(-135deg);
           transform: translateY(50%) rotate(-135deg);
   -webkit-transition: -webkit-transform 0.2s linear;
@@ -356,17 +356,19 @@ header img {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  width: 800px;
+  width: auto;
   height: 250px;
   background-color: #3282f7;
   color: white;
   overflow-y: scroll;
+  visibility: hidden;
   opacity: 0;
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
 
 .ingredients__container--visible {
+  visibility: visible;
   opacity: 1;
 }
 
@@ -379,6 +381,84 @@ header img {
 
 .ingredients__container span:hover {
   background-color: #0751bc;
+}
+
+.appliances {
+  position: relative;
+}
+
+.appliances__container {
+  position: absolute;
+  top: 70px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: autopx;
+  height: 250px;
+  background-color: #68d9a4;
+  color: white;
+  overflow-y: scroll;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
+.appliances__container--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.appliances__container span {
+  margin: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.appliances__container span:hover {
+  background-color: #2caf72;
+}
+
+.ustensiles {
+  position: relative;
+}
+
+.ustensiles__container {
+  position: absolute;
+  top: 70px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 800px;
+  height: 250px;
+  background-color: #ed6454;
+  color: white;
+  overflow-y: scroll;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
+.ustensiles__container--visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.ustensiles__container span {
+  margin: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.ustensiles__container span:hover {
+  background-color: #c62715;
 }
 
 .container {
