@@ -201,16 +201,16 @@ header img {
     padding-left: 10px;
   }
   #search::-webkit-input-placeholder {
-    font-size: 10px;
+    font-size: 11px;
   }
   #search:-ms-input-placeholder {
-    font-size: 10px;
+    font-size: 11px;
   }
   #search::-ms-input-placeholder {
-    font-size: 10px;
+    font-size: 11px;
   }
   #search::placeholder {
-    font-size: 10px;
+    font-size: 11px;
   }
 }
 
@@ -350,14 +350,16 @@ header img {
 
 .ingredients__container {
   position: absolute;
+  z-index: 2;
   top: 70px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  width: auto;
-  height: 250px;
+  width: 450px;
+  height: 350px;
+  border-radius: 5px;
   background-color: #3282f7;
   color: white;
   overflow-y: scroll;
@@ -389,14 +391,16 @@ header img {
 
 .appliances__container {
   position: absolute;
+  z-index: 2;
   top: 70px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  width: autopx;
-  height: 250px;
+  width: 450px;
+  height: 350px;
+  border-radius: 5px;
   background-color: #68d9a4;
   color: white;
   overflow-y: scroll;
@@ -428,14 +432,16 @@ header img {
 
 .ustensiles__container {
   position: absolute;
+  z-index: 2;
   top: 70px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  width: 800px;
-  height: 250px;
+  width: 450px;
+  height: 350px;
+  border-radius: 5px;
   background-color: #ed6454;
   color: white;
   overflow-y: scroll;

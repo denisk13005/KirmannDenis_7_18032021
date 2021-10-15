@@ -50,10 +50,16 @@ const userChoice = new Keywords('test').render()
 keyword.innerHTML += userChoice
 const modif = document.querySelector('.userChoice')
 modif.style.background = 'green'
+//********************************boutons de sélection *****************/
 
 //génération des boutons de choix de recherche
 const btns = new SearchBtns(setIngredients, setAppliances, setUstensile).render()
 main.innerHTML += btns
+const ingredientsContainer = document.querySelector('.ingredients__container')
+const appliancesContainer = document
+	.querySelector('.appliances__container')
+const ustensilesContainer = document
+	.querySelector('.ustensiles__container')
 //animation de la fleche
 document
 	.querySelectorAll('.btn')
@@ -63,27 +69,50 @@ document
 // apparition des ingrédients
 document
 	.querySelector('.btn__ingredients')
-	.addEventListener('click', () =>
-		document
-			.querySelector('.ingredients__container')
-			.classList.toggle('ingredients__container--visible')
+	.addEventListener('click', () =>  
+	{
+		ingredientsContainer
+			.classList.toggle('ingredients__container--visible')	,
+		appliancesContainer.classList.remove('appliances__container--visible'),
+		ustensilesContainer.classList.remove('ustensiles__container--visible')    
+	}
 	)
 //apparition des appareils
 document
 	.querySelector('.btn__appareil')
-	.addEventListener('click', () =>
-		document
-			.querySelector('.appliances__container')
-			.classList.toggle('appliances__container--visible')
+	.addEventListener('click', () =>		
+	{
+		appliancesContainer.classList.toggle('appliances__container--visible'),
+		ustensilesContainer.classList.remove('ustensiles__container--visible') ,
+		ingredientsContainer
+			.classList.remove('ingredients__container--visible')   
+
+	}	
 	)
 //apparition des ustensiles
 document
 	.querySelector('.btn__ustensiles')
-	.addEventListener('click', () =>
-		document
-			.querySelector('.ustensiles__container')
-			.classList.toggle('ustensiles__container--visible')
+	.addEventListener('click', () =>		
+	{
+		ustensilesContainer.classList.toggle('ustensiles__container--visible'),
+		ingredientsContainer
+			.classList.remove('ingredients__container--visible') ,
+		appliancesContainer.classList.remove('appliances__container--visible') 
+
+	}
 	)
+//fermeture des choix au click ailleur que sur un boutton
+document.body.addEventListener('click',(e)=>{
+	if(e.target.getAttribute('data-name') !=='button'){
+		ingredientsContainer
+			.classList.remove('ingredients__container--visible') ,
+		appliancesContainer.classList.remove('appliances__container--visible') ,
+		ustensilesContainer.classList.remove('ustensiles__container--visible') 
+	}
+	
+
+})
+//*******************************************recettes*********************/
 //génération du conteneur des recettes
 const container = document.createElement('div')
 container.classList.add('container')
