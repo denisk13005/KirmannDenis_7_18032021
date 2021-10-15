@@ -64,43 +64,55 @@ const ustensilesContainer = document
 document
 	.querySelectorAll('.btn')
 	.forEach((el) =>
-		el.addEventListener('click', () => el.classList.toggle('arrow'))
+		el.addEventListener('click', () => {
+			el.classList.toggle('arrow')			
+		})
 	)
+const btnIngredients = document.querySelector('.btn__ingredients')
+const btnAppliances = document.querySelector('.btn__appareil')
+const btnUstensiles = document.querySelector('.btn__ustensiles')
 // apparition des ingrédients
-document
-	.querySelector('.btn__ingredients')
-	.addEventListener('click', () =>  
-	{
-		ingredientsContainer
-			.classList.toggle('ingredients__container--visible')	,
-		appliancesContainer.classList.remove('appliances__container--visible'),
-		ustensilesContainer.classList.remove('ustensiles__container--visible')    
-	}
-	)
+btnIngredients.addEventListener('click', () =>  	
+{
+	ingredientsContainer
+		.classList.toggle('ingredients__container--visible')	,
+	appliancesContainer.classList.remove('appliances__container--visible'),
+	ustensilesContainer.classList.remove('ustensiles__container--visible'),
+	btnAppliances.classList.remove('arrow')
+	btnUstensiles.classList.remove('arrow')
+		
+}
+
+
+)
+console.log(ingredientsContainer.getAttribute('class'))
 //apparition des appareils
-document
-	.querySelector('.btn__appareil')
+btnAppliances
 	.addEventListener('click', () =>		
 	{
 		appliancesContainer.classList.toggle('appliances__container--visible'),
 		ustensilesContainer.classList.remove('ustensiles__container--visible') ,
 		ingredientsContainer
-			.classList.remove('ingredients__container--visible')   
+			.classList.remove('ingredients__container--visible') ,
+		btnUstensiles.classList.remove('arrow')
+		btnIngredients.classList.remove('arrow')
+
 
 	}	
 	)
 //apparition des ustensiles
-document
-	.querySelector('.btn__ustensiles')
-	.addEventListener('click', () =>		
-	{
-		ustensilesContainer.classList.toggle('ustensiles__container--visible'),
-		ingredientsContainer
-			.classList.remove('ingredients__container--visible') ,
-		appliancesContainer.classList.remove('appliances__container--visible') 
+btnUstensiles.addEventListener('click', () =>		
+{
+	ustensilesContainer.classList.toggle('ustensiles__container--visible'),
+	ingredientsContainer
+		.classList.remove('ingredients__container--visible') ,
+	appliancesContainer.classList.remove('appliances__container--visible'),
+	btnIngredients.classList.remove('arrow')
+	btnAppliances.classList.remove('arrow')
 
-	}
-	)
+
+}
+)
 //fermeture des choix au click ailleur que sur un boutton
 document.body.addEventListener('click',(e)=>{
 	if(e.target.getAttribute('data-name') !=='button'){
@@ -108,9 +120,12 @@ document.body.addEventListener('click',(e)=>{
 			.classList.remove('ingredients__container--visible') ,
 		appliancesContainer.classList.remove('appliances__container--visible') ,
 		ustensilesContainer.classList.remove('ustensiles__container--visible') 
+		document
+			.querySelectorAll('.btn')
+			.forEach((el) =>
+				el.classList.remove('arrow')			)
 	}
 	
-
 })
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
