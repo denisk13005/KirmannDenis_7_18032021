@@ -357,8 +357,8 @@ header img {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  width: auto;
-  height: 250px;
+  width: 450px;
+  height: 350px;
   border-radius: 5px;
   background-color: #3282f7;
   color: white;
@@ -398,8 +398,8 @@ header img {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  width: auto;
-  height: 250px;
+  width: 450px;
+  height: 350px;
   border-radius: 5px;
   background-color: #68d9a4;
   color: white;
@@ -439,8 +439,8 @@ header img {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  width: 800px;
-  height: 250px;
+  width: 450px;
+  height: 350px;
   border-radius: 5px;
   background-color: #ed6454;
   color: white;

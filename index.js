@@ -101,8 +101,17 @@ document
 
 	}
 	)
+//fermeture des choix au click ailleur que sur un boutton
+document.body.addEventListener('click',(e)=>{
+	if(e.target.getAttribute('data-name') !=='button'){
+		ingredientsContainer
+			.classList.remove('ingredients__container--visible') ,
+		appliancesContainer.classList.remove('appliances__container--visible') ,
+		ustensilesContainer.classList.remove('ustensiles__container--visible') 
+	}
+	
 
- 
+})
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
 const container = document.createElement('div')
