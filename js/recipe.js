@@ -5,16 +5,16 @@
  * @param {string} recipe recette
  */
 export default class Recipe{
-  constructor({name,time,description,ingredients,quantity,unit}){
-    this.name=name
-    this.time=time
-    this.description=description
-    this.ingredients=ingredients
-    this.quantity = quantity
-    this.unit
-  }
-  render(){
-    const card = 
+	constructor({name,time,description,ingredients,quantity,unit}){
+		this.name=name
+		this.time=time
+		this.description=description
+		this.ingredients=ingredients
+		this.quantity = quantity
+		this.unit
+	}
+	render(){
+		const card = 
     `
     <div class="card">
       <div class="img"></div>
@@ -38,7 +38,7 @@ export default class Recipe{
     </div>
     
     `
-    return card
+		return card
 
-  }
+	}
 }

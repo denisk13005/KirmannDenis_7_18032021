@@ -1,12 +1,12 @@
 export default class SearchBtns{
-  constructor(ingredients,appareil,ustensile){
-    this.ingredients=ingredients
-    this.appareil=appareil
-    this.ustensile=ustensile
-  }
+	constructor(ingredients,appliances,ustensiles){
+		this.ingredients=ingredients
+		this.appliances=appliances
+		this.ustensiles=ustensiles
+	}
 
-  render(){
-    const btns =
+	render(){
+		const btns =
     `
     <div class="btns">
       <div class="ingredients">
@@ -15,17 +15,21 @@ export default class SearchBtns{
            ${this.ingredients.sort().map(el => `<span class="list list__ingredients">${el}</span>`).join('')}
         </div>
       </div>
-      <div class="appareil">
+      <div class="appliances">
         <button class="btn btn__appareil">Appareil</button>
-        <span class="list list__appareil">${this.appareil}</span>
+        <div class = "appliances__container">
+        ${this.appliances.sort().map(el => `<span class="list list__appliances">${el}</span>`).join('')}
+     </div>
       </div>
       <div class="ustensiles">
         <button class="btn btn__ustensiles">Ustensiles</button>
-        <span class="list list__ustensiles">${this.ustensile}</span>
+        <div class = "ustensiles__container">
+        ${this.ustensiles.sort().map(el => `<span class="list list__ustensiles">${el}</span>`).join('')}
+     </div>
       </div>
     </div>
     
     `
-    return btns
-  }
+		return btns
+	}
 }
