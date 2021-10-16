@@ -11,7 +11,7 @@ export default class Recipe{
 		this.description=description
 		this.ingredients=ingredients
 		this.quantity = quantity
-		this.unit
+		this.unit=unit
 	}
 	render(){
 		const card = 
