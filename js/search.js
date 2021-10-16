@@ -2,11 +2,11 @@
  * @param {string} loupe url du svg loupe
  */
 export default class Search{
-  constructor(loupe){
-    this.loupe = loupe
-  }
-  render(){
-    const search=
+	constructor(loupe){
+		this.loupe = loupe
+	}
+	render(){
+		const search=
     `
     <div class="search">
       <input
@@ -17,7 +17,7 @@ export default class Search{
       <img class="loupe" src="${this.loupe}" alt="loupe de recherche" />
     </div>
     `
-    return search
+		return search
    
-  }
+	}
 }
