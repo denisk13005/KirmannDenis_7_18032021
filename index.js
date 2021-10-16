@@ -32,12 +32,12 @@ const main = document.createElement('main')
 body.appendChild(main)
 
 //génération du header
-const logo = '/img/logo.png'
+const logo = 'img/logo.png'
 const header = new Header(logo).render()
 main.innerHTML += header
 
 //génération de la barre de recherche
-const loupe = '/img/loupe.svg'
+const loupe = 'img/loupe.svg'
 const search = new Search(loupe).render()
 main.innerHTML += search
 
