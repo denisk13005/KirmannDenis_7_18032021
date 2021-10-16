@@ -5,6 +5,7 @@ import Keywords from './js/keyWords.js'
 import SearchBtns from './js/searchBtns.js'
 import Recipe from './js/recipe.js'
 // recupération des ingrédients
+console.log(recipes)
 const ingredients = []
 recipes.forEach((element) => {
 	element.ingredients.forEach((el) =>
@@ -44,9 +45,7 @@ main.innerHTML += search
 const keyword = document.createElement('div')
 keyword.classList.add('keyword')
 main.appendChild(keyword)
-keyword.innerHTML += new Keywords('test').render()
-const modif = document.querySelector('.userChoice')
-modif.style.background = 'green'
+
 //********************************boutons de sélection *****************/
 
 //génération des boutons de choix de recherche
@@ -115,7 +114,7 @@ document.body.addEventListener('click',(e)=>{
 				el.classList.remove('arrow'))
 	}	
 })
-
+// génération des keywords en fonction du choix utilisateur
 let divKeyword = document.querySelector('.keyword')
 let span = document.querySelectorAll('.list')
 let color
