@@ -5,7 +5,7 @@ import Keywords from './js/keyWords.js'
 import SearchBtns from './js/searchBtns.js'
 import Recipe from './js/recipe.js'
 // recupération des ingrédients
-console.log(recipes)
+console.log(recipes[1])
 const ingredients = []
 recipes.forEach((element) => {
 	element.ingredients.forEach((el) =>
@@ -115,10 +115,10 @@ document.body.addEventListener('click',(e)=>{
 	}	
 })
 // génération des keywords en fonction du choix utilisateur
-let divKeyword = document.querySelector('.keyword')
-let span = document.querySelectorAll('.list')
+const divKeyword = document.querySelector('.keyword')
+const spans = document.querySelectorAll('.list')
 let color
-span.forEach(span => span.addEventListener('click', (e)=> {
+spans.forEach(span => span.addEventListener('click', (e)=> {
 	if(e.target.getAttribute('class').includes('ingredients')){
 		color = 'blue'
 	}else if(e.target.getAttribute('class').includes('appliances')){
@@ -127,7 +127,14 @@ span.forEach(span => span.addEventListener('click', (e)=> {
 		color = 'red'
 	}
 	divKeyword.innerHTML += new Keywords(e.target.innerHTML,color).render()
+
+	//supression des keywords au click sur la croix
+	const croix = document.querySelectorAll('.croix')
+	croix.forEach(el => el.addEventListener('click', ()=> el.parentElement.remove()))
+
+
 }))
+
 
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
