@@ -32,12 +32,12 @@ const main = document.createElement('main')
 body.appendChild(main)
 
 //génération du header
-const logo = '../img/logo.png'
+const logo = '/img/logo.png'
 const header = new Header(logo).render()
 main.innerHTML += header
 
 //génération de la barre de recherche
-const loupe = '../img/loupe.svg'
+const loupe = '/img/loupe.svg'
 const search = new Search(loupe).render()
 main.innerHTML += search
 
@@ -79,11 +79,8 @@ btnIngredients.addEventListener('click', () =>
 	appliancesContainer.classList.remove('appliances__container--visible'),
 	ustensilesContainer.classList.remove('ustensiles__container--visible'),
 	btnAppliances.classList.remove('arrow')
-	btnUstensiles.classList.remove('arrow')
-		
+	btnUstensiles.classList.remove('arrow')		
 }
-
-
 )
 console.log(ingredientsContainer.getAttribute('class'))
 //apparition des appareils
@@ -96,8 +93,6 @@ btnAppliances
 			.classList.remove('ingredients__container--visible') ,
 		btnUstensiles.classList.remove('arrow')
 		btnIngredients.classList.remove('arrow')
-
-
 	}	
 	)
 //apparition des ustensiles
@@ -109,8 +104,6 @@ btnUstensiles.addEventListener('click', () =>
 	appliancesContainer.classList.remove('appliances__container--visible'),
 	btnIngredients.classList.remove('arrow')
 	btnAppliances.classList.remove('arrow')
-
-
 }
 )
 //fermeture des choix au click ailleur que sur un boutton
@@ -123,10 +116,10 @@ document.body.addEventListener('click',(e)=>{
 		document
 			.querySelectorAll('.btn')
 			.forEach((el) =>
-				el.classList.remove('arrow')			)
-	}
-	
+				el.classList.remove('arrow'))
+	}	
 })
+
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
 const container = document.createElement('div')
