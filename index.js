@@ -118,8 +118,16 @@ document.body.addEventListener('click',(e)=>{
 
 let divKeyword = document.querySelector('.keyword')
 let span = document.querySelectorAll('.list')
+let color
 span.forEach(span => span.addEventListener('click', (e)=> {
-	divKeyword.innerHTML += new Keywords(e.target.innerHTML).render()
+	if(e.target.getAttribute('class').includes('ingredients')){
+		color = 'blue'
+	}else if(e.target.getAttribute('class').includes('appliances')){
+		color = 'green'
+	}else{
+		color = 'red'
+	}
+	divKeyword.innerHTML += new Keywords(e.target.innerHTML,color).render()
 }))
 
 //*******************************************recettes*********************/
