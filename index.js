@@ -17,7 +17,6 @@ let setIngredients = [...new Set(ingredients)] //supression des doublons et conv
 const appliances = []
 recipes.forEach((element) => appliances.push(element.appliance))
 const setAppliances = [...new Set(appliances)]
-console.log(setAppliances)
 
 // récupération des ustensiles
 const ustensiles = []
@@ -44,10 +43,8 @@ main.innerHTML += search
 //génération des mots clé
 const keyword = document.createElement('div')
 keyword.classList.add('keyword')
-
 main.appendChild(keyword)
-const userChoice = new Keywords('test').render()
-keyword.innerHTML += userChoice
+keyword.innerHTML += new Keywords('test').render()
 const modif = document.querySelector('.userChoice')
 modif.style.background = 'green'
 //********************************boutons de sélection *****************/
@@ -82,7 +79,6 @@ btnIngredients.addEventListener('click', () =>
 	btnUstensiles.classList.remove('arrow')		
 }
 )
-console.log(ingredientsContainer.getAttribute('class'))
 //apparition des appareils
 btnAppliances
 	.addEventListener('click', () =>		
@@ -120,6 +116,12 @@ document.body.addEventListener('click',(e)=>{
 	}	
 })
 
+let divKeyword = document.querySelector('.keyword')
+let span = document.querySelectorAll('.list')
+span.forEach(span => span.addEventListener('click', (e)=> {
+	divKeyword.innerHTML += new Keywords(e.target.innerHTML).render()
+}))
+
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
 const container = document.createElement('div')
@@ -129,5 +131,4 @@ main.appendChild(container)
 recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
-console.log(recipes[0].ingredients[0].ingredient)
-recipes[0].ingredients.forEach((el) => console.log(el))
+
