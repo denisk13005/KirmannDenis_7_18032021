@@ -302,31 +302,30 @@ header {
   }
   .ingredientsAndRecipe {
     width: 90%;
-    height: auto;
+    height: 60%;
     max-height: 120px;
     margin: auto;
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
-    border: $borderBlue;
-
+    font-size: 12px;
     line-height: 1.05em;
 
     ul {
       width: 45%;
-      color: green;
-      border: $borderBlack;
       overflow: hidden;
       -webkit-line-clamp: 7;
       -webkit-box-orient: vertical;
       display: -webkit-box;
+      line-height: 14px;
     }
     p {
       width: 55%;
       overflow: hidden;
-      -webkit-line-clamp: 7;
+      -webkit-line-clamp: 8;
       -webkit-box-orient: vertical;
       display: -webkit-box;
+      line-height: 14px;
     }
   }
 }
