@@ -5,7 +5,6 @@ import Keywords from './js/keyWords.js'
 import SearchBtns from './js/searchBtns.js'
 import Recipe from './js/recipe.js'
 // recupération des ingrédients
-console.log(recipes[1])
 const ingredients = []
 recipes.forEach((element) => {
 	element.ingredients.forEach((el) =>
@@ -141,8 +140,12 @@ spans.forEach(span => span.addEventListener('click', (e)=> {
 const container = document.createElement('div')
 container.classList.add('container')
 main.appendChild(container)
+//génération des fiches de recettes
 
 recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
 
+console.log(recipes[0].ingredients)
+
+	

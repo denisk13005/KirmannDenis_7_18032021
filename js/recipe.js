@@ -1,8 +1,10 @@
 /**
  * @param {string} name nom de la recette
  * @param {number} time durée de la recette
- * @param {string} ingredient 
- * @param {string} recipe recette
+ * @param {string} description description de la recette
+ * @param {string} ingredients
+ * @param {number} quantity 
+ * @param {string} unit 
  */
 export default class Recipe{
 	constructor({name,time,description,ingredients,quantity,unit}){
