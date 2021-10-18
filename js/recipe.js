@@ -44,3 +44,6 @@ export default class Recipe{
 
 	}
 }
+class RecipeWithQuantite extends Recipe {
+  
+}

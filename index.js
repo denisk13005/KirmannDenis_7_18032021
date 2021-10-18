@@ -142,10 +142,20 @@ container.classList.add('container')
 main.appendChild(container)
 //génération des fiches de recettes
 
+// recipes.forEach(
+// 	// (element) => (container.innerHTML += new Recipe(element).render())
+// )
 recipes.forEach(
-	(element) => (container.innerHTML += new Recipe(element).render())
+	(element) => element.ingredients.forEach(el => {
+		// eslint-disable-next-line no-prototype-builtins
+		if(el.hasOwnProperty('quantite')){
+			console.log(element)
+			container.innerHTML += new Recipe(element).render()
+		}
+		
+	})
+	
 )
 
-console.log(recipes[0].ingredients)
 
 	
