@@ -145,7 +145,17 @@ main.appendChild(container)
 recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
+// recipes.forEach(
+// 	(element) => element.ingredients.forEach(el => {
+// 		// eslint-disable-next-line no-prototype-builtins
+// 		if(el.hasOwnProperty('quantite')){
+// 			console.log(element)
+// 			container.innerHTML += new Recipe(element).render()
+// 		}
+		
+// 	})
+	
+// )
 
-console.log(recipes[0].ingredients)
 
 	

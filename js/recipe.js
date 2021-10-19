@@ -31,7 +31,18 @@ export default class Recipe{
         <div class="ingredientsAndRecipe">
           <ul class="ingredientsRecipe">
             
-            ${this.ingredients.map(el =>  `<li>${el.ingredient} : ${el.quantity} ${el.unit}</li>` ).join('')}
+            ${this.ingredients.map(el =>  {
+		const unity = el.unit?el.unit:''
+		if(el.quantity){
+			return `<li>${el.ingredient} : ${el.quantity} ${unity} </li>`
+		}else if (el.quantite){
+			return `<li>${el.ingredient} : ${el.quantite} ${unity} </li>`
+		}else{
+			return `<li>${el.ingredient}</li>`
+		}
+	
+
+	}).join('')}
             
           </ul>
           <p class="recipe">${this.description}</p>
