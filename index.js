@@ -66,6 +66,9 @@ document
 const btnIngredients = document.querySelector('.btn__ingredients')
 const btnAppliances = document.querySelector('.btn__appareil')
 const btnUstensiles = document.querySelector('.btn__ustensiles')
+const ingInput = document.querySelector('.input__ing')
+const ingApp = document.querySelector('.input__app')
+const ingUst = document.querySelector('.input__ust')
 // apparition des ingrédients
 btnIngredients.addEventListener('click', () =>  	
 {
@@ -74,7 +77,13 @@ btnIngredients.addEventListener('click', () =>
 	appliancesContainer.classList.remove('appliances__container--visible'),
 	ustensilesContainer.classList.remove('ustensiles__container--visible'),
 	btnAppliances.classList.remove('arrow')
-	btnUstensiles.classList.remove('arrow')		
+	btnUstensiles.classList.remove('arrow')	
+	ingApp.classList.remove('input__app--visible')
+	ingUst.classList.remove('input__ust--visible')
+	ingInput.classList.toggle('input__ing--visible')
+	ingInput.focus()
+
+		
 }
 )
 //apparition des appareils
@@ -87,6 +96,10 @@ btnAppliances
 			.classList.remove('ingredients__container--visible') ,
 		btnUstensiles.classList.remove('arrow')
 		btnIngredients.classList.remove('arrow')
+		ingUst.classList.remove('input__ust--visible')
+		ingInput.classList.remove('input__ing--visible')
+		ingApp.classList.toggle('input__app--visible')
+		ingApp.focus()
 	}	
 	)
 //apparition des ustensiles
@@ -98,6 +111,10 @@ btnUstensiles.addEventListener('click', () =>
 	appliancesContainer.classList.remove('appliances__container--visible'),
 	btnIngredients.classList.remove('arrow')
 	btnAppliances.classList.remove('arrow')
+	ingInput.classList.remove('input__ing--visible')
+	ingApp.classList.remove('input__app--visible')
+	ingUst.classList.toggle('input__ust--visible')
+	ingUst.focus()
 }
 )
 //fermeture des choix au click ailleur que sur un boutton
@@ -107,6 +124,9 @@ document.body.addEventListener('click',(e)=>{
 			.classList.remove('ingredients__container--visible') ,
 		appliancesContainer.classList.remove('appliances__container--visible') ,
 		ustensilesContainer.classList.remove('ustensiles__container--visible') 
+		ingInput.classList.remove('input__ing--visible')
+		ingApp.classList.remove('input__app--visible')
+		ingUst.classList.remove('input__ust--visible')
 		document
 			.querySelectorAll('.btn')
 			.forEach((el) =>

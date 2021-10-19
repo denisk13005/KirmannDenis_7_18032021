@@ -121,6 +121,8 @@ header {
   padding-left: 25px;
   border: none;
   cursor: pointer;
+  position: relative;
+  z-index: 4;
   &__ingredients {
     background-color: $color-ingredients;
   }
@@ -142,6 +144,34 @@ header {
     right: 10px;
     transform: rotate(45deg);
     transition: transform 0.2s linear;
+  }
+}
+.input {
+  position: absolute;
+  height: 60%;
+  left: 0;
+  border: none;
+  outline: transparent;
+  display: none;
+  color: white;
+  font-size: 18px;
+  &__ing {
+    background: $color-ingredients;
+    &--visible {
+      display: block;
+    }
+  }
+  &__app {
+    background: $color-appareil;
+    &--visible {
+      display: block;
+    }
+  }
+  &__ust {
+    background: $color-ustensiles;
+    &--visible {
+      display: block;
+    }
   }
 }
 .arrow {
