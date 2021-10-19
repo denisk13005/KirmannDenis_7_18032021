@@ -32,17 +32,15 @@ export default class Recipe{
           <ul class="ingredientsRecipe">
             
             ${this.ingredients.map(el =>  {
-		let quant
 		const unity = el.unit?el.unit:''
 		if(el.quantity){
-			quant=el.quantity
+			return `<li>${el.ingredient} : ${el.quantity} ${unity} </li>`
 		}else if (el.quantite){
-			quant=el.quantite
+			return `<li>${el.ingredient} : ${el.quantite} ${unity} </li>`
 		}else{
-			quant = ''
+			return `<li>${el.ingredient}</li>`
 		}
 	
-		return `<li>${el.ingredient} : ${quant} ${unity} </li>`
 
 	}).join('')}
             
