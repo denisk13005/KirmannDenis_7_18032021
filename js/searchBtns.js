@@ -10,19 +10,25 @@ export default class SearchBtns{
     `
     <div class="btns">
       <div class="ingredients">
-        <button data-name ='button' class="btn btn__ingredients">Ingrédients</button>
+        <button data-name ='button' class="btn btn__ingredients">Ingrédients
+          <input type="text" class="input input__ing"/>
+        </button>
         <div class = "ingredients__container">
            ${this.ingredients.sort().map(el => `<span class="list list__ingredients">${el}</span>`).join('')}
         </div>
       </div>
       <div class="appliances">
-        <button data-name ='button' class="btn btn__appareil">Appareil</button>
+        <button data-name ='button' class="btn btn__appareil">Appareil
+          <input type="text" class=" input input__app"/>
+        </button>
         <div class = "appliances__container">
         ${this.appliances.sort().map(el => `<span class="list list__appliances">${el}</span>`).join('')}
      </div>
       </div>
       <div class="ustensiles">
-        <button data-name ='button' class="btn btn__ustensiles">Ustensiles</button>
+        <button data-name ='button' class="btn btn__ustensiles">Ustensiles
+          <input type="text" class="input input__ust"/>
+        </button>
         <div class = "ustensiles__container">
         ${this.ustensiles.sort().map(el => `<span class="list list__ustensiles">${el}</span>`).join('')}
      </div>

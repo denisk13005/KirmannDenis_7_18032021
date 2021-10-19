@@ -315,6 +315,8 @@ header img {
   padding-left: 25px;
   border: none;
   cursor: pointer;
+  position: relative;
+  z-index: 4;
 }
 
 .btn__ingredients {
@@ -344,6 +346,39 @@ header img {
   transition: -webkit-transform 0.2s linear;
   transition: transform 0.2s linear;
   transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.input {
+  position: absolute;
+  height: 60%;
+  left: 0;
+  border: none;
+  outline: transparent;
+  display: none;
+}
+
+.input__ing {
+  background: #3282f7;
+}
+
+.input__ing--visible {
+  display: block;
+}
+
+.input__app {
+  background: #68d9a4;
+}
+
+.input__app--visible {
+  display: block;
+}
+
+.input__ust {
+  background: #ed6454;
+}
+
+.input__ust--visible {
+  display: block;
 }
 
 .arrow::after {
