@@ -351,6 +351,7 @@ header img {
 .input {
   position: absolute;
   height: 60%;
+  width: 80%;
   left: 0;
   border: none;
   outline: transparent;
