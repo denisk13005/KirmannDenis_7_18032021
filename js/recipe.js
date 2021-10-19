@@ -31,7 +31,20 @@ export default class Recipe{
         <div class="ingredientsAndRecipe">
           <ul class="ingredientsRecipe">
             
-            ${this.ingredients.map(el =>  `<li>${el.ingredient} : ${el.quantity} ${el.unit}</li>` ).join('')}
+            ${this.ingredients.map(el =>  {
+		let quant
+		const unity = el.unit?el.unit:''
+		if(el.quantity){
+			quant=el.quantity
+		}else if (el.quantite){
+			quant=el.quantite
+		}else{
+			quant = ''
+		}
+	
+		return `<li>${el.ingredient} : ${quant} ${unity} </li>`
+
+	}).join('')}
             
           </ul>
           <p class="recipe">${this.description}</p>
@@ -43,7 +56,4 @@ export default class Recipe{
 		return card
 
 	}
-}
-class RecipeWithQuantite extends Recipe {
-  
 }
