@@ -355,6 +355,8 @@ header img {
   border: none;
   outline: transparent;
   display: none;
+  color: white;
+  font-size: 18px;
 }
 
 .input__ing {

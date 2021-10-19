@@ -153,6 +153,8 @@ header {
   border: none;
   outline: transparent;
   display: none;
+  color: white;
+  font-size: 18px;
   &__ing {
     background: $color-ingredients;
     &--visible {
