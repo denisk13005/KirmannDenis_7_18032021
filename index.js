@@ -12,6 +12,7 @@ recipes.forEach((element) => {
 	)
 })
 let setIngredients = [...new Set(ingredients)] //supression des doublons et conversion en tableau
+console.log(setIngredients[0])
 
 //récupération des appareils
 const appliances = []
@@ -48,21 +49,21 @@ main.appendChild(keyword)
 //********************************boutons de sélection *****************/
 
 //génération des boutons de choix de recherche
-const btns = new SearchBtns(setIngredients, setAppliances, setUstensile).render()
+const btns = new SearchBtns(
+	setIngredients,
+	setAppliances,
+	setUstensile
+).render()
 main.innerHTML += btns
 const ingredientsContainer = document.querySelector('.ingredients__container')
-const appliancesContainer = document
-	.querySelector('.appliances__container')
-const ustensilesContainer = document
-	.querySelector('.ustensiles__container')
+const appliancesContainer = document.querySelector('.appliances__container')
+const ustensilesContainer = document.querySelector('.ustensiles__container')
 //animation de la fleche
-document
-	.querySelectorAll('.btn')
-	.forEach((el) =>
-		el.addEventListener('click', () => {
-			el.classList.toggle('arrow')			
-		})
-	)
+document.querySelectorAll('.btn').forEach((el) =>
+	el.addEventListener('click', () => {
+		el.classList.toggle('arrow')
+	})
+)
 const btnIngredients = document.querySelector('.btn__ingredients')
 const btnAppliances = document.querySelector('.btn__appareil')
 const btnUstensiles = document.querySelector('.btn__ustensiles')
@@ -70,44 +71,33 @@ const ingInput = document.querySelector('.input__ing')
 const ingApp = document.querySelector('.input__app')
 const ingUst = document.querySelector('.input__ust')
 // apparition des ingrédients
-btnIngredients.addEventListener('click', () =>  	
-{
-	ingredientsContainer
-		.classList.toggle('ingredients__container--visible')	,
+btnIngredients.addEventListener('click', () => {
+	ingredientsContainer.classList.toggle('ingredients__container--visible'),
 	appliancesContainer.classList.remove('appliances__container--visible'),
 	ustensilesContainer.classList.remove('ustensiles__container--visible'),
 	btnAppliances.classList.remove('arrow')
-	btnUstensiles.classList.remove('arrow')	
+	btnUstensiles.classList.remove('arrow')
 	ingApp.classList.remove('input__app--visible')
 	ingUst.classList.remove('input__ust--visible')
 	ingInput.classList.toggle('input__ing--visible')
 	ingInput.focus()
-
-		
-}
-)
+})
 //apparition des appareils
-btnAppliances
-	.addEventListener('click', () =>		
-	{
-		appliancesContainer.classList.toggle('appliances__container--visible'),
-		ustensilesContainer.classList.remove('ustensiles__container--visible') ,
-		ingredientsContainer
-			.classList.remove('ingredients__container--visible') ,
-		btnUstensiles.classList.remove('arrow')
-		btnIngredients.classList.remove('arrow')
-		ingUst.classList.remove('input__ust--visible')
-		ingInput.classList.remove('input__ing--visible')
-		ingApp.classList.toggle('input__app--visible')
-		ingApp.focus()
-	}	
-	)
+btnAppliances.addEventListener('click', () => {
+	appliancesContainer.classList.toggle('appliances__container--visible'),
+	ustensilesContainer.classList.remove('ustensiles__container--visible'),
+	ingredientsContainer.classList.remove('ingredients__container--visible'),
+	btnUstensiles.classList.remove('arrow')
+	btnIngredients.classList.remove('arrow')
+	ingUst.classList.remove('input__ust--visible')
+	ingInput.classList.remove('input__ing--visible')
+	ingApp.classList.toggle('input__app--visible')
+	ingApp.focus()
+})
 //apparition des ustensiles
-btnUstensiles.addEventListener('click', () =>		
-{
+btnUstensiles.addEventListener('click', () => {
 	ustensilesContainer.classList.toggle('ustensiles__container--visible'),
-	ingredientsContainer
-		.classList.remove('ingredients__container--visible') ,
+	ingredientsContainer.classList.remove('ingredients__container--visible'),
 	appliancesContainer.classList.remove('appliances__container--visible'),
 	btnIngredients.classList.remove('arrow')
 	btnAppliances.classList.remove('arrow')
@@ -115,45 +105,43 @@ btnUstensiles.addEventListener('click', () =>
 	ingApp.classList.remove('input__app--visible')
 	ingUst.classList.toggle('input__ust--visible')
 	ingUst.focus()
-}
-)
+})
 //fermeture des choix au click ailleur que sur un boutton
-document.body.addEventListener('click',(e)=>{
-	if(e.target.getAttribute('data-name') !=='button'){
-		ingredientsContainer
-			.classList.remove('ingredients__container--visible') ,
-		appliancesContainer.classList.remove('appliances__container--visible') ,
-		ustensilesContainer.classList.remove('ustensiles__container--visible') 
+document.body.addEventListener('click', (e) => {
+	if (e.target.getAttribute('data-name') !== 'button') {
+		ingredientsContainer.classList.remove('ingredients__container--visible'),
+		appliancesContainer.classList.remove('appliances__container--visible'),
+		ustensilesContainer.classList.remove('ustensiles__container--visible')
 		ingInput.classList.remove('input__ing--visible')
 		ingApp.classList.remove('input__app--visible')
 		ingUst.classList.remove('input__ust--visible')
 		document
 			.querySelectorAll('.btn')
-			.forEach((el) =>
-				el.classList.remove('arrow'))
-	}	
+			.forEach((el) => el.classList.remove('arrow'))
+	}
 })
 // génération des keywords en fonction du choix utilisateur
 const divKeyword = document.querySelector('.keyword')
 const spans = document.querySelectorAll('.list')
 let color
-spans.forEach(span => span.addEventListener('click', (e)=> {
-	if(e.target.getAttribute('class').includes('ingredients')){
-		color = 'blue'
-	}else if(e.target.getAttribute('class').includes('appliances')){
-		color = 'green'
-	}else{
-		color = 'red'
-	}
-	divKeyword.innerHTML += new Keywords(e.target.innerHTML,color).render()
+spans.forEach((span) =>
+	span.addEventListener('click', (e) => {
+		if (e.target.getAttribute('class').includes('ingredients')) {
+			color = 'blue'
+		} else if (e.target.getAttribute('class').includes('appliances')) {
+			color = 'green'
+		} else {
+			color = 'red'
+		}
+		divKeyword.innerHTML += new Keywords(e.target.innerHTML, color).render()
 
-	//supression des keywords au click sur la croix
-	const croix = document.querySelectorAll('.croix')
-	croix.forEach(el => el.addEventListener('click', ()=> el.parentElement.remove()))
-
-
-}))
-
+		//supression des keywords au click sur la croix
+		const croix = document.querySelectorAll('.croix')
+		croix.forEach((el) =>
+			el.addEventListener('click', () => el.parentElement.remove())
+		)
+	})
+)
 
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
@@ -165,17 +153,17 @@ main.appendChild(container)
 recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
-// recipes.forEach(
-// 	(element) => element.ingredients.forEach(el => {
-// 		// eslint-disable-next-line no-prototype-builtins
-// 		if(el.hasOwnProperty('quantite')){
-// 			console.log(element)
-// 			container.innerHTML += new Recipe(element).render()
-// 		}
-		
-// 	})
-	
-// )
 
+//******************************************filtre par la barre de recherche */
 
-	
+const searchInput = document.getElementById('search')
+searchInput.addEventListener('input', (e) => {
+	let filterRecipe = recipes.filter(
+		(recipe) => recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()) 		
+	)
+	console.log(filterRecipe)
+	container.innerHTML = ''
+	filterRecipe.forEach(recipe => {
+		container.innerHTML += new Recipe(recipe).render()
+	})
+})
