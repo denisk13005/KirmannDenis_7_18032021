@@ -167,10 +167,12 @@ searchInput.addEventListener('input', (e) => {
 	ingredientsContainer.innerHTML = ''		
 
 	let appliancesFilter = []
+	let ingredientsFilter =[]
+	console.log(ingredientsFilter)
 	filterRecipe.forEach(recipe => {
 		appliancesFilter.push(recipe.appliance)
-		let ingredientsFilter = recipe.ingredients.map(el => el.ingredient)
-		// console.log(ingredientsFilter)
+		ingredientsFilter.push(recipe.ingredients.map(el => el.ingredient))
+
 		let ustensilesFilter = recipe.ustensils
 		container.innerHTML += new Recipe(recipe).render()
 		//maj des ingrédients
