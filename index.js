@@ -12,7 +12,6 @@ recipes.forEach((element) => {
 	)
 })
 let setIngredients = [...new Set(ingredients)] //supression des doublons et conversion en tableau
-console.log(setIngredients[0])
 
 //récupération des appareils
 const appliances = []
@@ -157,20 +156,33 @@ recipes.forEach(
 //******************************************filtre par la barre de recherche */
 
 const searchInput = document.getElementById('search')
-const ingredientsContainerFilter = document.querySelector('.ingredients__container')
 searchInput.addEventListener('input', (e) => {
 	let filterRecipe = recipes.filter(
 		(recipe) => (recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())|| recipe.description.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()) )		
 	)
 	container.innerHTML = ''
-	ingredientsContainerFilter.innerHTML = ''
+	ingredientsContainer.innerHTML = ''
+	appliancesContainer.innerHTML = ''
+	ustensilesContainer.innerHTML =''
+	let appliancesFilter = []
 	filterRecipe.forEach(recipe => {
+		appliancesFilter.push(recipe.appliance)
 		let ingredientsFilter = recipe.ingredients
+		let ustensilesFilter = recipe.ustensils
 		container.innerHTML += new Recipe(recipe).render()
-		ingredientsContainerFilter.innerHTML += ingredientsFilter.sort().map(el => `<span class="list list__ingredients">${el.ingredient}</span>`).join('')
+		//maj des ingrédients
+		ingredientsContainer.innerHTML += ingredientsFilter.sort().map(el => `<span class="list list__ingredients">${el.ingredient}</span>`).join('')
+		//maj des appareils
+		appliancesContainer.innerHTML += appliancesFilter.sort().map(el =>  `<span class="list list__appliances">${el}</span>`).join('')
+		//maj des ustensiles
+		ustensilesContainer.innerHTML += ustensilesFilter.sort().map(el => `<span class="list list__ustensiles">${el}</span>`).join('')
 
+		
+	
 	})
+	
 	// génération des keywords sur les span filtrés
 	const spansFilter = document.querySelectorAll('.list')
 	spansFilter.forEach(span => span.addEventListener('click', generateKeyword))
+	
 })
