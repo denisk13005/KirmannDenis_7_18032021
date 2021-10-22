@@ -159,7 +159,7 @@ recipes.forEach(
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
 	let filterRecipe = recipes.filter(
-		(recipe) => recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()) 		
+		(recipe) => (recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())|| recipe.description.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()) )		
 	)
 	console.log(filterRecipe)
 	container.innerHTML = ''
