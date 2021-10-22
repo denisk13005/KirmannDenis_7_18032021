@@ -180,9 +180,10 @@ searchInput.addEventListener('input', (e) => {
 		
 	
 	})
-	
+
 	// génération des keywords sur les span filtrés
 	const spansFilter = document.querySelectorAll('.list')
 	spansFilter.forEach(span => span.addEventListener('click', generateKeyword))
+	console.log(appliancesFilter.filter(el =>el))
 	
 })

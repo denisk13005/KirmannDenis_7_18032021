@@ -413,7 +413,7 @@ header img {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   width: 450px;
-  height: 350px;
+  max-height: 350px;
   border-radius: 5px;
   background-color: #3282f7;
   color: white;
@@ -538,6 +538,11 @@ header img {
 
 .ustensiles__container span:hover {
   background-color: #c62715;
+}
+
+.contain {
+  height: auto;
+  max-height: 350px;
 }
 
 .container {

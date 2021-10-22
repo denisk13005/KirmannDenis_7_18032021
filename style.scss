@@ -181,6 +181,7 @@ header {
     transition: transform 0.2s linear;
   }
 }
+
 .list {
   height: min-content;
 }
@@ -193,7 +194,7 @@ header {
     display: flex;
     flex-wrap: wrap;
     width: 450px;
-    height: 350px;
+    max-height: 350px;
     border-radius: 5px;
     background-color: $color-ingredients;
     color: white;
@@ -292,7 +293,10 @@ header {
     }
   }
 }
-
+.contain {
+  height: auto;
+  max-height: 350px;
+}
 //**************************partie fiche de recettes
 .container {
   width: 88%;
