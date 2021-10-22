@@ -157,26 +157,30 @@ recipes.forEach(
 
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
+	
 	let filterRecipe = recipes.filter(
 		(recipe) => (recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())|| recipe.description.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()) )		
 	)
+
+	console.log(recipes[0].ingredients.map(el => el.ingredient).includes(e.target.value))
 	container.innerHTML = ''
+	ingredientsContainer.innerHTML = ''		
+
 	let appliancesFilter = []
 	filterRecipe.forEach(recipe => {
 		appliancesFilter.push(recipe.appliance)
 		let ingredientsFilter = recipe.ingredients.map(el => el.ingredient)
-		console.log(ingredientsFilter)
-		let ustensilesFilter = recipe.ustensils.filter(el => el)
+		// console.log(ingredientsFilter)
+		let ustensilesFilter = recipe.ustensils
 		container.innerHTML += new Recipe(recipe).render()
 		//maj des ingrédients
-		ingredientsContainer.innerHTML = ''		
 		ingredientsContainer.innerHTML += ingredientsFilter.sort().map(el => `<span class="list list__ingredients">${el}</span>`).join('')
 		//maj des appareils
 		appliancesContainer.innerHTML = ''
 		appliancesContainer.innerHTML += appliancesFilter.sort().map(el =>  `<span class="list list__appliances">${el}</span>`).join('')
 		//maj des ustensiles
 		ustensilesContainer.innerHTML =''
-		ustensilesContainer.innerHTML += ustensilesFilter.sort().filter(el => `<span class="list list__ustensiles">${el}</span>`).join('')
+		ustensilesContainer.innerHTML += ustensilesFilter.sort().map(el => `<span class="list list__ustensiles">${el}</span>`).join('')
 
 		
 	
@@ -185,6 +189,5 @@ searchInput.addEventListener('input', (e) => {
 	// génération des keywords sur les span filtrés
 	const spansFilter = document.querySelectorAll('.list')
 	spansFilter.forEach(span => span.addEventListener('click', generateKeyword))
-	console.log(appliancesFilter.filter(el =>el))
 	
 })
