@@ -124,24 +124,24 @@ document.body.addEventListener('click', (e) => {
 const divKeyword = document.querySelector('.keyword')
 const spans = document.querySelectorAll('.list')
 let color
-spans.forEach((span) =>
-	span.addEventListener('click', (e) => {
-		if (e.target.getAttribute('class').includes('ingredients')) {
-			color = 'blue'
-		} else if (e.target.getAttribute('class').includes('appliances')) {
-			color = 'green'
-		} else {
-			color = 'red'
-		}
-		divKeyword.innerHTML += new Keywords(e.target.innerHTML, color).render()
+const generateKeyword = (e) => {
+	if (e.target.getAttribute('class').includes('ingredients')) {
+		color = 'blue'
+	} else if (e.target.getAttribute('class').includes('appliances')) {
+		color = 'green'
+	} else {
+		color = 'red'
+	}
+	divKeyword.innerHTML += new Keywords(e.target.innerHTML, color).render()
 
-		//supression des keywords au click sur la croix
-		const croix = document.querySelectorAll('.croix')
-		croix.forEach((el) =>
-			el.addEventListener('click', () => el.parentElement.remove())
-		)
-	})
-)
+	//supression des keywords au click sur la croix
+	const croix = document.querySelectorAll('.croix')
+	croix.forEach((el) =>
+		el.addEventListener('click', () => el.parentElement.remove())
+	)
+}
+spans.forEach((span) =>
+	span.addEventListener('click', generateKeyword))
 
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
@@ -157,13 +157,20 @@ recipes.forEach(
 //******************************************filtre par la barre de recherche */
 
 const searchInput = document.getElementById('search')
+const ingredientsContainerFilter = document.querySelector('.ingredients__container')
 searchInput.addEventListener('input', (e) => {
 	let filterRecipe = recipes.filter(
 		(recipe) => (recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())|| recipe.description.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()) )		
 	)
-	console.log(filterRecipe)
 	container.innerHTML = ''
+	ingredientsContainerFilter.innerHTML = ''
 	filterRecipe.forEach(recipe => {
+		let ingredientsFilter = recipe.ingredients
 		container.innerHTML += new Recipe(recipe).render()
+		ingredientsContainerFilter.innerHTML += ingredientsFilter.sort().map(el => `<span class="list list__ingredients">${el.ingredient}</span>`).join('')
+
 	})
+	// génération des keywords sur les span filtrés
+	const spansFilter = document.querySelectorAll('.list')
+	spansFilter.forEach(span => span.addEventListener('click', generateKeyword))
 })
