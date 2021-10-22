@@ -12,7 +12,6 @@ recipes.forEach((element) => {
 	)
 })
 let setIngredients = [...new Set(ingredients)] //supression des doublons et conversion en tableau
-console.log(setIngredients[0])
 
 //récupération des appareils
 const appliances = []
@@ -124,24 +123,24 @@ document.body.addEventListener('click', (e) => {
 const divKeyword = document.querySelector('.keyword')
 const spans = document.querySelectorAll('.list')
 let color
-spans.forEach((span) =>
-	span.addEventListener('click', (e) => {
-		if (e.target.getAttribute('class').includes('ingredients')) {
-			color = 'blue'
-		} else if (e.target.getAttribute('class').includes('appliances')) {
-			color = 'green'
-		} else {
-			color = 'red'
-		}
-		divKeyword.innerHTML += new Keywords(e.target.innerHTML, color).render()
+const generateKeyword = (e) => {
+	if (e.target.getAttribute('class').includes('ingredients')) {
+		color = 'blue'
+	} else if (e.target.getAttribute('class').includes('appliances')) {
+		color = 'green'
+	} else {
+		color = 'red'
+	}
+	divKeyword.innerHTML += new Keywords(e.target.innerHTML, color).render()
 
-		//supression des keywords au click sur la croix
-		const croix = document.querySelectorAll('.croix')
-		croix.forEach((el) =>
-			el.addEventListener('click', () => el.parentElement.remove())
-		)
-	})
-)
+	//supression des keywords au click sur la croix
+	const croix = document.querySelectorAll('.croix')
+	croix.forEach((el) =>
+		el.addEventListener('click', () => el.parentElement.remove())
+	)
+}
+spans.forEach((span) =>
+	span.addEventListener('click', generateKeyword))
 
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
@@ -158,12 +157,39 @@ recipes.forEach(
 
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
+	
 	let filterRecipe = recipes.filter(
-		(recipe) => recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()) 		
+		(recipe) => (recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())|| recipe.description.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()) )		
 	)
-	console.log(filterRecipe)
+
+	console.log(recipes[0].ingredients.map(el => el.ingredient).includes(e.target.value))
 	container.innerHTML = ''
+	ingredientsContainer.innerHTML = ''		
+
+	let appliancesFilter = []
+	let ingredientsFilter =[]
+	console.log(ingredientsFilter)
 	filterRecipe.forEach(recipe => {
+		appliancesFilter.push(recipe.appliance)
+		ingredientsFilter.push(recipe.ingredients.map(el => el.ingredient))
+
+		let ustensilesFilter = recipe.ustensils
 		container.innerHTML += new Recipe(recipe).render()
+		//maj des ingrédients
+		ingredientsContainer.innerHTML += ingredientsFilter.sort().map(el => `<span class="list list__ingredients">${el}</span>`).join('')
+		//maj des appareils
+		appliancesContainer.innerHTML = ''
+		appliancesContainer.innerHTML += appliancesFilter.sort().map(el =>  `<span class="list list__appliances">${el}</span>`).join('')
+		//maj des ustensiles
+		ustensilesContainer.innerHTML =''
+		ustensilesContainer.innerHTML += ustensilesFilter.sort().map(el => `<span class="list list__ustensiles">${el}</span>`).join('')
+
+		
+	
 	})
+
+	// génération des keywords sur les span filtrés
+	const spansFilter = document.querySelectorAll('.list')
+	spansFilter.forEach(span => span.addEventListener('click', generateKeyword))
+	
 })

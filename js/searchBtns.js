@@ -13,7 +13,7 @@ export default class SearchBtns{
         <button data-name ='button' class="btn btn__ingredients">Ingrédients
           <input type="text" class="input input__ing"/>
         </button>
-        <div class = "ingredients__container">
+        <div class = "contain ingredients__container">
            ${this.ingredients.sort().map(el => `<span class="list list__ingredients">${el}</span>`).join('')}
         </div>
       </div>
@@ -21,7 +21,7 @@ export default class SearchBtns{
         <button data-name ='button' class="btn btn__appareil">Appareil
           <input type="text" class=" input input__app"/>
         </button>
-        <div class = "appliances__container">
+        <div class = "contain appliances__container">
         ${this.appliances.sort().map(el => `<span class="list list__appliances">${el}</span>`).join('')}
      </div>
       </div>
@@ -29,7 +29,7 @@ export default class SearchBtns{
         <button data-name ='button' class="btn btn__ustensiles">Ustensiles
           <input type="text" class="input input__ust"/>
         </button>
-        <div class = "ustensiles__container">
+        <div class = "contain ustensiles__container">
         ${this.ustensiles.sort().map(el => `<span class="list list__ustensiles">${el}</span>`).join('')}
      </div>
       </div>
