@@ -393,6 +393,12 @@ header img {
   transition: transform 0.2s linear, -webkit-transform 0.2s linear;
 }
 
+.list {
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+}
+
 .ingredients {
   position: relative;
 }

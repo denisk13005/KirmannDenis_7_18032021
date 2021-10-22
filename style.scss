@@ -181,6 +181,9 @@ header {
     transition: transform 0.2s linear;
   }
 }
+.list {
+  height: min-content;
+}
 .ingredients {
   position: relative;
   &__container {
