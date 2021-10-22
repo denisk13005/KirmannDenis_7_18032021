@@ -185,7 +185,7 @@ header {
   position: relative;
   &__container {
     position: absolute;
-    z-index: 2;
+    z-index: 5;
     top: 70px;
     display: flex;
     flex-wrap: wrap;
@@ -198,6 +198,9 @@ header {
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.5s;
+    @media (max-width: 888px) {
+      width: 170px;
+    }
     &--visible {
       visibility: visible;
       opacity: 1;
@@ -218,7 +221,7 @@ header {
   position: relative;
   &__container {
     position: absolute;
-    z-index: 2;
+    z-index: 5;
     top: 70px;
     display: flex;
     flex-wrap: wrap;
@@ -231,6 +234,9 @@ header {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s;
+    @media (max-width: 888px) {
+      width: 170px;
+    }
     &--visible {
       opacity: 1;
       visibility: visible;
@@ -251,7 +257,7 @@ header {
   position: relative;
   &__container {
     position: absolute;
-    z-index: 2;
+    z-index: 5;
     top: 70px;
     display: flex;
     flex-wrap: wrap;
@@ -264,6 +270,9 @@ header {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s;
+    @media (max-width: 888px) {
+      width: 170px;
+    }
     &--visible {
       visibility: visible;
       opacity: 1;

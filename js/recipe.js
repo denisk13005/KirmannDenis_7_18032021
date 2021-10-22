@@ -40,10 +40,7 @@ export default class Recipe{
 		}else{
 			return `<li>${el.ingredient}</li>`
 		}
-	
-
-	}).join('')}
-            
+	}).join('')}            
           </ul>
           <p class="recipe">${this.description}</p>
         </div>

@@ -24,7 +24,7 @@ const recipes = [
 				unit: 'grammes',
 			},
 			{
-				ingredient: 'Glaçons',
+				ingredient: 'Glaçons'
 			},
 		],
 		time: 10,

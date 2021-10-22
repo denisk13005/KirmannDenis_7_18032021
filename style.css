@@ -399,7 +399,7 @@ header img {
 
 .ingredients__container {
   position: absolute;
-  z-index: 2;
+  z-index: 5;
   top: 70px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -416,6 +416,12 @@ header img {
   opacity: 0;
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
+}
+
+@media (max-width: 888px) {
+  .ingredients__container {
+    width: 170px;
+  }
 }
 
 .ingredients__container--visible {
@@ -440,7 +446,7 @@ header img {
 
 .appliances__container {
   position: absolute;
-  z-index: 2;
+  z-index: 5;
   top: 70px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -457,6 +463,12 @@ header img {
   visibility: hidden;
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
+}
+
+@media (max-width: 888px) {
+  .appliances__container {
+    width: 170px;
+  }
 }
 
 .appliances__container--visible {
@@ -481,7 +493,7 @@ header img {
 
 .ustensiles__container {
   position: absolute;
-  z-index: 2;
+  z-index: 5;
   top: 70px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -498,6 +510,12 @@ header img {
   visibility: hidden;
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
+}
+
+@media (max-width: 888px) {
+  .ustensiles__container {
+    width: 170px;
+  }
 }
 
 .ustensiles__container--visible {
