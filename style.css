@@ -534,6 +534,12 @@ header img {
   background-color: #c62715;
 }
 
+.contain {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+
 .container {
   width: 88%;
   height: auto;
