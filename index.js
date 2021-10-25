@@ -164,11 +164,16 @@ searchInput.addEventListener('input', (e) => {
 		)
 		
 		container.innerHTML = ''
+		// tri des ingrédients
 		ingredientsContainer.innerHTML = ''
 		let ingredientsFilter = filterRecipe.map(el => el.ingredients.map(el=>el.ingredient.toLowerCase()))
 		let setIng = [...new Set(ingredientsFilter.flat(Infinity))]
 		ingredientsContainer.innerHTML += setIng.sort().map(el => `<span class="list list__ingredients">${el}</span>`).join('')
-	
+		//tri des appareils
+		appliancesContainer.innerHTML = ''
+		let appliancesFilter = filterRecipe.map(el=>el.appliance)
+		let setApp = [...new Set(appliancesFilter)]
+		appliancesContainer.innerHTML += setApp.sort().map(el=>  `<span class="list list__appliances">${el}</span>`).join('')
 		filterRecipe.forEach(recipe => {
 	
 			container.innerHTML += new Recipe(recipe).render()
