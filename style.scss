@@ -294,9 +294,11 @@ header {
   }
 }
 .contain {
-  height: auto;
-  max-height: 350px;
+
+  height: max-content;
 }
+
+
 //**************************partie fiche de recettes
 .container {
   width: 88%;

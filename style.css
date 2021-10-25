@@ -541,8 +541,11 @@ header img {
 }
 
 .contain {
-  height: auto;
-  max-height: 350px;
+
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+
 }
 
 .container {
