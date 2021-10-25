@@ -15,7 +15,7 @@ let setIngredients = [...new Set(ingredients)] //supression des doublons et conv
 
 //récupération des appareils
 const appliances = []
-recipes.forEach((element) => appliances.push(element.appliance))
+recipes.forEach((element) => appliances.push(element.appliance.toLowerCase()))
 const setAppliances = [...new Set(appliances)]
 
 // récupération des ustensiles
@@ -185,6 +185,7 @@ searchInput.addEventListener('input', (e) => {
 			
 		})
 
+
 	}
 
 	// génération des keywords sur les span filtrés
@@ -192,4 +193,40 @@ searchInput.addEventListener('input', (e) => {
 	spansFilter.forEach(span => span.addEventListener('click', generateKeyword))
 
 })
+//*********************************************filtre par les champs de recherche avancés */
+
+const input = document.querySelectorAll('.input')
+input.forEach(input => input.addEventListener('input', (e)=>{
+	//maj des ingrédients
+
+	if(e.target.getAttribute('class').includes('ing')){
+		ingredientsContainer.innerHTML=''
+		let ingredientsMAJ = ingredients.filter(el => el.includes(e.target.value.toLowerCase()))
+		let setIngredientsMAJ = [...new Set(ingredientsMAJ)]
+		ingredientsContainer.innerHTML += setIngredientsMAJ.map(el => `<span class="list list__ingredients">${el}</span>`).join('')
+		console.log(setIngredientsMAJ)
+
+	}
+	//maj des appareils
+	else if(e.target.getAttribute('class').includes('app')){
+		appliancesContainer.innerHTML = ''
+		let appliancesMAJ = appliances.filter(el=> el.includes(e.target.value.toLowerCase()))
+		let setAppliancesMAJ = [...new Set(appliancesMAJ)]
+		appliancesContainer.innerHTML += setAppliancesMAJ.map(el => `<span class="list list__appliances">${el}</span>`).join('')
+		console.log(setAppliancesMAJ)
+
+	}	
+	//maj des ustensiles
+	else if(e.target.getAttribute('class').includes('ust')){
+		ustensilesContainer.innerHTML = ''
+		let ustensilesMAJ = ustensiles.filter(el => el.includes(e.target.value.toLowerCase()))
+		let setUstensilesMAJ =[...new Set(ustensilesMAJ)]
+		ustensilesContainer.innerHTML += setUstensilesMAJ.map(el => `<span class="list list__ustensiles">${el}</span>`).join('')
+		console.log(ustensiles)
+	}
+
+	// génération des keywords sur les span filtrés
+	const spansFilter = document.querySelectorAll('.list')
+	spansFilter.forEach(span => span.addEventListener('click', generateKeyword))
+}))
 
