@@ -32,7 +32,10 @@ export default class Recipe{
           <ul class="ingredientsRecipe">
             
             ${this.ingredients.map(el =>  {
-		const unity = el.unit?el.unit:''
+		let unity = el.unit?el.unit:''
+		if(unity=='grammes'){
+			unity=' g'
+		}
 		if(el.quantity){
 			return `<li>${el.ingredient} : ${el.quantity} ${unity} </li>`
 		}else if (el.quantite){
