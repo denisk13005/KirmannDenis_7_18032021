@@ -157,24 +157,27 @@ recipes.forEach(
 
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
+	if(e.target.value.length > 2 || e.target.value.length === 0){
+		let filterRecipe = recipes.filter(
+			recipe => recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())|| recipe.description.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase() || recipe.ingredients.filter(ing=>ing.ingredient.toLowerCase().includes(e.target.value.toLowerCase()))) 
+			
+		)
+		
+		container.innerHTML = ''
+		ingredientsContainer.innerHTML = ''
+		let ingredientsFilter = filterRecipe.map(el => el.ingredients.map(el=>el.ingredient.toLowerCase()))
+		let setIng = [...new Set(ingredientsFilter.flat(Infinity))]
+		ingredientsContainer.innerHTML += setIng.sort().map(el => `<span class="list list__ingredients">${el}</span>`).join('')
 	
-	let filterRecipe = recipes.filter(
-		recipe => recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())|| recipe.description.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase() || recipe.ingredients.filter(ing=>ing.ingredient.toLowerCase().includes(e.target.value.toLowerCase()))) 
-		
-	)
+		filterRecipe.forEach(recipe => {
 	
-	container.innerHTML = ''
-	ingredientsContainer.innerHTML = ''
-	let ingredientsFilter = filterRecipe.map(el => el.ingredients.map(el=>el.ingredient.toLowerCase()))
-	let setIng = [...new Set(ingredientsFilter.flat(Infinity))]
-	ingredientsContainer.innerHTML += setIng.sort().map(el => `<span class="list list__ingredients">${el}</span>`).join('')
+			container.innerHTML += new Recipe(recipe).render()
+			
+			
+		})
 
-	filterRecipe.forEach(recipe => {
+	}
 
-		container.innerHTML += new Recipe(recipe).render()
-		
-		
-	})
 	// génération des keywords sur les span filtrés
 	const spansFilter = document.querySelectorAll('.list')
 	spansFilter.forEach(span => span.addEventListener('click', generateKeyword))
