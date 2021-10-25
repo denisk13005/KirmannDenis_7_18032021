@@ -124,24 +124,24 @@ document.body.addEventListener('click', (e) => {
 const divKeyword = document.querySelector('.keyword')
 const spans = document.querySelectorAll('.list')
 let color
-spans.forEach((span) =>
-	span.addEventListener('click', (e) => {
-		if (e.target.getAttribute('class').includes('ingredients')) {
-			color = 'blue'
-		} else if (e.target.getAttribute('class').includes('appliances')) {
-			color = 'green'
-		} else {
-			color = 'red'
-		}
-		divKeyword.innerHTML += new Keywords(e.target.innerHTML, color).render()
+const generateKeyword = (e) => {
+	if (e.target.getAttribute('class').includes('ingredients')) {
+		color = 'blue'
+	} else if (e.target.getAttribute('class').includes('appliances')) {
+		color = 'green'
+	} else {
+		color = 'red'
+	}
+	divKeyword.innerHTML += new Keywords(e.target.innerHTML, color).render()
 
-		//supression des keywords au click sur la croix
-		const croix = document.querySelectorAll('.croix')
-		croix.forEach((el) =>
-			el.addEventListener('click', () => el.parentElement.remove())
-		)
-	})
-)
+	//supression des keywords au click sur la croix
+	const croix = document.querySelectorAll('.croix')
+	croix.forEach((el) =>
+		el.addEventListener('click', () => el.parentElement.remove())
+	)
+}
+spans.forEach((span) =>
+	span.addEventListener('click', generateKeyword))
 
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
