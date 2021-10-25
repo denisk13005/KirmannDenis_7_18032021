@@ -166,18 +166,14 @@ searchInput.addEventListener('input', (e) => {
 	ingredientsContainer.innerHTML = ''
 	let ingredientsFilter = filterRecipe.map(el => el.ingredients.map(el=>el.ingredient.toLowerCase()))
 	let setIng = [...new Set(ingredientsFilter.flat(Infinity))]
-	ingredientsContainer.innerHTML += setIng.map(el => `<span class="list list__ingredients">${el}</span>`).join('')
+	ingredientsContainer.innerHTML += setIng.sort().map(el => `<span class="list list__ingredients">${el}</span>`).join('')
 	console.log(setIng)
 
 	filterRecipe.forEach(recipe => {
-		appliancesFilter.push(recipe.appliance)
-		ingredientsFilter.push(recipe.ingredients.map(el => el.ingredient))
 
-		let ustensilesFilter = recipe.ustensils
 		container.innerHTML += new Recipe(recipe).render()
 
-		recipe.ingredients.forEach((el) =>
-			ingredientsFilter.push(el.ingredient.toLowerCase()))
+		
 		
 
 
