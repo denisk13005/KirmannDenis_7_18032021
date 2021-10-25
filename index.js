@@ -12,7 +12,6 @@ recipes.forEach((element) => {
 	)
 })
 let setIngredients = [...new Set(ingredients)] //supression des doublons et conversion en tableau
-console.log(setIngredients[0])
 
 //récupération des appareils
 const appliances = []
@@ -158,17 +157,25 @@ recipes.forEach(
 
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
+	
 	let filterRecipe = recipes.filter(
-		(recipe) => recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()) 		
+		(recipe) => (recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())|| recipe.description.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()) )		
 	)
+
 	container.innerHTML = ''
 	ingredientsContainer.innerHTML = ''
 	let ingredientsFilter = filterRecipe.map(el => el.ingredients.map(el=>el.ingredient.toLowerCase()))
 	let setIng = [...new Set(ingredientsFilter.flat(Infinity))]
 	ingredientsContainer.innerHTML += setIng.map(el => `<span class="list list__ingredients">${el}</span>`).join('')
 	console.log(setIng)
+
 	filterRecipe.forEach(recipe => {
+		appliancesFilter.push(recipe.appliance)
+		ingredientsFilter.push(recipe.ingredients.map(el => el.ingredient))
+
+		let ustensilesFilter = recipe.ustensils
 		container.innerHTML += new Recipe(recipe).render()
+
 		recipe.ingredients.forEach((el) =>
 			ingredientsFilter.push(el.ingredient.toLowerCase()))
 		
@@ -180,5 +187,6 @@ searchInput.addEventListener('input', (e) => {
 	// génération des keywords sur les span filtrés
 	const spansFilter = document.querySelectorAll('.list')
 	spansFilter.forEach(span => span.addEventListener('click', generateKeyword))
+
 })
 
