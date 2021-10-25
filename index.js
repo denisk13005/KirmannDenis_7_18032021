@@ -174,10 +174,14 @@ searchInput.addEventListener('input', (e) => {
 		let appliancesFilter = filterRecipe.map(el=>el.appliance)
 		let setApp = [...new Set(appliancesFilter)]
 		appliancesContainer.innerHTML += setApp.sort().map(el=>  `<span class="list list__appliances">${el}</span>`).join('')
-		filterRecipe.forEach(recipe => {
-	
-			container.innerHTML += new Recipe(recipe).render()
-			
+		//tri des ustensiles
+		ustensilesContainer.innerHTML=''
+		let ustensilesFilter = filterRecipe.map(el => el.ustensils)
+		let setUst = [...new Set(ustensilesFilter.flat(Infinity))]
+		ustensilesContainer.innerHTML += setUst.sort().map(el=> `<span class="list list__ustensiles">${el}</span>` ).join('')
+		//génération des recttes filtrées
+		filterRecipe.forEach(recipe => {	
+			container.innerHTML += new Recipe(recipe).render()			
 			
 		})
 
