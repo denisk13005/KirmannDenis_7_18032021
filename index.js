@@ -193,6 +193,8 @@ searchInput.addEventListener('input', (e) => {
 	spansFilter.forEach(span => span.addEventListener('click', generateKeyword))
 
 })
+
+
 //*********************************************filtre par les champs de recherche avancés */
 
 const input = document.querySelectorAll('.input')
@@ -225,8 +227,43 @@ input.forEach(input => input.addEventListener('input', (e)=>{
 		console.log(ustensiles)
 	}
 
-	// génération des keywords sur les span filtrés
+	//recettes filtrées par les champs de recherche avancés
+	let filterRecipeByInput = recipes.filter(
+		recipe => recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())|| recipe.description.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase() || recipe.ingredients.filter(ing=>ing.ingredient.toLowerCase().includes(e.target.value.toLowerCase()))) 
+		
+	)
+	// génération des keywords sur les span filtrés et filtre sur les recettes
 	const spansFilter = document.querySelectorAll('.list')
-	spansFilter.forEach(span => span.addEventListener('click', generateKeyword))
-}))
+	spansFilter.forEach(span => span.addEventListener('click', ()=> {
+		generateKeyword
+		//génération des recttes filtrées
+		container.innerHTML = ''
 
+		filterRecipeByInput.forEach(recipe => {	
+			container.innerHTML += new Recipe(recipe).render()			
+					
+		})
+		
+
+	}))
+}))
+let test = []
+recipes.forEach(recipe=> recipe.ingredients.forEach(el=> (el.ingredient.includes('Ail'))? test.push(recipe): ''))
+let test3=[]
+
+recipes.forEach(recipe =>  recipe.ingredients.forEach(el=> {
+	if(el.ingredient.toLowerCase().includes('tomate')){
+		test3.push(recipe)
+	}
+}))
+recipes.forEach(recipe => {
+	if(recipe.name.toLowerCase().includes('tomate')){
+		test3.push(recipe)
+	}
+})
+recipes.forEach(recipe => {
+	if(recipe.description.toLowerCase().includes('tomate')){
+		test3.push(recipe)
+	}
+})
+console.log(test3)
