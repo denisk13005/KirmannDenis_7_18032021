@@ -159,6 +159,12 @@ const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
 	if(e.target.value.length > 2 || e.target.value.length === 0){
 		let filterRecipe = []
+		recipes.forEach(recipe=> recipe.ingredients.forEach(el=> (el.ingredient.toLowerCase().includes(e.target.value.toLowerCase()))? filterRecipe.push(recipe): ''))
+		recipes.forEach(recipe=> recipe.name.toLowerCase().includes(e.target.value.toLowerCase())? filterRecipe.push(recipe):'')
+		recipes.forEach(recipe =>recipe.description.toLowerCase().includes(e.target.value.toLowerCase())? filterRecipe.push(recipe):'')
+		console.log(filterRecipe)
+		let setFilterRecipe = [...new Set(filterRecipe)]
+		console.log(setFilterRecipe)
 		
 		container.innerHTML = ''
 		// tri des ingrédients
@@ -177,7 +183,7 @@ searchInput.addEventListener('input', (e) => {
 		let setUst = [...new Set(ustensilesFilter.flat(Infinity))]
 		ustensilesContainer.innerHTML += setUst.sort().map(el=> `<span class="list list__ustensiles">${el}</span>` ).join('')
 		//génération des recttes filtrées
-		filterRecipe.forEach(recipe => {	
+		setFilterRecipe.forEach(recipe => {	
 			container.innerHTML += new Recipe(recipe).render()			
 			
 		})
