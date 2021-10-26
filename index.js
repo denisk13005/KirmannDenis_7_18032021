@@ -158,10 +158,7 @@ recipes.forEach(
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
 	if(e.target.value.length > 2 || e.target.value.length === 0){
-		let filterRecipe = recipes.filter(
-			recipe => recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())|| recipe.description.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase() || recipe.ingredients.filter(ing=>ing.ingredient.toLowerCase().includes(e.target.value.toLowerCase()))) 
-			
-		)
+		let filterRecipe = []
 		
 		container.innerHTML = ''
 		// tri des ingrédients
@@ -199,8 +196,10 @@ searchInput.addEventListener('input', (e) => {
 
 const input = document.querySelectorAll('.input')
 input.forEach(input => input.addEventListener('input', (e)=>{
-	//maj des ingrédients
+	let filterRecipeByInput=[]
 
+	//maj des ingrédients
+	
 	if(e.target.getAttribute('class').includes('ing')){
 		ingredientsContainer.innerHTML=''
 		let ingredientsMAJ = ingredients.filter(el => el.includes(e.target.value.toLowerCase()))
@@ -228,25 +227,30 @@ input.forEach(input => input.addEventListener('input', (e)=>{
 	}
 
 	//recettes filtrées par les champs de recherche avancés
-	let filterRecipeByInput = []
+	
 	recipes.forEach(recipe=> recipe.ingredients.forEach(el=> (el.ingredient.toLowerCase().includes(e.target.value.toLowerCase()))? filterRecipeByInput.push(recipe): ''))
 	recipes.forEach(recipe=> recipe.name.toLowerCase().includes(e.target.value.toLowerCase())? filterRecipeByInput.push(recipe):'')
 	recipes.forEach(recipe =>recipe.description.toLowerCase().includes(e.target.value.toLowerCase())? filterRecipeByInput.push(recipe):'')
 	console.log(filterRecipeByInput)
+	let setFilterRecipeByInput = [...new Set(filterRecipeByInput)]
+	console.log(setFilterRecipeByInput)
+
 	// génération des keywords sur les span filtrés et filtre sur les recettes
 	const spansFilter = document.querySelectorAll('.list')
 	spansFilter.forEach(span => span.addEventListener('click', ()=> {
 		generateKeyword
-		//génération des recttes filtrées
+		//génération des recettes filtrées
 		container.innerHTML = ''
-
-		filterRecipeByInput.forEach(recipe => {	
+	
+		setFilterRecipeByInput.forEach(recipe => {	
 			container.innerHTML += new Recipe(recipe).render()			
-					
+						
 		})
-		
-
+			
+	
 	}))
+	
+
 }))
 
 
