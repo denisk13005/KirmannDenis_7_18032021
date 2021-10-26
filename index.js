@@ -228,10 +228,11 @@ input.forEach(input => input.addEventListener('input', (e)=>{
 	}
 
 	//recettes filtrées par les champs de recherche avancés
-	let filterRecipeByInput = recipes.filter(
-		recipe => recipe.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())|| recipe.description.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase() || recipe.ingredients.filter(ing=>ing.ingredient.toLowerCase().includes(e.target.value.toLowerCase()))) 
-		
-	)
+	let filterRecipeByInput = []
+	recipes.forEach(recipe=> recipe.ingredients.forEach(el=> (el.ingredient.toLowerCase().includes(e.target.value.toLowerCase()))? filterRecipeByInput.push(recipe): ''))
+	recipes.forEach(recipe=> recipe.name.toLowerCase().includes(e.target.value.toLowerCase())? filterRecipeByInput.push(recipe):'')
+	recipes.forEach(recipe =>recipe.description.toLowerCase().includes(e.target.value.toLowerCase())? filterRecipeByInput.push(recipe):'')
+	console.log(filterRecipeByInput)
 	// génération des keywords sur les span filtrés et filtre sur les recettes
 	const spansFilter = document.querySelectorAll('.list')
 	spansFilter.forEach(span => span.addEventListener('click', ()=> {
@@ -247,23 +248,23 @@ input.forEach(input => input.addEventListener('input', (e)=>{
 
 	}))
 }))
-let test = []
-recipes.forEach(recipe=> recipe.ingredients.forEach(el=> (el.ingredient.includes('Ail'))? test.push(recipe): ''))
-let test3=[]
 
-recipes.forEach(recipe =>  recipe.ingredients.forEach(el=> {
-	if(el.ingredient.toLowerCase().includes('tomate')){
-		test3.push(recipe)
-	}
-}))
-recipes.forEach(recipe => {
-	if(recipe.name.toLowerCase().includes('tomate')){
-		test3.push(recipe)
-	}
-})
-recipes.forEach(recipe => {
-	if(recipe.description.toLowerCase().includes('tomate')){
-		test3.push(recipe)
-	}
-})
-console.log(test3)
+
+// let filterRecipeByInput3=[]
+
+// recipes.forEach(recipe =>  recipe.ingredients.forEach(el=> {
+// 	if(el.ingredient.toLowerCase().includes(e.target.value.toLowerCase())){
+// 		filterRecipeByInput3.push(recipe)
+// 	}
+// }))
+// recipes.forEach(recipe => {
+// 	if(recipe.name.toLowerCase().includes(e.target.value.toLowerCase())){
+// 		filterRecipeByInput3.push(recipe)
+// 	}
+// })
+// recipes.forEach(recipe => {
+// 	if(recipe.description.toLowerCase().includes(e.target.value.toLowerCase())){
+// 		filterRecipeByInput3.push(recipe)
+// 	}
+// })
+// // console.log(filterRecipeByInput3)
