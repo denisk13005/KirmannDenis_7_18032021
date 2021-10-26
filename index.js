@@ -135,8 +135,20 @@ const generateKeyword = (e) => {
 	divKeyword.innerHTML += new Keywords(e.target.innerHTML, color).render()
 	//supression des keywords au click sur la croix
 	const croix = document.querySelectorAll('.croix')
-	croix.forEach((el) =>
-		el.addEventListener('click', () => el.parentElement.remove())
+	croix.forEach((el) =>{
+		el.addEventListener('click', () => {
+			el.parentElement.remove()
+			if(divKeyword.children.length === 0 && userResearch.length <= 2){
+				recipes.forEach(
+					(element) => (container.innerHTML += new Recipe(element).render())
+				)
+				
+			}
+		})
+		
+	}
+	
+
 	)
 }
 spans.forEach((span) =>
@@ -154,13 +166,11 @@ recipes.forEach(
 )
 
 //******************************************filtre par la barre de recherche */
-
+let userResearch
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
-	let userResearch = e.target.value.toLowerCase()
-
+	userResearch= e.target.value.toLowerCase()
 	if(userResearch.length > 2 || userResearch.length === 0){
-		divKeyword.innerHTML =''
 		let filterRecipe = []
 		// recipes.filter(recipe => recipes.ingredients.some(el => el.includes(e.target.value)))
 		recipes.forEach(recipe=> recipe.ingredients.forEach(el=> (el.ingredient.toLowerCase().includes(userResearch))? filterRecipe.push(recipe): ''))
@@ -193,6 +203,7 @@ searchInput.addEventListener('input', (e) => {
 		})
 		let spans = document.querySelectorAll('.list')
 		spans.forEach(span => span.addEventListener('click', (e)=> {
+
 			let value = e.target.innerHTML
 			let type = e.target.getAttribute('class')
 			container.innerHTML = ''
