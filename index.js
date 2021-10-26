@@ -138,6 +138,7 @@ const generateKeyword = (e) => {
 	croix.forEach((el) =>{
 		el.addEventListener('click', () => {
 			el.parentElement.remove()
+			//si plus de keyword sélectionnés et recherche < 2 on rafraichit les vignettes
 			if(divKeyword.children.length === 0 && userResearch.length <= 2){
 				recipes.forEach(
 					(element) => (container.innerHTML += new Recipe(element).render())
@@ -204,21 +205,25 @@ searchInput.addEventListener('input', (e) => {
 		let spans = document.querySelectorAll('.list')
 		spans.forEach(span => span.addEventListener('click', (e)=> {
 
-			let value = e.target.innerHTML
-			let type = e.target.getAttribute('class')
+			let value = e.target.innerHTML // récupére le contenu textuel du span
+			let type = e.target.getAttribute('class') // défini le type de span cliqué(ing, app, ust)
 			container.innerHTML = ''
 			let filterRecipeAdvanced = []
 			console.log((filterRecipeAdvanced))
+			//si on a cliqué sur un span ingrédient on affine la recherche avec les recettes restantes contenants l'ingrédient sélectionné
 			if(type.includes('ingredients')){
 				setFilterRecipe.forEach(recipe=> recipe.ingredients.forEach(el=> (el.ingredient.toLowerCase().includes(value))? filterRecipeAdvanced.push(recipe): ''))
 			}
+			//pareil pour les appareils
 			else if(type.includes('appliances')){
 				setFilterRecipe.forEach(recipe => recipe.appliance.includes(value)?filterRecipeAdvanced.push(recipe):'')		
 			}
+			//sinon ce sont les ustensiles
 			else{
 				setFilterRecipe.forEach(recipe => recipe.ustensils.forEach(el=>el.includes(value)?filterRecipeAdvanced.push(recipe):''))		
 
 			}
+			//on raffraichit avec les vignettes correspondantes
 			filterRecipeAdvanced.forEach(recipe => {
 				container.innerHTML += new Recipe(recipe).render()
 			})
