@@ -133,7 +133,6 @@ const generateKeyword = (e) => {
 		color = 'red'
 	}
 	divKeyword.innerHTML += new Keywords(e.target.innerHTML, color).render()
-
 	//supression des keywords au click sur la croix
 	const croix = document.querySelectorAll('.croix')
 	croix.forEach((el) =>
@@ -161,6 +160,7 @@ searchInput.addEventListener('input', (e) => {
 	let userResearch = e.target.value.toLowerCase()
 
 	if(userResearch.length > 2 || userResearch.length === 0){
+		divKeyword.innerHTML =''
 		let filterRecipe = []
 		// recipes.filter(recipe => recipes.ingredients.some(el => el.includes(e.target.value)))
 		recipes.forEach(recipe=> recipe.ingredients.forEach(el=> (el.ingredient.toLowerCase().includes(userResearch))? filterRecipe.push(recipe): ''))
@@ -191,6 +191,28 @@ searchInput.addEventListener('input', (e) => {
 			container.innerHTML += new Recipe(recipe).render()			
 			
 		})
+		let spans = document.querySelectorAll('.list')
+		spans.forEach(span => span.addEventListener('click', (e)=> {
+			let value = e.target.innerHTML
+			let type = e.target.getAttribute('class')
+			container.innerHTML = ''
+			let filterRecipeAdvanced = []
+			console.log((filterRecipeAdvanced))
+			if(type.includes('ingredients')){
+				setFilterRecipe.forEach(recipe=> recipe.ingredients.forEach(el=> (el.ingredient.toLowerCase().includes(value))? filterRecipeAdvanced.push(recipe): ''))
+			}
+			else if(type.includes('appliances')){
+				setFilterRecipe.forEach(recipe => recipe.appliance.includes(value)?filterRecipeAdvanced.push(recipe):'')		
+			}
+			else{
+				setFilterRecipe.forEach(recipe => recipe.ustensils.forEach(el=>el.includes(value)?filterRecipeAdvanced.push(recipe):''))		
+
+			}
+			filterRecipeAdvanced.forEach(recipe => {
+				container.innerHTML += new Recipe(recipe).render()
+			})
+		}))
+
 
 
 	}
@@ -205,64 +227,64 @@ searchInput.addEventListener('input', (e) => {
 
 //*********************************************filtre par les champs de recherche avancés */
 
-const input = document.querySelectorAll('.input')
-input.forEach(input => input.addEventListener('input', (e)=>{
-	let filterRecipeByInput=[]
-	console.log(e)
-	//maj des ingrédients
+// const input = document.querySelectorAll('.input')
+// input.forEach(input => input.addEventListener('input', (e)=>{
+// 	let filterRecipeByInput=[]
+// 	console.log(e.target.value)
+// 	console.log(e.target)
+// 	//maj des ingrédients
 	
-	if(e.target.getAttribute('class').includes('ing')){
-		ingredientsContainer.innerHTML=''
-		let ingredientsMAJ = ingredients.filter(el => el.includes(e.target.value.toLowerCase()))
-		let setIngredientsMAJ = [...new Set(ingredientsMAJ)]
+// 	if(e.target.getAttribute('class').includes('ing')){
+// 		ingredientsContainer.innerHTML=''
+// 		let ingredientsMAJ = ingredients.filter(el => el.includes(e.target.value.toLowerCase()))
+// 		let setIngredientsMAJ = [...new Set(ingredientsMAJ)]
+// 		ingredientsContainer.innerHTML += setIngredientsMAJ.map(el => `<span class="list list__ingredients">${el}</span>`).join('')
+		
+// 	}
+// 	//maj des appareils
+// 	else if(e.target.getAttribute('class').includes('app')){
+// 		appliancesContainer.innerHTML = ''
+// 		let appliancesMAJ = appliances.filter(el=> el.includes(e.target.value.toLowerCase()))
+// 		let setAppliancesMAJ = [...new Set(appliancesMAJ)]
+// 		appliancesContainer.innerHTML += setAppliancesMAJ.map(el => `<span class="list list__appliances">${el}</span>`).join('')
 
-		ingredientsContainer.innerHTML += setIngredientsMAJ.map(el => `<span class="list list__ingredients">${el}</span>`).join('')
+// 	}	
+// 	//maj des ustensiles
+// 	else if(e.target.getAttribute('class').includes('ust')){
+// 		ustensilesContainer.innerHTML = ''
+// 		let ustensilesMAJ = ustensiles.filter(el => el.includes(e.target.value.toLowerCase()))
+// 		let setUstensilesMAJ =[...new Set(ustensilesMAJ)]
+// 		ustensilesContainer.innerHTML += setUstensilesMAJ.map(el => `<span class="list list__ustensiles">${el}</span>`).join('')
+// 	}
 
-	}
-	//maj des appareils
-	else if(e.target.getAttribute('class').includes('app')){
-		appliancesContainer.innerHTML = ''
-		let appliancesMAJ = appliances.filter(el=> el.includes(e.target.value.toLowerCase()))
-		let setAppliancesMAJ = [...new Set(appliancesMAJ)]
-		appliancesContainer.innerHTML += setAppliancesMAJ.map(el => `<span class="list list__appliances">${el}</span>`).join('')
+// 	//recettes filtrées par les champs de recherche avancés
+// 	//par ingrédients
+// 	recipes.forEach(recipe=> recipe.ingredients.forEach(el=> (el.ingredient.toLowerCase().includes(e.target.value.toLowerCase()))? filterRecipeByInput.push(recipe): ''))
+// 	//par nom
+// 	recipes.forEach(recipe=> recipe.name.toLowerCase().includes(e.target.value.toLowerCase())? filterRecipeByInput.push(recipe):'')
+// 	//par description
+// 	recipes.forEach(recipe =>recipe.description.toLowerCase().includes(e.target.value.toLowerCase())? filterRecipeByInput.push(recipe):'')
+// 	//supression des doublons
+// 	let setFilterRecipeByInput = [...new Set(filterRecipeByInput)]
 
-	}	
-	//maj des ustensiles
-	else if(e.target.getAttribute('class').includes('ust')){
-		ustensilesContainer.innerHTML = ''
-		let ustensilesMAJ = ustensiles.filter(el => el.includes(e.target.value.toLowerCase()))
-		let setUstensilesMAJ =[...new Set(ustensilesMAJ)]
-		ustensilesContainer.innerHTML += setUstensilesMAJ.map(el => `<span class="list list__ustensiles">${el}</span>`).join('')
-	}
-
-	//recettes filtrées par les champs de recherche avancés
-	//par ingrédients
-	recipes.forEach(recipe=> recipe.ingredients.forEach(el=> (el.ingredient.toLowerCase().includes(e.target.value.toLowerCase()))? filterRecipeByInput.push(recipe): ''))
-	//par nom
-	recipes.forEach(recipe=> recipe.name.toLowerCase().includes(e.target.value.toLowerCase())? filterRecipeByInput.push(recipe):'')
-	//par description
-	recipes.forEach(recipe =>recipe.description.toLowerCase().includes(e.target.value.toLowerCase())? filterRecipeByInput.push(recipe):'')
-	//supression des doublons
-	let setFilterRecipeByInput = [...new Set(filterRecipeByInput)]
-
-	// génération des keywords sur les spans filtrés et filtre sur les recettes
-	const spansFilter = document.querySelectorAll('.list')
-	spansFilter.forEach(span => span.addEventListener('click', ()=> {
-		generateKeyword
-		console.log(e.target.getAttribute('class'))
-		//génération des recettes filtrées
-		container.innerHTML = ''
+// 	// génération des keywords sur les spans filtrés et filtre sur les recettes
+// 	const spansFilter = document.querySelectorAll('.list')
+// 	spansFilter.forEach(span => span.addEventListener('click', ()=> {
+		
+// 		console.log(e.target.getAttribute('class'))
+// 		//génération des recettes filtrées
+// 		container.innerHTML = ''
 	
-		setFilterRecipeByInput.forEach(recipe => {	
-			container.innerHTML += new Recipe(recipe).render()			
+// 		setFilterRecipeByInput.forEach(recipe => {	
+// 			container.innerHTML += new Recipe(recipe).render()			
 						
-		})
+// 		})
 			
-	
-	}))
+// 		generateKeyword()
+// 	}))
 	
 
-}))
+// }))
 
 
 
