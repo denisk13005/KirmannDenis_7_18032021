@@ -207,27 +207,29 @@ searchInput.addEventListener('input', (e) => {
 		}
 		let setFilterRecipe = [...new Set(filterRecipe)]
 		//génération des recettes filtrées
-		setFilterRecipe.forEach(recipe => {	
-			container.innerHTML += new Recipe(recipe).render()			
-			
-		})
+		for(const recipe of setFilterRecipe){
+			container.innerHTML += new Recipe(recipe).render()
+		}
+		
 
 
 		// tri des ingrédients
 		ingredientsContainer.innerHTML = ''
-
 		let ingredientsFilter = []
 		for(const recipe of filterRecipe){
 			for(const el of recipe.ingredients)
 				ingredientsFilter.push(el.ingredient)
 		}
-		let setIngredientsFilter = [...new Set(ingredientsFilter)]
-	
+		let setIngredientsFilter = [...new Set(ingredientsFilter)]	
 		for(const el of setIngredientsFilter){
 			console.log(el)
 			ingredientsContainer.innerHTML += `<span class="list list__ingredients">${el}</span>`
 
 		}
+		//tri des appareils		
+		let appliancesFilter = []
+		appliancesContainer.innerHTML=''
+
 	}
 
 
