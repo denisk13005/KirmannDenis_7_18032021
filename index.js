@@ -140,10 +140,16 @@ const generateKeyword = (e) => {
 			el.parentElement.remove()
 			//si plus de keyword sélectionnés et recherche < 2 on rafraichit les vignettes
 			if(divKeyword.children.length === 0 && userResearch.length <= 2){
+				container.innerHTML =''
 				recipes.forEach(
 					(element) => (container.innerHTML += new Recipe(element).render())
 				)
 				
+			}
+			//si on supprime tous les keywords les vignettes filtrées par le champ de recherche principal réaparaissent
+			if(divKeyword.children.length ===0&&userResearch.length>2){
+				container.innerHTML=''
+				setFilterRecipeRefrech.forEach(el=>container.innerHTML += new Recipe(el).render())
 			}
 		})
 		
@@ -168,10 +174,13 @@ recipes.forEach(
 
 //******************************************filtre par la barre de recherche */
 let userResearch
+let setFilterRecipeRefrech
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
+	console.log(setFilterRecipeRefrech)
+
 	userResearch= e.target.value.toLowerCase()
-	if(userResearch.length > 2 || userResearch.length === 0){
+	if(userResearch.length > 2 || userResearch.length === 0 ){
 		let filterRecipe = []
 		// recipes.filter(recipe => recipes.ingredients.some(el => el.includes(e.target.value)))
 		recipes.forEach(recipe=> recipe.ingredients.forEach(el=> (el.ingredient.toLowerCase().includes(userResearch))? filterRecipe.push(recipe): ''))
@@ -179,7 +188,7 @@ searchInput.addEventListener('input', (e) => {
 		recipes.forEach(recipe =>recipe.description.toLowerCase().includes(userResearch)? filterRecipe.push(recipe):'')
 		console.log(filterRecipe)
 		let setFilterRecipe = [...new Set(filterRecipe)]
-		
+		setFilterRecipeRefrech=setFilterRecipe
 		container.innerHTML = ''
 
 		// tri des ingrédients
