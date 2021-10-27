@@ -156,8 +156,9 @@ header {
   display: none;
   color: white;
   font-size: 18px;
+
   &__ing {
-    background: $color-ingredients;
+    background: blueviolet;
     &--visible {
       display: block;
     }
@@ -294,10 +295,8 @@ header {
   }
 }
 .contain {
-
   height: max-content;
 }
-
 
 //**************************partie fiche de recettes
 .container {
