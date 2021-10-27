@@ -296,16 +296,16 @@ inputs.forEach(input => input.addEventListener('input', (e)=>{
 	recipes.forEach(recipe =>recipe.description.toLowerCase().includes(e.target.value.toLowerCase())? filterRecipeByInput.push(recipe):'')
 	//supression des doublons
 	let setFilterRecipeByInput = [...new Set(filterRecipeByInput)]
+	
+	let spansFilterAdvanced = document.querySelectorAll('.list')
+	spansFilterAdvanced.forEach(el => el.addEventListener('click',generateKeyword))
+	
 	container.innerHTML = ''
 	
 	setFilterRecipeByInput.forEach(recipe => {	
 		container.innerHTML += new Recipe(recipe).render()			
 					
 	})
-	let spansFilterAdvanced = document.querySelectorAll('.list')
-	spansFilterAdvanced.forEach(el => el.addEventListener('click',generateKeyword))
-	
-
 }))
 
 
