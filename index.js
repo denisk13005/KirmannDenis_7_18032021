@@ -208,27 +208,42 @@ searchInput.addEventListener('input', (e) => {
 		let setFilterRecipe = [...new Set(filterRecipe)]
 		//génération des recettes filtrées
 		for(const recipe of setFilterRecipe){
+			console.log(recipe)
 			container.innerHTML += new Recipe(recipe).render()
 		}
-		
 
-
-		// tri des ingrédients
+		//maj des ingrédients appareils et ustensiles
 		ingredientsContainer.innerHTML = ''
+		appliancesContainer.innerHTML=''
+		ustensilesContainer.innerHTML=''
 		let ingredientsFilter = []
+		let appliancesFilter = []
+		let ustensilesFilter = []
 		for(const recipe of filterRecipe){
-			for(const el of recipe.ingredients)
+			for(const el of recipe.ingredients){
 				ingredientsFilter.push(el.ingredient)
+			}
+			appliancesFilter.push(recipe.appliance)
+			for(const el of recipe.ustensils){
+				ustensilesFilter.push(el)
+			}
+			
 		}
-		let setIngredientsFilter = [...new Set(ingredientsFilter)]	
+		let setIngredientsFilter = [...new Set(ingredientsFilter)]
+		let setAppliancesFilter = [...new Set(appliancesFilter)]	
+		let setUstensilesFilter = [...new Set(ustensilesFilter)]
+		console.log(setAppliancesFilter)
 		for(const el of setIngredientsFilter){
-			console.log(el)
 			ingredientsContainer.innerHTML += `<span class="list list__ingredients">${el}</span>`
 
 		}
-		//tri des appareils		
-		let appliancesFilter = []
-		appliancesContainer.innerHTML=''
+		for(const el of setAppliancesFilter){
+			appliancesContainer.innerHTML+= `<span class="list list__appliances">${el}</span>`
+		}
+		for(const el of setUstensilesFilter){
+			ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${el}</span>`
+		}
+
 
 	}
 
