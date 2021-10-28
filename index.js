@@ -302,10 +302,25 @@ for(const input of inputs){
 			}
 			let setIngredientsMAJ = [...new Set(ingredientsMAJ)]
 			for(const ingredient of setIngredientsMAJ){
-				ingredientsContainer.innerHTML = `<span class="list list__ingredients">${ingredient}</span>`
+				ingredientsContainer.innerHTML += `<span class="list list__ingredients">${ingredient}</span>`
 
 			}
 			console.log(setIngredientsMAJ)
+		}
+		//maj des appareils
+		else if(target.includes('app')){
+			appliancesContainer.innerHTML = ''
+			let appliancesMAJ = []
+			for(const appliance of appliances){
+				if(appliance.includes(value)){
+					appliancesMAJ.push(appliance)
+				}
+			}
+			let setAppliancesMAJ = [...new Set(appliancesMAJ)]
+			console.log(setAppliancesMAJ)
+			for(const appliance of setAppliancesMAJ){
+				appliancesContainer.innerHTML += `<span class="list list__appliances">${appliance}</span>`
+			}
 		}
 	})
 }
