@@ -305,7 +305,6 @@ for(const input of inputs){
 				ingredientsContainer.innerHTML += `<span class="list list__ingredients">${ingredient}</span>`
 
 			}
-			console.log(setIngredientsMAJ)
 		}
 		//maj des appareils
 		else if(target.includes('app')){
@@ -317,9 +316,22 @@ for(const input of inputs){
 				}
 			}
 			let setAppliancesMAJ = [...new Set(appliancesMAJ)]
-			console.log(setAppliancesMAJ)
 			for(const appliance of setAppliancesMAJ){
 				appliancesContainer.innerHTML += `<span class="list list__appliances">${appliance}</span>`
+			}
+		}
+		//maj des ustensiles
+		else{
+			ustensilesContainer.innerHTML = ''
+			let ustensilesMAJ = []
+			for(const ustensile of ustensiles){
+				if(ustensile.includes(value)){
+					ustensilesMAJ.push(ustensile)
+				}
+			}
+			let setUstensilesMAJ = [...new Set(ustensilesMAJ)]
+			for(const ustensile of setUstensilesMAJ){
+				ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${ustensile}</span>`
 			}
 		}
 	})
