@@ -345,20 +345,21 @@ for(const input of inputs){
 		let spansFilterAdvanced = document.querySelectorAll('.list')
 		console.log(spansFilterAdvanced)
 		for(const span of spansFilterAdvanced){
-			span.addEventListener('click',()=>{
+		//rendu des recettes par filtrage avancé
 
+			span.addEventListener('click',()=>{
 				container.innerHTML = ''
 				for(const recipe of setFilterRecipeByInput){
 					container.innerHTML += new Recipe(recipe).render()
 				}
-				generateKeyword
-
-			}
-				
+			}				
 			)
 		}
+		//génération du keyword
+		for(const span of spansFilterAdvanced){
+			span.addEventListener('click',generateKeyword)
+		}
 	
-		//rendu des recettes par filtrage avancé
 		
 		console.log(setFilterRecipeByInput)
 	})
