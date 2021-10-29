@@ -299,13 +299,14 @@ inputs.forEach(input => input.addEventListener('input', (e)=>{
 	
 	let spansFilterAdvanced = document.querySelectorAll('.list')
 	spansFilterAdvanced.forEach(el => el.addEventListener('click',generateKeyword))
-	
-	container.innerHTML = ''
-	
-	setFilterRecipeByInput.forEach(recipe => {	
-		container.innerHTML += new Recipe(recipe).render()			
-					
-	})
+	spansFilterAdvanced.forEach(el => el.addEventListener('click',()=>{
+		container.innerHTML = ''	
+		setFilterRecipeByInput.forEach(recipe => {	
+			container.innerHTML += new Recipe(recipe).render()			
+						
+		})
+	}))
+
 }))
 
 
