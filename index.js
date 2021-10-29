@@ -204,6 +204,7 @@ searchInput.addEventListener('input', (e) => {
 		container.innerHTML = ''		
 		filter(userResearch, filterRecipe)
 		let setFilterRecipe = [...new Set(filterRecipe)]
+		setFilterRecipeRefrech=setFilterRecipe
 		//génération des recettes filtrées
 		for(const recipe of setFilterRecipe){
 			container.innerHTML += new Recipe(recipe).render()
