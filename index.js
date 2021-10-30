@@ -280,6 +280,9 @@ searchInput.addEventListener('input', (e) => {
 
 			})
 		}
+		if(filterRecipe.length===0){
+			container.innerHTML = '<p class="noFound"> Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc. </p>'
+		}
 	}
 	// génération des keywords sur les span filtrés
 	const spansFilter = document.querySelectorAll('.list')

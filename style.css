@@ -138,7 +138,6 @@ main {
   height: -moz-max-content;
   height: max-content;
   margin: auto;
-  border: 1px solid blue;
   font-family: Lato;
 }
 
@@ -661,5 +660,14 @@ header img {
   -webkit-box-orient: vertical;
   display: -webkit-box;
   line-height: 14px;
+}
+
+.noFound {
+  width: 100%;
+  text-align: center;
+  color: #b95147;
+  font-size: 45px;
+  line-height: 2em;
+  padding-top: 50px;
 }
 /*# sourceMappingURL=style.css.map */
