@@ -157,7 +157,7 @@ header {
   font-size: 18px;
 
   &__ing {
-    background: blueviolet;
+    background: $color-ingredients;
     &--visible {
       display: block;
     }
