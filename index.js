@@ -308,6 +308,7 @@ for(const input of inputs){
 			for(const ingredient of setIngredientsMAJ){
 				ingredientsContainer.innerHTML += `<span class="list list__ingredients">${ingredient}</span>`
 
+
 			}
 		}
 		//maj des appareils
@@ -360,6 +361,10 @@ for(const input of inputs){
 			span.addEventListener('click',generateKeyword)
 		}	
 	})
+
+
+
+
 
 	
 }
