@@ -1,3 +1,8 @@
+/**
+ * @param {string} ingredients 
+ * @param {string} appliances
+ * @param {strinng} ustensiles
+ */
 export default class SearchBtns{
 	constructor(ingredients,appliances,ustensiles){
 		this.ingredients=ingredients

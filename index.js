@@ -54,9 +54,7 @@ const btns = new SearchBtns(
 	setUstensile
 ).render()
 main.innerHTML += btns
-const ingredientsContainer = document.querySelector('.ingredients__container')
-const appliancesContainer = document.querySelector('.appliances__container')
-const ustensilesContainer = document.querySelector('.ustensiles__container')
+
 //animation de la fleche
 document.querySelectorAll('.btn').forEach((el) =>
 	el.addEventListener('click', () => {
@@ -64,6 +62,9 @@ document.querySelectorAll('.btn').forEach((el) =>
 	})
 )
 //récupération des éléments du dom
+const ingredientsContainer = document.querySelector('.ingredients__container')
+const appliancesContainer = document.querySelector('.appliances__container')
+const ustensilesContainer = document.querySelector('.ustensiles__container')
 const btnIngredients = document.querySelector('.btn__ingredients')
 const btnAppliances = document.querySelector('.btn__appareil')
 const btnUstensiles = document.querySelector('.btn__ustensiles')
@@ -138,6 +139,13 @@ const generateKeyword = (e) => {
 	croix.forEach((el) =>{
 		el.addEventListener('click', () => {
 			el.parentElement.remove()
+			//si la recherche a été effectuée par le champ de recherche avancé et que le champ de recherche pricipal n'a pas été rempli
+			if(divKeyword.children.length ===0 && userResearch=== undefined){
+				container.innerHTML =''
+				recipes.forEach(
+					(element) => (container.innerHTML += new Recipe(element).render())
+				)
+			}
 			//si plus de keyword sélectionnés et recherche < 2 on rafraichit les vignettes
 			if(divKeyword.children.length === 0 && userResearch.length <= 2){
 				container.innerHTML =''
@@ -151,6 +159,7 @@ const generateKeyword = (e) => {
 				container.innerHTML=''
 				setFilterRecipeRefrech.forEach(el=>container.innerHTML += new Recipe(el).render())
 			}
+			
 		})
 		
 	}
@@ -340,7 +349,7 @@ for(const input of inputs){
 			}
 		}
 		//recettes filtrées par les champs de recherche avancés
-		//par ingrédients
+		
 		let filterRecipeByInput=[]	
 		filter(value,filterRecipeByInput)
 		let setFilterRecipeByInput = [...new Set(filterRecipeByInput)]
@@ -360,6 +369,15 @@ for(const input of inputs){
 		for(const span of spansFilterAdvanced){
 			span.addEventListener('click',generateKeyword)
 		}	
+		for(const span of spansFilterAdvanced){
+			span.addEventListener('click', ()=> {
+				filterRecipeByInput = []
+				console.log('click')
+				filter(e.target.innerHTML,filterRecipeByInput)
+			
+			})
+		}
+		console.log(filterRecipeByInput)
 	})
 
 
