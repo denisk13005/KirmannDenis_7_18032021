@@ -184,7 +184,7 @@ recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
 // ********************************fonction de filtre des recettes
-const filter = (input , tab)=>{
+const filter = (input , tab, recipes)=>{
 	for (const recipe of recipes) {
 		for(const ingredient of recipe.ingredients){
 			if(ingredient.ingredient.toLowerCase().includes(input)){
@@ -209,7 +209,7 @@ searchInput.addEventListener('input', (e) => {
 	if(userResearch.length > 2 || userResearch.length === 0 ){
 		let filterRecipe = []
 		container.innerHTML = ''		
-		filter(userResearch, filterRecipe)
+		filter(userResearch, filterRecipe, recipes)
 		let setFilterRecipe = [...new Set(filterRecipe)]
 		setFilterRecipeRefrech=setFilterRecipe
 		//génération des recettes filtrées
@@ -351,7 +351,7 @@ for(const input of inputs){
 		//recettes filtrées par les champs de recherche avancés
 		
 		let filterRecipeByInput=[]	
-		filter(value,filterRecipeByInput)
+		filter(value,filterRecipeByInput, recipes)
 		let setFilterRecipeByInput = [...new Set(filterRecipeByInput)]
 		let spansFilterAdvanced = document.querySelectorAll('.list')
 		for(const span of spansFilterAdvanced){
@@ -373,7 +373,7 @@ for(const input of inputs){
 			span.addEventListener('click', ()=> {
 				filterRecipeByInput = []
 				console.log('click')
-				filter(e.target.innerHTML,filterRecipeByInput)
+				filter(e.target.innerHTML,filterRecipeByInput,recipes)
 			
 			})
 		}
