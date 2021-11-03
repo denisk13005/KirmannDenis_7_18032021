@@ -166,10 +166,11 @@ spans.forEach((span) =>
 		container.innerHTML=''
 		generateKeyword(e)
 		filter(e.target.innerHTML,tabSpans,recipes)
-		for(const recipe of tabSpans){
+		let setTabSpans = [...new Set(tabSpans)]
+		for(const recipe of setTabSpans){
 			container.innerHTML += new Recipe(recipe).render()
 		}
-		console.log(tabSpans)
+		console.log(setTabSpans)
 
 
 	}
@@ -201,7 +202,20 @@ const filter = (input , tab, recipes)=>{
 		}			
 	}
 }
-//******************************************filtre par la barre de recherche principale*/
+//***********************************fonction de filtre des ing, app et ust ********/
+const filterIngAppUst = (ing,app,ust,recip) =>{
+	for(const recipe of recip){
+		for(const el of recipe.ingredients){
+			ing.push(el.ingredient)
+		}
+		app.push(recipe.appliance)
+		for(const el of recipe.ustensils){
+			ust.push(el)
+		}		
+	}
+}
+
+//******************************************filtre par la barre de recherche principale**************/
 let userResearch
 let setFilterRecipeRefrech
 const searchInput = document.getElementById('search')
@@ -225,16 +239,7 @@ searchInput.addEventListener('input', (e) => {
 		let ingredientsFilter = []
 		let appliancesFilter = []
 		let ustensilesFilter = []
-		for(const recipe of filterRecipe){
-			for(const el of recipe.ingredients){
-				ingredientsFilter.push(el.ingredient)
-			}
-			appliancesFilter.push(recipe.appliance)
-			for(const el of recipe.ustensils){
-				ustensilesFilter.push(el)
-			}
-			
-		}
+		filterIngAppUst(ingredientsFilter,appliancesFilter,ustensilesFilter,filterRecipe)
 		let setIngredientsFilter = [...new Set(ingredientsFilter)]
 		let setAppliancesFilter = [...new Set(appliancesFilter)]	
 		let setUstensilesFilter = [...new Set(ustensilesFilter)]
