@@ -172,7 +172,7 @@ spans.forEach((span) =>
 		}
 		console.log(setTabSpans)
 
-
+		filterIngAppUst()
 	}
 	))
 
@@ -214,7 +214,18 @@ const filterIngAppUst = (ing,app,ust,recip) =>{
 		}		
 	}
 }
+const generateIngAppUstFilter = (setIng,setApp,setUst) =>{
+	for(const el of setIng){
+		ingredientsContainer.innerHTML += `<span class="list list__ingredients">${el}</span>`
 
+	}
+	for(const el of setApp){
+		appliancesContainer.innerHTML+= `<span class="list list__appliances">${el}</span>`
+	}
+	for(const el of setUst){
+		ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${el}</span>`
+	}
+}
 //******************************************filtre par la barre de recherche principale**************/
 let userResearch
 let setFilterRecipeRefrech
@@ -243,16 +254,7 @@ searchInput.addEventListener('input', (e) => {
 		let setIngredientsFilter = [...new Set(ingredientsFilter)]
 		let setAppliancesFilter = [...new Set(appliancesFilter)]	
 		let setUstensilesFilter = [...new Set(ustensilesFilter)]
-		for(const el of setIngredientsFilter){
-			ingredientsContainer.innerHTML += `<span class="list list__ingredients">${el}</span>`
-
-		}
-		for(const el of setAppliancesFilter){
-			appliancesContainer.innerHTML+= `<span class="list list__appliances">${el}</span>`
-		}
-		for(const el of setUstensilesFilter){
-			ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${el}</span>`
-		}
+		generateIngAppUstFilter(setIngredientsFilter,setAppliancesFilter,setUstensilesFilter)
 		//****************************************génération des keywords
 		let spans = document.querySelectorAll('.list')
 		let filterRecipeAdvanced = []
