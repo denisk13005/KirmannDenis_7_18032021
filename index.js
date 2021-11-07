@@ -5,6 +5,7 @@ import Keywords from './js/keyWords.js'
 import SearchBtns from './js/searchBtns.js'
 import Recipe from './js/recipe.js'
 import { filter } from './js/filter.js'
+import { filterIngAppUst } from './js/filterIngAppUst.js'
 // recupération des ingrédients
 const ingredients = []
 recipes.forEach((element) => {
@@ -188,30 +189,7 @@ recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
 
-//***********************************fonction de filtre des ing, app et ust ********/
-const filterIngAppUst = (ing,app,ust,recip) =>{
-	for(const recipe of recip){
-		for(const el of recipe.ingredients){
-			ing.push(el.ingredient)
-		}
-		app.push(recipe.appliance)
-		for(const el of recipe.ustensils){
-			ust.push(el)
-		}		
-	}
-}
-const generateIngAppUstFilter = (setIng,setApp,setUst) =>{
-	for(const el of setIng){
-		ingredientsContainer.innerHTML += `<span class="list list__ingredients">${el}</span>`
 
-	}
-	for(const el of setApp){
-		appliancesContainer.innerHTML+= `<span class="list list__appliances">${el}</span>`
-	}
-	for(const el of setUst){
-		ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${el}</span>`
-	}
-}
 //******************************************filtre par la barre de recherche principale**************/
 let userResearch
 let setFilterRecipeRefrech
@@ -230,17 +208,9 @@ searchInput.addEventListener('input', (e) => {
 			container.innerHTML += new Recipe(recipe).render()
 		}
 		//maj des ingrédients appareils et ustensiles
-		ingredientsContainer.innerHTML = ''
-		appliancesContainer.innerHTML= ''
-		ustensilesContainer.innerHTML= ''
-		let ingredientsFilter = []
-		let appliancesFilter = []
-		let ustensilesFilter = []
-		filterIngAppUst(ingredientsFilter,appliancesFilter,ustensilesFilter,filterRecipe)
-		let setIngredientsFilter = [...new Set(ingredientsFilter)]
-		let setAppliancesFilter = [...new Set(appliancesFilter)]	
-		let setUstensilesFilter = [...new Set(ustensilesFilter)]
-		generateIngAppUstFilter(setIngredientsFilter,setAppliancesFilter,setUstensilesFilter)
+
+		filterIngAppUst(filterRecipe,ingredientsContainer,appliancesContainer,ustensilesContainer)
+		
 		//****************************************génération des keywords
 		let spans = document.querySelectorAll('.list')
 		let filterRecipeAdvanced = []
