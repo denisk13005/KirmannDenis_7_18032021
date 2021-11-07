@@ -4,6 +4,7 @@ import Search from './js/search.js'
 import Keywords from './js/keyWords.js'
 import SearchBtns from './js/searchBtns.js'
 import Recipe from './js/recipe.js'
+import { filter } from './js/filter.js'
 // recupération des ingrédients
 const ingredients = []
 recipes.forEach((element) => {
@@ -186,22 +187,7 @@ main.appendChild(container)
 recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
-// ********************************fonction de filtre des recettes
-const filter = (input , tab, recipes)=>{
-	for (const recipe of recipes) {
-		for(const ingredient of recipe.ingredients){
-			if(ingredient.ingredient.toLowerCase().includes(input)){
-				tab.push(recipe)
-			}
-		}	
-		if(recipe.name.toLowerCase().includes(input)){
-			tab.push(recipe)
-		}
-		if(recipe.description.toLowerCase().includes(input)){
-			tab.push(recipe)
-		}			
-	}
-}
+
 //***********************************fonction de filtre des ing, app et ust ********/
 const filterIngAppUst = (ing,app,ust,recip) =>{
 	for(const recipe of recip){
