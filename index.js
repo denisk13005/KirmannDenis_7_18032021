@@ -154,6 +154,7 @@ const generateKeyword = (e) => {
 				setFilterRecipeRefrech2.forEach(el => container.innerHTML+= new Recipe(el).render())
 				
 			}		
+			
 			//si on supprime tous les keywords, les vignettes filtrées par le champ de recherche principal réaparaissent
 			if(divKeyword.children.length ===0 && userResearch.length>2){
 				container.innerHTML=''
@@ -270,12 +271,14 @@ searchInput.addEventListener('input', (e) => {
 						for(const el of recipe.ustensils){
 							if(el.includes(value)){
 								filterRecipeAdvanced.push(recipe)
+								console.log(recipe)
 							}
 						}
 					}
 				}
 				let setFilterRecipeAdvanced = [...new Set(filterRecipeAdvanced)]
 				setFilterRecipeRefrech2 = setFilterRecipeAdvanced
+				setFilterRecipeAdvanced.forEach(el => console.log(el.ingredients))
 				console.log(setFilterRecipeRefrech2)
 				//rendu des recettes filtrées avec recherche avancées
 				for(const recipe of setFilterRecipeAdvanced){
@@ -283,13 +286,13 @@ searchInput.addEventListener('input', (e) => {
 				}
 				
 				generateKeyword(e)
-				filterIngAppUst(filterRecipeAdvanced,ingredientsContainer,appliancesContainer,ustensilesContainer)
+				filterIngAppUst(setFilterRecipeAdvanced,ingredientsContainer,appliancesContainer,ustensilesContainer)
 				console.log(divKeyword.children.length)
 				if(divKeyword.children.length === 1){
-					let spans3 = document.querySelectorAll('.list')
-					for(const span3 of spans3){
-						console.log(span3)
-						span3.addEventListener('click', (e)=>{
+					let tags2 = document.querySelectorAll('.list')
+					for(const tag2 of tags2){
+						console.log()
+						tag2.addEventListener('click', (e)=>{
 							console.log('click1')
 							let filterRecipes3 = []
 							container.innerHTML = ''
