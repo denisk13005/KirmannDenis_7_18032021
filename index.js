@@ -147,11 +147,33 @@ const generateKeyword = (e) => {
 				recipes.forEach(
 					(element) => (container.innerHTML += new Recipe(element).render())
 				)
-			}			
-			//si on supprime tous les keywords les vignettes filtrées par le champ de recherche principal réaparaissent
+			}	
+			if(divKeyword.children.length === 1){
+				container.innerHTML = ''
+				setFilterRecipeRefrech2.forEach(el => container.innerHTML+= new Recipe(el).render())
+				
+			}		
+			//si on supprime tous les keywords, les vignettes filtrées par le champ de recherche principal réaparaissent
 			if(divKeyword.children.length ===0 && userResearch.length>2){
+				let filterRecipes2=[]
+				console.log('ok')
 				container.innerHTML=''
 				setFilterRecipeRefrech.forEach(el=>container.innerHTML += new Recipe(el).render())
+				filterIngAppUst(setFilterRecipeRefrech,ingredientsContainer,appliancesContainer,ustensilesContainer)
+				// génération des keywords sur les span filtrés
+				const spansFilter = document.querySelectorAll('.list')
+				spansFilter.forEach(span => span.addEventListener('click', (e)=>{
+					container.innerHTML=''
+					let tagValue = e.target.innerHTML.toLowerCase()
+					filter(tagValue,filterRecipes2,setFilterRecipeRefrech)
+					console.log(setFilterRecipeRefrech)
+					console.log(filterRecipes2)
+					generateKeyword(e)
+					filterIngAppUst(filterRecipeAdvanced,ingredientsContainer,appliancesContainer,ustensilesContainer)
+					filterRecipes2.forEach(el=>container.innerHTML += new Recipe(el).render())
+					console.log(e.target.innerHTML)
+				}))
+				
 			}
 			
 		})
@@ -161,22 +183,22 @@ const generateKeyword = (e) => {
 
 	)
 }
-let tabSpans=[]
-spans.forEach((span) =>
-	span.addEventListener('click',(e)=>{
-		tabSpans=[]
-		container.innerHTML=''
-		generateKeyword(e)
-		filter(e.target.innerHTML,tabSpans,recipes)
-		let setTabSpans = [...new Set(tabSpans)]
-		for(const recipe of setTabSpans){
-			container.innerHTML += new Recipe(recipe).render()
-		}
-		console.log(setTabSpans)
+// let tabSpans=[]
+// spans.forEach((span) =>
+// 	span.addEventListener('click',(e)=>{
+// 		tabSpans=[]
+// 		container.innerHTML=''
+// 		generateKeyword(e)
+// 		filter(e.target.innerHTML,tabSpans,recipes)
+// 		let setTabSpans = [...new Set(tabSpans)]
+// 		for(const recipe of setTabSpans){
+// 			container.innerHTML += new Recipe(recipe).render()
+// 		}
+// 		console.log(setTabSpans)
 
-		filterIngAppUst()
-	}
-	))
+// 		filterIngAppUst()
+// 	}
+// 	))
 
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
@@ -191,8 +213,10 @@ recipes.forEach(
 
 
 //******************************************filtre par la barre de recherche principale**************/
-let userResearch
-let setFilterRecipeRefrech
+let userResearch // entrée utilisateur dans search
+let setFilterRecipeRefrech // sauvegarde des résultats de la recherche 1
+let setFilterRecipeRefrech2
+let filterRecipeAdvanced = [] // tableau des recettes après click sur un tag
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
 	userResearch= e.target.value.toLowerCase()
@@ -203,6 +227,7 @@ searchInput.addEventListener('input', (e) => {
 		filter(userResearch, filterRecipe, recipes)
 		let setFilterRecipe = [...new Set(filterRecipe)]
 		setFilterRecipeRefrech=setFilterRecipe
+		console.log(setFilterRecipe)
 		//génération des recettes filtrées
 		for(const recipe of setFilterRecipe){
 			container.innerHTML += new Recipe(recipe).render()
@@ -213,7 +238,6 @@ searchInput.addEventListener('input', (e) => {
 		
 		//****************************************génération des keywords
 		let spans = document.querySelectorAll('.list')
-		let filterRecipeAdvanced = []
 
 		for(const span of spans){
 			span.addEventListener('click', (e)=>{
@@ -247,6 +271,8 @@ searchInput.addEventListener('input', (e) => {
 					}
 				}
 				let setFilterRecipeAdvanced = [...new Set(filterRecipeAdvanced)]
+				setFilterRecipeRefrech2 = setFilterRecipeAdvanced
+				console.log(setFilterRecipeRefrech2)
 				//rendu des recettes filtrées avec recherche avancées
 				for(const recipe of setFilterRecipeAdvanced){
 					container.innerHTML += new Recipe(recipe).render()
@@ -260,7 +286,11 @@ searchInput.addEventListener('input', (e) => {
 	}
 	// génération des keywords sur les span filtrés
 	const spansFilter = document.querySelectorAll('.list')
-	spansFilter.forEach(span => span.addEventListener('click', generateKeyword))
+	spansFilter.forEach(span => span.addEventListener('click', (e)=>{
+		generateKeyword(e)
+		filterIngAppUst(filterRecipeAdvanced,ingredientsContainer,appliancesContainer,ustensilesContainer)
+	}
+	))
 
 
 })

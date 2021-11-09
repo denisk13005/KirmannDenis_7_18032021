@@ -1,3 +1,4 @@
+import { filter } from './filter.js'
 //***********************************fonction de filtre des ing, app et ust ********/
 /**
  * 
@@ -35,5 +36,6 @@ export const filterIngAppUst = (arrayOfRecipes,ingredientsContainer,appliancesCo
 	for(const el of setUstensilesFilter){
 		ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${el}</span>`
 	}
+	
 
 }
