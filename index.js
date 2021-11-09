@@ -230,7 +230,6 @@ searchInput.addEventListener('input', (e) => {
 		filter(userResearch, filterRecipe, recipes)
 		let setFilterRecipe = [...new Set(filterRecipe)]
 		setFilterRecipeSaved=setFilterRecipe
-		console.log(setFilterRecipe)
 		//génération des recettes filtrées
 		for(const recipe of setFilterRecipe){
 			container.innerHTML += new Recipe(recipe).render()
@@ -240,10 +239,10 @@ searchInput.addEventListener('input', (e) => {
 		filterIngAppUst(filterRecipe,ingredientsContainer,appliancesContainer,ustensilesContainer)
 		
 		//****************************************génération des keywords
-		let spans = document.querySelectorAll('.list')
+		let tags = document.querySelectorAll('.list')
 
-		for(const span of spans){
-			span.addEventListener('click', (e)=>{
+		for(const tag of tags){
+			tag.addEventListener('click', (e)=>{
 
 				console.log('click')
 				console.log(divKeyword)

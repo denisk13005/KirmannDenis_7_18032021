@@ -23,9 +23,9 @@ export const filterIngAppUst = (arrayOfRecipes,ingredientsContainer,appliancesCo
 			ustensilesFilter.push(el)
 		}		
 	}
-	let setIngredientsFilter = [...new Set(ingredientsFilter)]
-	let setAppliancesFilter = [...new Set(appliancesFilter)]	
-	let setUstensilesFilter = [...new Set(ustensilesFilter)]
+	let setIngredientsFilter = [...new Set(ingredientsFilter.sort())]
+	let setAppliancesFilter = [...new Set(appliancesFilter.sort())]	
+	let setUstensilesFilter = [...new Set(ustensilesFilter.sort())]
 	for(const el of setIngredientsFilter){
 		ingredientsContainer.innerHTML += `<span class="list list__ingredients">${el}</span>`
 
