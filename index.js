@@ -151,21 +151,21 @@ const generateKeyword = (e) => {
 			}	
 			if(divKeyword.children.length === 1){
 				container.innerHTML = ''
-				setFilterRecipes2.forEach(el => container.innerHTML+= new Recipe(el).render())
+				setFilterRecipeRefrech2.forEach(el => container.innerHTML+= new Recipe(el).render())
 				
 			}		
 			//si on supprime tous les keywords, les vignettes filtrées par le champ de recherche principal réaparaissent
 			if(divKeyword.children.length ===0 && userResearch.length>2){
 				container.innerHTML=''
-				setFilterRecipeRefrech.forEach(el=>container.innerHTML += new Recipe(el).render())
-				filterIngAppUst(setFilterRecipeRefrech,ingredientsContainer,appliancesContainer,ustensilesContainer)
+				setFilterRecipeSaved.forEach(el=>container.innerHTML += new Recipe(el).render())
+				filterIngAppUst(setFilterRecipeSaved,ingredientsContainer,appliancesContainer,ustensilesContainer)
 				// génération des keywords sur les span filtrés
 				const spansFilter = document.querySelectorAll('.list')
 				spansFilter.forEach(span => span.addEventListener('click', (e)=>{
 					let filterRecipes2 = []
 					container.innerHTML=''
 					let tagValue = e.target.innerHTML.toLowerCase()
-					filter(tagValue,filterRecipes2,setFilterRecipeRefrech)
+					filter(tagValue,filterRecipes2,setFilterRecipeSaved)
 					setFilterRecipes2 = [...new Set(filterRecipes2)]				
 					generateKeyword(e)
 					filterIngAppUst(filterRecipeAdvanced,ingredientsContainer,appliancesContainer,ustensilesContainer)
@@ -212,19 +212,24 @@ recipes.forEach(
 
 //******************************************filtre par la barre de recherche principale**************/
 let userResearch // entrée utilisateur dans search
-let setFilterRecipeRefrech // sauvegarde des résultats de la recherche 1
+let filterRecipe = [] // recettes filtrées par la barre de recherche
+let setFilterRecipeSaved // sauvegarde des résultats de la recherche 1
 let setFilterRecipeRefrech2
 let filterRecipeAdvanced = [] // tableau des recettes après click sur un tag
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
 	userResearch= e.target.value.toLowerCase()
+	if(userResearch.length===0){
+		recipes.forEach(
+			(element) => (container.innerHTML += new Recipe(element).render())
+		)
+	}
 	//tri des recettes par ing , app ou ust
-	if(userResearch.length > 2 || userResearch.length === 0 ){
-		let filterRecipe = []
+	if(userResearch.length > 2  ){
 		container.innerHTML = ''		
 		filter(userResearch, filterRecipe, recipes)
 		let setFilterRecipe = [...new Set(filterRecipe)]
-		setFilterRecipeRefrech=setFilterRecipe
+		setFilterRecipeSaved=setFilterRecipe
 		console.log(setFilterRecipe)
 		//génération des recettes filtrées
 		for(const recipe of setFilterRecipe){
