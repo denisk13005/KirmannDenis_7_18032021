@@ -151,8 +151,18 @@ const generateKeyword = (e) => {
 			}	
 			if(divKeyword.children.length === 1){
 				container.innerHTML = ''
-				setFilterRecipeRefrech2.forEach(el => container.innerHTML+= new Recipe(el).render())
-				
+				setFilterRecipesSaved2.forEach(el => container.innerHTML+= new Recipe(el).render())
+				// const tagsFilter = document.querySelectorAll('.list')
+				// // tagsFilter.forEach(tag => tag.addEventListener('click', (e)=>{
+				// // 	let filterRecipes2 = []
+				// // 	container.innerHTML=''
+				// // 	let tagValue = e.target.innerHTML.toLowerCase()
+				// // 	filter(tagValue,filterRecipes2,setFilterRecipeSaved)
+				// // 	setFilterRecipes2 = [...new Set(filterRecipes2)]				
+				// // 	generateKeyword(e)
+				// // 	filterIngAppUst(filterRecipeAdvanced,ingredientsContainer,appliancesContainer,ustensilesContainer)
+				// // 	setFilterRecipes2.forEach(el=>container.innerHTML += new Recipe(el).render())				
+				// // }))
 			}		
 			
 			//si on supprime tous les keywords, les vignettes filtrées par le champ de recherche principal réaparaissent
@@ -169,7 +179,7 @@ const generateKeyword = (e) => {
 					filter(tagValue,filterRecipes2,setFilterRecipeSaved)
 					setFilterRecipes2 = [...new Set(filterRecipes2)]				
 					generateKeyword(e)
-					filterIngAppUst(filterRecipeAdvanced,ingredientsContainer,appliancesContainer,ustensilesContainer)
+					filterIngAppUst(setFilterRecipesSaved2,ingredientsContainer,appliancesContainer,ustensilesContainer)
 					setFilterRecipes2.forEach(el=>container.innerHTML += new Recipe(el).render())				
 				}))
 				
@@ -213,10 +223,11 @@ recipes.forEach(
 
 //******************************************filtre par la barre de recherche principale**************/
 let userResearch // entrée utilisateur dans search
-let filterRecipe = [] // recettes filtrées par la barre de recherche
-let setFilterRecipeSaved // sauvegarde des résultats de la recherche 1
-let setFilterRecipeRefrech2
-let filterRecipeAdvanced = [] // tableau des recettes après click sur un tag
+//entrée utilisateur
+let setFilterRecipeSaved // sauvegarde des résultats de la recherche 1 débarrassé des doublons
+//choix d'un tag
+let setFilterRecipesSaved2 // 
+
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
 	userResearch= e.target.value.toLowerCase()
@@ -227,6 +238,7 @@ searchInput.addEventListener('input', (e) => {
 	}
 	//tri des recettes par ing , app ou ust
 	if(userResearch.length > 2  ){
+		let filterRecipe = [] // recettes filtrées par la barre de recherche
 		container.innerHTML = ''		
 		filter(userResearch, filterRecipe, recipes)
 		let setFilterRecipe = [...new Set(filterRecipe)]
@@ -244,7 +256,7 @@ searchInput.addEventListener('input', (e) => {
 
 		for(const tag of tags){
 			tag.addEventListener('click', (e)=>{
-
+				let filterRecipeAdvanced = [] // tableau des recettes après click sur un tag
 				console.log('click')
 				console.log(divKeyword)
 				let value = e.target.innerHTML // récupére le contenu textuel du span
@@ -277,9 +289,9 @@ searchInput.addEventListener('input', (e) => {
 					}
 				}
 				let setFilterRecipeAdvanced = [...new Set(filterRecipeAdvanced)]
-				setFilterRecipeRefrech2 = setFilterRecipeAdvanced
+				setFilterRecipesSaved2 = setFilterRecipeAdvanced
 				setFilterRecipeAdvanced.forEach(el => console.log(el.ingredients))
-				console.log(setFilterRecipeRefrech2)
+				console.log(setFilterRecipesSaved2)
 				//rendu des recettes filtrées avec recherche avancées
 				for(const recipe of setFilterRecipeAdvanced){
 					container.innerHTML += new Recipe(recipe).render()
@@ -298,10 +310,10 @@ searchInput.addEventListener('input', (e) => {
 							container.innerHTML = ''
 							let tagValue= e.target.innerHTML.toLowerCase()
 							console.log(tagValue)
-							filter(tagValue,filterRecipes3,setFilterRecipeRefrech2)
-							console.log(setFilterRecipeRefrech2)
+							filter(tagValue,filterRecipes3,setFilterRecipesSaved2)
+							console.log(setFilterRecipesSaved2)
 							setFilterRecipes3 = [...new Set(filterRecipes3)]
-							filterIngAppUst(setFilterRecipeRefrech2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+							filterIngAppUst(setFilterRecipesSaved2,ingredientsContainer,appliancesContainer,ustensilesContainer)
 							generateKeyword(e)
 							for(const recipe of setFilterRecipes3){
 								container.innerHTML += new Recipe(recipe).render()
