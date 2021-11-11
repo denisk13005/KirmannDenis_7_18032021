@@ -131,9 +131,11 @@ let setFilterRecipes3 // recettes testantes au 2eme click sur un tag
 const generateKeyword = (e) => {
 	if (e.target.getAttribute('class').includes('ingredients')) {
 		color = 'blue'
-	} else if (e.target.getAttribute('class').includes('appliances')) {
+	}
+	else if (e.target.getAttribute('class').includes('appliances')) {
 		color = 'green'
-	} else {
+	} 
+	else if(e.target.getAttribute('class').includes('ustensiles')){
 		color = 'red'
 	}
 	divKeyword.innerHTML += new Keywords(e.target.innerHTML, color).render()
