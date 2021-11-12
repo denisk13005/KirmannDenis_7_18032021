@@ -153,18 +153,18 @@ const generateKeyword = (e) => {
 			}	
 			if(divKeyword.children.length === 1){
 				container.innerHTML = ''
-				setFilterRecipesSaved2.forEach(el => container.innerHTML+= new Recipe(el).render())
-				// const tagsFilter = document.querySelectorAll('.list')
-				// // tagsFilter.forEach(tag => tag.addEventListener('click', (e)=>{
-				// // 	let filterRecipes2 = []
-				// // 	container.innerHTML=''
-				// // 	let tagValue = e.target.innerHTML.toLowerCase()
-				// // 	filter(tagValue,filterRecipes2,setFilterRecipeSaved)
-				// // 	setFilterRecipes2 = [...new Set(filterRecipes2)]				
-				// // 	generateKeyword(e)
-				// // 	filterIngAppUst(filterRecipeByTag,ingredientsContainer,appliancesContainer,ustensilesContainer)
-				// // 	setFilterRecipes2.forEach(el=>container.innerHTML += new Recipe(el).render())				
-				// // }))
+				setFilterRecipes2.forEach(el => container.innerHTML+= new Recipe(el).render())
+				const tagsFilter = document.querySelectorAll('.list')
+				tagsFilter.forEach(tag => tag.addEventListener('click', (e)=>{
+					let filterRecipes3 = []
+					container.innerHTML=''
+					let tagValue = e.target.innerHTML.toLowerCase()
+					filter(tagValue,filterRecipes3,setFilterRecipes2)
+					setFilterRecipes3 = [...new Set(filterRecipes3)]				
+					generateKeyword(e)
+					filterIngAppUst(setFilterRecipes3,ingredientsContainer,appliancesContainer,ustensilesContainer)
+					setFilterRecipes2.forEach(el=>container.innerHTML += new Recipe(el).render())				
+				}))
 			}		
 			
 			//si on supprime tous les keywords, les vignettes filtrées par le champ de recherche principal réaparaissent
@@ -181,7 +181,7 @@ const generateKeyword = (e) => {
 					filter(tagValue,filterRecipes2,setFilterRecipe)
 					setFilterRecipes2 = [...new Set(filterRecipes2)]				
 					generateKeyword(e)
-					filterIngAppUst(setFilterRecipesSaved2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+					filterIngAppUst(setFilterRecipes2,ingredientsContainer,appliancesContainer,ustensilesContainer)
 					setFilterRecipes2.forEach(el=>container.innerHTML += new Recipe(el).render())				
 				}))
 				
@@ -228,7 +228,6 @@ let userResearch // entrée utilisateur dans search
 //entrée utilisateur
 let setFilterRecipe // résultats de la recherche par barre de recherche débarrassé des doublons
 //choix d'un tag
-let setFilterRecipesSaved2 // 
 
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
@@ -289,7 +288,7 @@ searchInput.addEventListener('input', (e) => {
 					}
 				}
 				let setfilterRecipeByTag = [...new Set(filterRecipeByTag)]
-				setFilterRecipesSaved2 = setfilterRecipeByTag
+				setFilterRecipes2 = setfilterRecipeByTag
 	
 				//rendu des recettes filtrées avec recherche avancées
 				for(const recipe of setfilterRecipeByTag){
@@ -307,10 +306,10 @@ searchInput.addEventListener('input', (e) => {
 							container.innerHTML = ''
 							let tagValue= e.target.innerHTML.toLowerCase()
 							console.log(tagValue)
-							filter(tagValue,filterRecipes3,setFilterRecipesSaved2)
-							console.log(setFilterRecipesSaved2)
+							filter(tagValue,filterRecipes3,setFilterRecipes2)
+							console.log(setFilterRecipes2)
 							setFilterRecipes3 = [...new Set(filterRecipes3)]
-							filterIngAppUst(setFilterRecipesSaved2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+							filterIngAppUst(setFilterRecipes2,ingredientsContainer,appliancesContainer,ustensilesContainer)
 							generateKeyword(e)
 							for(const recipe of setFilterRecipes3){
 								container.innerHTML += new Recipe(recipe).render()

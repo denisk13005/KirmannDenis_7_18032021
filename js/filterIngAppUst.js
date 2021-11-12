@@ -1,4 +1,3 @@
-import { filter } from './filter.js'
 //***********************************fonction de filtre des ing, app et ust ********/
 /**
  * 
