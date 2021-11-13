@@ -170,19 +170,24 @@ const generateKeyword = (e) => {
 			
 			//si on supprime tous les keywords, les vignettes filtrées par le champ de recherche principal réaparaissent
 			if(divKeyword.children.length ===0 && userResearch.length>2){
+				//on réaffiche les recettes filtrées par la barre de recherche
 				container.innerHTML=''
-				setFilterRecipeBySearchBar.forEach(el=>container.innerHTML += new Recipe(el).render())
-				filterIngAppUst(setFilterRecipeBySearchBar,ingredientsContainer,appliancesContainer,ustensilesContainer)
-				// génération des keywords sur les span filtrés
-				const spansFilter = document.querySelectorAll('.list')
-				spansFilter.forEach(span => span.addEventListener('click', (e)=>{
-					let setFilterRecipeByClickOnTagAfterRefresh=[]
+				for(const el of setFilterRecipeBySearchBar){
+					container.innerHTML += new Recipe(el).render()
+				}
+				//on remet à jour les ing ...
+				filterIngAppUst(setFilterRecipeBySearchBar,ingredientsContainer,appliancesContainer,ustensilesContainer)/// on recrée un eventListener sur les tags			
+				const tagsRefresh = document.querySelectorAll('.list')
+				tagsRefresh.forEach(tag => tag.addEventListener('click', (e)=>{
+					//on relance l'affinage de la recherche par tag
+					let setFilterRecipeByClickOnTagAfterRefresh=[] 
 					filterByTag(e,setFilterRecipeBySearchBar,setFilterRecipeByClickOnTagAfterRefresh,container)
 					for(const recipe of setFilterRecipeByClickOnTagAfterRefresh){
 						container.innerHTML += new Recipe(recipe).render()
 					}
 					generateKeyword(e)
 					filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh,ingredientsContainer,appliancesContainer,ustensilesContainer)
+					
 							
 				}))
 				
