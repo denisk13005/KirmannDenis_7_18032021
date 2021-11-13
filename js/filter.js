@@ -1,4 +1,3 @@
-import recipes from './recipes.js'
 // ********************************fonction de filtre des recettes
 /**
  * 
