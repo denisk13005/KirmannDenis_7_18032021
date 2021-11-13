@@ -178,19 +178,37 @@ const generateKeyword = (e) => {
 				//on remet à jour les ing ...
 				filterIngAppUst(setFilterRecipeBySearchBar,ingredientsContainer,appliancesContainer,ustensilesContainer)/// on recrée un eventListener sur les tags			
 				const tagsRefresh = document.querySelectorAll('.list')
-				tagsRefresh.forEach(tag => tag.addEventListener('click', (e)=>{
-					//on relance l'affinage de la recherche par tag
-					let setFilterRecipeByClickOnTagAfterRefresh=[] 
-					filterByTag(e,setFilterRecipeBySearchBar,setFilterRecipeByClickOnTagAfterRefresh,container)
-					for(const recipe of setFilterRecipeByClickOnTagAfterRefresh){
-						container.innerHTML += new Recipe(recipe).render()
-					}
-					generateKeyword(e)
-					filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh,ingredientsContainer,appliancesContainer,ustensilesContainer)
-					
-							
-				}))
-				
+				for(const tag of tagsRefresh){
+					tag.addEventListener('click', (e)=> {
+						//on relance l'affinage de la recherche par tag
+						let setFilterRecipeByClickOnTagAfterRefresh=[] 
+						filterByTag(e,setFilterRecipeBySearchBar,setFilterRecipeByClickOnTagAfterRefresh,container)
+						for(const recipe of setFilterRecipeByClickOnTagAfterRefresh){
+							container.innerHTML += new Recipe(recipe).render()
+						}
+						generateKeyword(e)
+						filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh,ingredientsContainer,appliancesContainer,ustensilesContainer)
+						//on relance l'affinage de la recherche pour 2 tags
+						const tagsRefresh = document.querySelectorAll('.list')
+						for(const tag of tagsRefresh){
+							tag.addEventListener('click', (e)=> {
+								//on relance l'affinage de la recherche par tag
+								let setFilterRecipeByClickOnTagAfterRefresh2=[] 
+								filterByTag(e,setFilterRecipeByClickOnTagAfterRefresh,setFilterRecipeByClickOnTagAfterRefresh2,container)
+								for(const recipe of setFilterRecipeByClickOnTagAfterRefresh2){
+									container.innerHTML += new Recipe(recipe).render()
+								}
+								generateKeyword(e)
+								filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+		
+		
+							})
+						}
+
+
+					})
+				}
+			
 			}
 			
 		})
