@@ -2,7 +2,7 @@
  * 
  * @param {Event} e
  * @param {Object} arrayOfRecipes tableau des recettes
- * @param {Object} filterRecipeByTag recettes correspondantes au tag sélectionné
+ * @param {Object} filterRecipeByTag recettes correspondantes au tag selectionné
  * @param {HTMLElement} container 
  */
 

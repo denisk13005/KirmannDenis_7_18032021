@@ -176,14 +176,14 @@ const generateKeyword = (e) => {
 				// génération des keywords sur les span filtrés
 				const spansFilter = document.querySelectorAll('.list')
 				spansFilter.forEach(span => span.addEventListener('click', (e)=>{
-					let filterRecipes2 = []
-					container.innerHTML=''
-					let tagValue = e.target.innerHTML.toLowerCase()
-					filter(tagValue,filterRecipes2,setFilterRecipeBySearchBar)
-					setFilterRecipeBySearchBars2 = [...new Set(filterRecipes2)]				
+					let setFilterRecipeByClickOnTagAfterRefresh=[]
+					filterByTag(e,setFilterRecipeBySearchBar,setFilterRecipeByClickOnTagAfterRefresh,container)
+					for(const recipe of setFilterRecipeByClickOnTagAfterRefresh){
+						container.innerHTML += new Recipe(recipe).render()
+					}
 					generateKeyword(e)
-					filterIngAppUst(setFilterRecipeBySearchBars2,ingredientsContainer,appliancesContainer,ustensilesContainer)
-					setFilterRecipeBySearchBars2.forEach(el=>container.innerHTML += new Recipe(el).render())				
+					filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh,ingredientsContainer,appliancesContainer,ustensilesContainer)
+							
 				}))
 				
 			}
@@ -240,8 +240,7 @@ searchInput.addEventListener('input', (e) => {
 		recipes.forEach(
 			(element) => (container.innerHTML += new Recipe(element).render())
 		)
-	}
-	//tri des recettes par ing , app ou ust
+	}	
 	if(userResearch.length > 2  ){
 		let filterRecipe = [] // recettes filtrées par la barre de recherche
 		container.innerHTML = ''		
@@ -255,7 +254,7 @@ searchInput.addEventListener('input', (e) => {
 
 		filterIngAppUst(setFilterRecipeBySearchBar,ingredientsContainer,appliancesContainer,ustensilesContainer)
 		
-		//****************************************génération des keywords
+		//****************************************affinage de la recherche par tag
 		let tags = document.querySelectorAll('.list')
 		
 		for(const tag of tags){
