@@ -127,8 +127,8 @@ document.body.addEventListener('click', (e) => {
 // génération des keywords en fonction du choix utilisateur
 const divKeyword = document.querySelector('.keyword')
 let color
-let setFilterRecipeBySearchBars2 // recettes restantes au 1er click sur les tag
-let setFilterRecipeBySearchBars3 // recettes testantes au 2eme click sur un tag
+let setFilterRecipeByClickOnTagAfterRefresh// recettes restantes au 1er click sur les tag
+let setFilterRecipeByClickOnTagAfterRefresh2  // recettes testantes au 2eme click sur un tag
 const generateKeyword = (e) => {
 	if (e.target.getAttribute('class').includes('ingredients')) {
 		color = 'blue'
@@ -152,25 +152,13 @@ const generateKeyword = (e) => {
 					(element) => (container.innerHTML += new Recipe(element).render())
 				)
 			}	
-			if(divKeyword.children.length === 1 && userResearch>2){
-				container.innerHTML = ''
-				setFilterRecipeBySearchBars2.forEach(el => container.innerHTML+= new Recipe(el).render())
-				const tagsFilter = document.querySelectorAll('.list')
-				tagsFilter.forEach(tag => tag.addEventListener('click', (e)=>{
-					let filterRecipes3 = []
-					container.innerHTML=''
-					let tagValue = e.target.innerHTML.toLowerCase()
-					filter(tagValue,filterRecipes3,setFilterRecipeBySearchBars2)
-					setFilterRecipeBySearchBars3 = [...new Set(filterRecipes3)]				
-					generateKeyword(e)
-					filterIngAppUst(setFilterRecipeBySearchBars3,ingredientsContainer,appliancesContainer,ustensilesContainer)
-					setFilterRecipeBySearchBars2.forEach(el=>container.innerHTML += new Recipe(el).render())				
-				}))
-			}		
+		
 			
 			//si on supprime tous les keywords, les vignettes filtrées par le champ de recherche principal réaparaissent
 			if(divKeyword.children.length ===0 && userResearch.length>2){
+				console.log('divKeyword.children.length ===0 && userResearch.length>2')
 				//on réaffiche les recettes filtrées par la barre de recherche
+				console.log(setFilterRecipeBySearchBar)
 				container.innerHTML=''
 				for(const el of setFilterRecipeBySearchBar){
 					container.innerHTML += new Recipe(el).render()
@@ -181,8 +169,13 @@ const generateKeyword = (e) => {
 				for(const tag of tagsRefresh){
 					tag.addEventListener('click', (e)=> {
 						//on relance l'affinage de la recherche par tag
-						let setFilterRecipeByClickOnTagAfterRefresh=[] 
-						filterByTag(e,setFilterRecipeBySearchBar,setFilterRecipeByClickOnTagAfterRefresh,container)
+						let filterRecipeByClickOnTagAfterRefresh = []
+						container.innerHTML=''
+						filterByTag(e,setFilterRecipeBySearchBar,filterRecipeByClickOnTagAfterRefresh,container)
+
+						setFilterRecipeByClickOnTagAfterRefresh = [...new Set(filterRecipeByClickOnTagAfterRefresh)]
+						console.log(setFilterRecipeByClickOnTagAfterRefresh)
+
 						for(const recipe of setFilterRecipeByClickOnTagAfterRefresh){
 							container.innerHTML += new Recipe(recipe).render()
 						}
@@ -193,8 +186,12 @@ const generateKeyword = (e) => {
 						for(const tag of tagsRefresh){
 							tag.addEventListener('click', (e)=> {
 								//on relance l'affinage de la recherche par tag
-								let setFilterRecipeByClickOnTagAfterRefresh2=[] 
-								filterByTag(e,setFilterRecipeByClickOnTagAfterRefresh,setFilterRecipeByClickOnTagAfterRefresh2,container)
+								let filterRecipeByClickOnTagAfterRefresh2 = []
+								
+								filterByTag(e,filterRecipeByClickOnTagAfterRefresh,filterRecipeByClickOnTagAfterRefresh2,container)
+								setFilterRecipeByClickOnTagAfterRefresh2=[...new Set(filterRecipeByClickOnTagAfterRefresh2)]
+								console.log(setFilterRecipeByClickOnTagAfterRefresh2)
+
 								for(const recipe of setFilterRecipeByClickOnTagAfterRefresh2){
 									container.innerHTML += new Recipe(recipe).render()
 								}
@@ -208,8 +205,36 @@ const generateKeyword = (e) => {
 
 					})
 				}
-			
 			}
+			if(divKeyword.children.length === 1 && userResearch.length>2 ){
+				//on réaffiche les recettes filtrées par tag
+				console.log('divKeyword.children.length === 1 && userResearch>2')
+				container.innerHTML = ''
+				for(const el of setFilterRecipeByClickOnTag){
+					container.innerHTML += new Recipe(el).render()
+				}
+				filterIngAppUst(setFilterRecipeByClickOnTag,ingredientsContainer,appliancesContainer,ustensilesContainer)
+				//on relance l'affinage de la recherche pour 2 tags
+				const tagsRefresh = document.querySelectorAll('.list')
+				for(const tag of tagsRefresh){
+					tag.addEventListener('click', (e)=> {
+						//on relance l'affinage de la recherche par tag
+						container.innerHTML = ''
+						let filterRecipeByClickOnTagAfterRefresh2 = []
+						filterByTag(e,setFilterRecipeByClickOnTag,filterRecipeByClickOnTagAfterRefresh2,container)
+						setFilterRecipeByClickOnTagAfterRefresh2=[...new Set(filterRecipeByClickOnTagAfterRefresh2)]
+						for(const recipe of setFilterRecipeByClickOnTagAfterRefresh2){
+							container.innerHTML += new Recipe(recipe).render()
+						}
+
+						generateKeyword(e)
+						filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+	
+	
+					})
+				}
+				
+			}		
 			
 		})
 		
