@@ -4,6 +4,9 @@ import Search from './js/search.js'
 import Keywords from './js/keyWords.js'
 import SearchBtns from './js/searchBtns.js'
 import Recipe from './js/recipe.js'
+import { filter } from './js/filter.js'
+import { filterIngAppUst } from './js/filterIngAppUst.js'
+import filterByTag from './js/filterByTag.js'
 // recupération des ingrédients
 const ingredients = []
 recipes.forEach((element) => {
@@ -54,9 +57,7 @@ const btns = new SearchBtns(
 	setUstensile
 ).render()
 main.innerHTML += btns
-const ingredientsContainer = document.querySelector('.ingredients__container')
-const appliancesContainer = document.querySelector('.appliances__container')
-const ustensilesContainer = document.querySelector('.ustensiles__container')
+
 //animation de la fleche
 document.querySelectorAll('.btn').forEach((el) =>
 	el.addEventListener('click', () => {
@@ -64,6 +65,9 @@ document.querySelectorAll('.btn').forEach((el) =>
 	})
 )
 //récupération des éléments du dom
+const ingredientsContainer = document.querySelector('.ingredients__container')
+const appliancesContainer = document.querySelector('.appliances__container')
+const ustensilesContainer = document.querySelector('.ustensiles__container')
 const btnIngredients = document.querySelector('.btn__ingredients')
 const btnAppliances = document.querySelector('.btn__appareil')
 const btnUstensiles = document.querySelector('.btn__ustensiles')
@@ -122,14 +126,17 @@ document.body.addEventListener('click', (e) => {
 })
 // génération des keywords en fonction du choix utilisateur
 const divKeyword = document.querySelector('.keyword')
-const spans = document.querySelectorAll('.list')
 let color
+let setFilterRecipeByClickOnTagAfterRefresh// recettes restantes au 1er click sur les tag
+let setFilterRecipeByClickOnTagAfterRefresh2  // recettes testantes au 2eme click sur un tag
 const generateKeyword = (e) => {
 	if (e.target.getAttribute('class').includes('ingredients')) {
 		color = 'blue'
-	} else if (e.target.getAttribute('class').includes('appliances')) {
+	}
+	else if (e.target.getAttribute('class').includes('appliances')) {
 		color = 'green'
-	} else {
+	} 
+	else if(e.target.getAttribute('class').includes('ustensiles')){
 		color = 'red'
 	}
 	divKeyword.innerHTML += new Keywords(e.target.innerHTML, color).render()
@@ -137,20 +144,153 @@ const generateKeyword = (e) => {
 	const croix = document.querySelectorAll('.croix')
 	croix.forEach((el) =>{
 		el.addEventListener('click', () => {
-			el.parentElement.remove()
-			//si plus de keyword sélectionnés et recherche < 2 on rafraichit les vignettes
-			if(divKeyword.children.length === 0 && userResearch.length <= 2){
+			el.parentElement.remove()//on suprimme le keyword sélectionné
+
+			//si la recherche a été effectuée par le champ de recherche avancé et que le champ de recherche pricipal n'a pas été rempli ou si plus de keyword sélectionnés et recherche < 2 on rafraichit les vignettes
+			if((divKeyword.children.length === 0 && userResearch === undefined) || (divKeyword.children.length === 0 && userResearch.length <= 2)){
+				console.log('cas1')
 				container.innerHTML =''
-				recipes.forEach(
-					(element) => (container.innerHTML += new Recipe(element).render())
-				)
-				
-			}
-			//si on supprime tous les keywords les vignettes filtrées par le champ de recherche principal réaparaissent
+				for(const recipe of recipes){
+					container.innerHTML += new Recipe(recipe).render()
+				}
+				//on remet à jour les ing ...
+				filterIngAppUst(recipes,ingredientsContainer,appliancesContainer,ustensilesContainer)
+				// on lance le tri au tag sur le tableau setFilterRecipesByOnlyTag
+				const tagsRefresh = document.querySelectorAll('.list')
+				for(const tag of tagsRefresh){
+					tag.addEventListener('click', (e)=> {
+						//on relance l'affinage de la recherche par tag
+						console.log('cas 1+1tag')
+						let setFilterRecipesByOnlyTag2 = []
+						container.innerHTML=''
+						filterByTag(e,recipes,setFilterRecipesByOnlyTag2,container)
+
+						setFilterRecipesByOnlyTag2 = [...new Set(setFilterRecipesByOnlyTag2)]
+
+						for(const recipe of setFilterRecipesByOnlyTag2){
+							container.innerHTML += new Recipe(recipe).render()
+						}
+						generateKeyword(e)
+						filterIngAppUst(setFilterRecipesByOnlyTag2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+						// //on relance l'affinage de la recherche pour 2 tags
+						// const tagsRefresh = document.querySelectorAll('.list')
+						// for(const tag of tagsRefresh){
+						// 	tag.addEventListener('click', (e)=> {
+						// 		//on relance l'affinage de la recherche par tag
+						// 		let filterRecipeByClickOnTagAfterRefresh2 = []
+								
+						// 		filterByTag(e,filterRecipeByClickOnTagAfterRefresh,filterRecipeByClickOnTagAfterRefresh2,container)
+						// 		setFilterRecipeByClickOnTagAfterRefresh2=[...new Set(filterRecipeByClickOnTagAfterRefresh2)]
+						// 		console.log(setFilterRecipeByClickOnTagAfterRefresh2)
+
+						// 		for(const recipe of setFilterRecipeByClickOnTagAfterRefresh2){
+						// 			container.innerHTML += new Recipe(recipe).render()
+						// 		}
+						// 		generateKeyword(e)
+						// 		filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+		
+		
+						// 	})
+						// }
+
+
+					})
+				}
+
+
+
+			}	
+
+
+
+
+
+
+
+		
+			
+			//si on supprime tous les keywords, les vignettes filtrées par le champ de recherche principal réaparaissent
 			if(divKeyword.children.length ===0 && userResearch.length>2){
+				console.log('divKeyword.children.length ===0 && userResearch.length>2')
+				//on réaffiche les recettes filtrées par la barre de recherche
+				console.log('cas2')
 				container.innerHTML=''
-				setFilterRecipeRefrech.forEach(el=>container.innerHTML += new Recipe(el).render())
+				for(const el of setFilterRecipeBySearchBar){
+					container.innerHTML += new Recipe(el).render()
+				}
+				//on remet à jour les ing ...
+				filterIngAppUst(setFilterRecipeBySearchBar,ingredientsContainer,appliancesContainer,ustensilesContainer)/// on recrée un eventListener sur les tags			
+				const tagsRefresh = document.querySelectorAll('.list')
+				for(const tag of tagsRefresh){
+					tag.addEventListener('click', (e)=> {
+						//on relance l'affinage de la recherche par tag
+						let filterRecipeByClickOnTagAfterRefresh = []
+						container.innerHTML=''
+						filterByTag(e,setFilterRecipeBySearchBar,filterRecipeByClickOnTagAfterRefresh,container)
+
+						setFilterRecipeByClickOnTagAfterRefresh = [...new Set(filterRecipeByClickOnTagAfterRefresh)]
+						console.log(setFilterRecipeByClickOnTagAfterRefresh)
+
+						for(const recipe of setFilterRecipeByClickOnTagAfterRefresh){
+							container.innerHTML += new Recipe(recipe).render()
+						}
+						generateKeyword(e)
+						filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh,ingredientsContainer,appliancesContainer,ustensilesContainer)
+						//on relance l'affinage de la recherche pour 2 tags
+						const tagsRefresh = document.querySelectorAll('.list')
+						for(const tag of tagsRefresh){
+							tag.addEventListener('click', (e)=> {
+								//on relance l'affinage de la recherche par tag
+								let filterRecipeByClickOnTagAfterRefresh2 = []
+								
+								filterByTag(e,filterRecipeByClickOnTagAfterRefresh,filterRecipeByClickOnTagAfterRefresh2,container)
+								setFilterRecipeByClickOnTagAfterRefresh2=[...new Set(filterRecipeByClickOnTagAfterRefresh2)]
+								console.log(setFilterRecipeByClickOnTagAfterRefresh2)
+
+								for(const recipe of setFilterRecipeByClickOnTagAfterRefresh2){
+									container.innerHTML += new Recipe(recipe).render()
+								}
+								generateKeyword(e)
+								filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+		
+		
+							})
+						}
+
+
+					})
+				}
 			}
+			if(divKeyword.children.length === 1 && userResearch.length>2 ){
+				//on réaffiche les recettes filtrées par tag
+				console.log('divKeyword.children.length === 1 && userResearch>2')
+				container.innerHTML = ''
+				for(const el of setFilterRecipeByClickOnTag){
+					container.innerHTML += new Recipe(el).render()
+				}
+				filterIngAppUst(setFilterRecipeByClickOnTag,ingredientsContainer,appliancesContainer,ustensilesContainer)
+				//on relance l'affinage de la recherche pour 2 tags
+				const tagsRefresh = document.querySelectorAll('.list')
+				for(const tag of tagsRefresh){
+					tag.addEventListener('click', (e)=> {
+						//on relance l'affinage de la recherche par tag
+						container.innerHTML = ''
+						let filterRecipeByClickOnTagAfterRefresh2 = []
+						filterByTag(e,setFilterRecipeByClickOnTag,filterRecipeByClickOnTagAfterRefresh2,container)
+						setFilterRecipeByClickOnTagAfterRefresh2=[...new Set(filterRecipeByClickOnTagAfterRefresh2)]
+						for(const recipe of setFilterRecipeByClickOnTagAfterRefresh2){
+							container.innerHTML += new Recipe(recipe).render()
+						}
+
+						generateKeyword(e)
+						filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+	
+	
+					})
+				}
+				
+			}		
+			
 		})
 		
 	}
@@ -158,12 +298,28 @@ const generateKeyword = (e) => {
 
 	)
 }
-spans.forEach((span) =>
-	span.addEventListener('click',()=> {
-		generateKeyword
 
-	}))
+//*************************************Scénario alternatif A2 */
+const tags = document.querySelectorAll('.list')
+let setFilterRecipesByOnlyTag
+console.log( tags)
+for(const tag of tags){
+	tag.addEventListener('click', (e)=> {
+		let filterRecipesByOnlyTag = []
+	
+		filterByTag(e,recipes,filterRecipesByOnlyTag,container)
+		console.log(filterRecipesByOnlyTag)
+		setFilterRecipesByOnlyTag = [...new Set(filterRecipesByOnlyTag)]
+		console.log(setFilterRecipesByOnlyTag)
+		for(const recipe of setFilterRecipesByOnlyTag){
+			container.innerHTML += new Recipe(recipe).render()
+		}
+		generateKeyword(e)
+		filterIngAppUst(setFilterRecipesByOnlyTag,ingredientsContainer,appliancesContainer,ustensilesContainer)
 
+
+	})
+}
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
 const container = document.createElement('div')
@@ -174,118 +330,83 @@ main.appendChild(container)
 recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
-// ********************************fonction de filtre des recettes
-const filter = (input , tab)=>{
-	for (const recipe of recipes) {
-		for(const ingredient of recipe.ingredients){
-			if(ingredient.ingredient.toLowerCase().includes(input)){
-				tab.push(recipe)
-			}
-		}	
-		if(recipe.name.toLowerCase().includes(input)){
-			tab.push(recipe)
-		}
-		if(recipe.description.toLowerCase().includes(input)){
-			tab.push(recipe)
-		}			
-	}
-}
-//******************************************filtre par la barre de recherche */
-let userResearch
-let setFilterRecipeRefrech
+
+
+//******************************************filtre par la barre de recherche principale**************/
+let userResearch // entrée utilisateur dans search
+//entrée utilisateur
+let setFilterRecipeBySearchBar // résultats de la recherche par barre de recherche débarrassé des doublons
+// recettes triées aprés click sur un tag
+let setFilterRecipeByClickOnTag
+//recettes triées après click sur 2 tags
+let setFilterRecipeByClickOnTag2
+
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
+
 	userResearch= e.target.value.toLowerCase()
-	//tri des recettes par ing , app ou ust
-	if(userResearch.length > 2 || userResearch.length === 0 ){
-		let filterRecipe = []
+	if(userResearch.length===0){
+		recipes.forEach(
+			(element) => (container.innerHTML += new Recipe(element).render())
+		)
+	}	
+	if(userResearch.length > 2  ){
+		let filterRecipe = [] // recettes filtrées par la barre de recherche
 		container.innerHTML = ''		
-		filter(userResearch, filterRecipe)
-		let setFilterRecipe = [...new Set(filterRecipe)]
-		setFilterRecipeRefrech=setFilterRecipe
+		filter(userResearch, filterRecipe, recipes)
+		setFilterRecipeBySearchBar = [...new Set(filterRecipe)]
 		//génération des recettes filtrées
-		for(const recipe of setFilterRecipe){
+		for(const recipe of setFilterRecipeBySearchBar){
 			container.innerHTML += new Recipe(recipe).render()
 		}
 		//maj des ingrédients appareils et ustensiles
-		ingredientsContainer.innerHTML = ''
-		appliancesContainer.innerHTML=''
-		ustensilesContainer.innerHTML=''
-		let ingredientsFilter = []
-		let appliancesFilter = []
-		let ustensilesFilter = []
-		for(const recipe of filterRecipe){
-			for(const el of recipe.ingredients){
-				ingredientsFilter.push(el.ingredient)
-			}
-			appliancesFilter.push(recipe.appliance)
-			for(const el of recipe.ustensils){
-				ustensilesFilter.push(el)
-			}
-			
-		}
-		let setIngredientsFilter = [...new Set(ingredientsFilter)]
-		let setAppliancesFilter = [...new Set(appliancesFilter)]	
-		let setUstensilesFilter = [...new Set(ustensilesFilter)]
-		for(const el of setIngredientsFilter){
-			ingredientsContainer.innerHTML += `<span class="list list__ingredients">${el}</span>`
 
-		}
-		for(const el of setAppliancesFilter){
-			appliancesContainer.innerHTML+= `<span class="list list__appliances">${el}</span>`
-		}
-		for(const el of setUstensilesFilter){
-			ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${el}</span>`
-		}
-		//****************************************génération des keywords
-		let spans = document.querySelectorAll('.list')
-		for(const span of spans){
-			span.addEventListener('click', (e)=>{
-				let value = e.target.innerHTML // récupére le contenu textuel du span
-				let type = e.target.getAttribute('class') // défini le type de span cliqué(ing, app, ust)
-				container.innerHTML = ''
-				let filterRecipeAdvanced = []
-				if(type.includes('ingredients')){
-					for(const recipe of setFilterRecipe){
-						for(const el of recipe.ingredients){
-							if(el.ingredient.includes(value)){
-								filterRecipeAdvanced.push(recipe)
-							}
-						}
-					}
-				}
-				else if(type.includes('appliances')){
-					for(const recipe of setFilterRecipe){
-						if(recipe.appliance.includes(value)){
-							filterRecipeAdvanced.push(recipe)
-						}
-					}
-				}
-				else{
-					for(const recipe of setFilterRecipe){
-						for(const el of recipe.ustensils){
-							if(el.includes(value)){
-								filterRecipeAdvanced.push(recipe)
-							}
-						}
-					}
-				}
-				//rendu des recettes filtrées avec recherche avancées
-				for(const recipe of filterRecipeAdvanced){
+		filterIngAppUst(setFilterRecipeBySearchBar,ingredientsContainer,appliancesContainer,ustensilesContainer)
+		
+		//****************************************affinage de la recherche par tag
+		let tags = document.querySelectorAll('.list')
+		
+		for(const tag of tags){
+			tag.addEventListener('click', (e)=>{
+				console.log(setFilterRecipeBySearchBar)
+				let filter1 = []
+				filterByTag(e,setFilterRecipeBySearchBar,filter1,container)	
+				setFilterRecipeByClickOnTag = [...new Set(filter1)]	
+				for(const recipe of setFilterRecipeByClickOnTag){
 					container.innerHTML += new Recipe(recipe).render()
 				}
+				generateKeyword(e)
+				filterIngAppUst(setFilterRecipeByClickOnTag,ingredientsContainer,appliancesContainer,ustensilesContainer)
+				if(divKeyword.children.length === 1){
+					let tags2 = document.querySelectorAll('.list')
+					for(const tag2 of tags2){
+						tag2.addEventListener('click', (e)=>{
+							let filter2 = []
+							filterByTag(e,filter1,filter2,container)
+							setFilterRecipeByClickOnTag2 = [...new Set(filter2)]	
+							for(const recipe of setFilterRecipeByClickOnTag2){
+								container.innerHTML += new Recipe(recipe).render()
+							}			
+							generateKeyword(e)
+							filterIngAppUst(setFilterRecipeByClickOnTag2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+
+						
+
+						})
+					}
+				}
+
 
 			})
+			//****************************************scénario alternatif A1 */
+			if(filterRecipe.length===0){
+				container.innerHTML = '<p class="noFound"> Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc. </p>'
+			}
 		}
-		if(filterRecipe.length===0){
-			container.innerHTML = '<p class="noFound"> Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc. </p>'
-		}
+		
+		
 	}
-	// génération des keywords sur les span filtrés
-	const spansFilter = document.querySelectorAll('.list')
-	spansFilter.forEach(span => span.addEventListener('click', generateKeyword))
-
-
+	
 })
 
 // //*********************************************filtre par les champs de recherche avancés */
@@ -293,6 +414,7 @@ searchInput.addEventListener('input', (e) => {
 const inputs = document.querySelectorAll('.input')
 for(const input of inputs){
 	input.addEventListener('input', (e)=> {
+		console.log('clock')
 		let value = e.target.value.toLowerCase()
 		const target = e.target.getAttribute('class')
 		//maj des ingrédients
@@ -340,17 +462,17 @@ for(const input of inputs){
 			}
 		}
 		//recettes filtrées par les champs de recherche avancés
-		//par ingrédients
+		
 		let filterRecipeByInput=[]	
-		filter(value,filterRecipeByInput)
-		let setFilterRecipeByInput = [...new Set(filterRecipeByInput)]
+		filter(value,filterRecipeByInput, recipes)
+		let setFilterRecipeBySearchBarByInput = [...new Set(filterRecipeByInput)]
 		let spansFilterAdvanced = document.querySelectorAll('.list')
 		for(const span of spansFilterAdvanced){
 		//rendu des recettes par filtrage avancé
 
 			span.addEventListener('click',()=>{
 				container.innerHTML = ''
-				for(const recipe of setFilterRecipeByInput){
+				for(const recipe of setFilterRecipeBySearchBarByInput){
 					container.innerHTML += new Recipe(recipe).render()
 				}
 			}				
@@ -360,6 +482,15 @@ for(const input of inputs){
 		for(const span of spansFilterAdvanced){
 			span.addEventListener('click',generateKeyword)
 		}	
+		for(const span of spansFilterAdvanced){
+			span.addEventListener('click', ()=> {
+				filterRecipeByInput = []
+				console.log('click')
+				filter(e.target.innerHTML,filterRecipeByInput,recipes)
+			
+			})
+		}
+		console.log(filterRecipeByInput)
 	})
 
 
