@@ -301,7 +301,8 @@ const generateKeyword = (e) => {
 
 //*************************************Scénario alternatif A2 */
 const tags = document.querySelectorAll('.list')
-let setFilterRecipesByOnlyTag
+let setFilterRecipesByOnlyTag // recettes filtrées après 1 tag
+let setFilterRecipesByOnlyTag2 // recettes filtrées après 2 tags
 console.log( tags)
 for(const tag of tags){
 	tag.addEventListener('click', (e)=> {
@@ -316,6 +317,21 @@ for(const tag of tags){
 		}
 		generateKeyword(e)
 		filterIngAppUst(setFilterRecipesByOnlyTag,ingredientsContainer,appliancesContainer,ustensilesContainer)
+		const tags = document.querySelectorAll('.list')
+		for(const tag of tags){
+			tag.addEventListener('click', (e)=>{
+				let filterRecipesByOnlyTag2=[]
+				filterByTag(e,filterRecipesByOnlyTag,filterRecipesByOnlyTag2,container)
+				console.log(filterRecipesByOnlyTag)
+				setFilterRecipesByOnlyTag2 = [...new Set(filterRecipesByOnlyTag2)]
+				console.log(setFilterRecipesByOnlyTag)
+				for(const recipe of setFilterRecipesByOnlyTag2){
+					container.innerHTML += new Recipe(recipe).render()
+				}
+				generateKeyword(e)
+				filterIngAppUst(setFilterRecipesByOnlyTag2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+			})
+		}
 
 
 	})
@@ -377,24 +393,24 @@ searchInput.addEventListener('input', (e) => {
 				}
 				generateKeyword(e)
 				filterIngAppUst(setFilterRecipeByClickOnTag,ingredientsContainer,appliancesContainer,ustensilesContainer)
-				if(divKeyword.children.length === 1){
-					let tags2 = document.querySelectorAll('.list')
-					for(const tag2 of tags2){
-						tag2.addEventListener('click', (e)=>{
-							let filter2 = []
-							filterByTag(e,filter1,filter2,container)
-							setFilterRecipeByClickOnTag2 = [...new Set(filter2)]	
-							for(const recipe of setFilterRecipeByClickOnTag2){
-								container.innerHTML += new Recipe(recipe).render()
-							}			
-							generateKeyword(e)
-							filterIngAppUst(setFilterRecipeByClickOnTag2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+				
+				let tags2 = document.querySelectorAll('.list')
+				for(const tag2 of tags2){
+					tag2.addEventListener('click', (e)=>{
+						let filter2 = []
+						filterByTag(e,filter1,filter2,container)
+						setFilterRecipeByClickOnTag2 = [...new Set(filter2)]	
+						for(const recipe of setFilterRecipeByClickOnTag2){
+							container.innerHTML += new Recipe(recipe).render()
+						}			
+						generateKeyword(e)
+						filterIngAppUst(setFilterRecipeByClickOnTag2,ingredientsContainer,appliancesContainer,ustensilesContainer)
 
 						
 
-						})
-					}
+					})
 				}
+				
 
 
 			})
