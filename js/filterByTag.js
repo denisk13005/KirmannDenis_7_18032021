@@ -7,13 +7,13 @@
  */
 
 export default function filterByTag(e,arrayOfRecipes,filterRecipeByTag,container){
-	let value = e.target.innerHTML // récupére le contenu textuel du span
+	let value = e.target.innerHTML.toLowerCase() // récupére le contenu textuel du span
 	let type = e.target.getAttribute('class') // défini le type de span cliqué(ing, app, ust)
 	container.innerHTML = ''
 	if(type.includes('ingredients')){
 		for(const recipe of arrayOfRecipes){
 			for(const el of recipe.ingredients){
-				if(el.ingredient.match(value)){
+				if(el.ingredient.toLowerCase().match(value)){
 					filterRecipeByTag.push(recipe)
 				}
 			}
@@ -21,7 +21,7 @@ export default function filterByTag(e,arrayOfRecipes,filterRecipeByTag,container
 	}
 	else if(type.includes('appliances')){
 		for(const recipe of arrayOfRecipes){
-			if(recipe.appliance.match(value)){
+			if(recipe.appliance.toLowerCase().match(value)){
 				filterRecipeByTag.push(recipe)
 			}
 		}
@@ -30,11 +30,12 @@ export default function filterByTag(e,arrayOfRecipes,filterRecipeByTag,container
 		for(const recipe of arrayOfRecipes){
 			for(const el of recipe.ustensils){
 				if(el.match(value)){
-					filterRecipeByTag.push(recipe)
+					filterRecipeByTag.toLowerCase().push(recipe)
 					console.log(recipe)
 				}
 			}
 		}
 	}	
+	console.log(('test'))
 
 }
