@@ -36,6 +36,5 @@ export default function filterByTag(e,arrayOfRecipes,filterRecipeByTag,container
 			}
 		}
 	}	
-	console.log(('test'))
 
 }

@@ -144,21 +144,76 @@ const generateKeyword = (e) => {
 	const croix = document.querySelectorAll('.croix')
 	croix.forEach((el) =>{
 		el.addEventListener('click', () => {
-			el.parentElement.remove()
+			el.parentElement.remove()//on suprimme le keyword sélectionné
+
 			//si la recherche a été effectuée par le champ de recherche avancé et que le champ de recherche pricipal n'a pas été rempli ou si plus de keyword sélectionnés et recherche < 2 on rafraichit les vignettes
 			if((divKeyword.children.length === 0 && userResearch === undefined) || (divKeyword.children.length === 0 && userResearch.length <= 2)){
+				console.log('cas1')
 				container.innerHTML =''
-				recipes.forEach(
-					(element) => (container.innerHTML += new Recipe(element).render())
-				)
+				for(const recipe of recipes){
+					container.innerHTML += new Recipe(recipe).render()
+				}
+				//on remet à jour les ing ...
+				filterIngAppUst(recipes,ingredientsContainer,appliancesContainer,ustensilesContainer)
+				// on lance le tri au tag sur le tableau setFilterRecipesByOnlyTag
+				const tagsRefresh = document.querySelectorAll('.list')
+				for(const tag of tagsRefresh){
+					tag.addEventListener('click', (e)=> {
+						//on relance l'affinage de la recherche par tag
+						console.log('cas 1+1tag')
+						let setFilterRecipesByOnlyTag2 = []
+						container.innerHTML=''
+						filterByTag(e,recipes,setFilterRecipesByOnlyTag2,container)
+
+						setFilterRecipesByOnlyTag2 = [...new Set(setFilterRecipesByOnlyTag2)]
+
+						for(const recipe of setFilterRecipesByOnlyTag2){
+							container.innerHTML += new Recipe(recipe).render()
+						}
+						generateKeyword(e)
+						filterIngAppUst(setFilterRecipesByOnlyTag2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+						// //on relance l'affinage de la recherche pour 2 tags
+						// const tagsRefresh = document.querySelectorAll('.list')
+						// for(const tag of tagsRefresh){
+						// 	tag.addEventListener('click', (e)=> {
+						// 		//on relance l'affinage de la recherche par tag
+						// 		let filterRecipeByClickOnTagAfterRefresh2 = []
+								
+						// 		filterByTag(e,filterRecipeByClickOnTagAfterRefresh,filterRecipeByClickOnTagAfterRefresh2,container)
+						// 		setFilterRecipeByClickOnTagAfterRefresh2=[...new Set(filterRecipeByClickOnTagAfterRefresh2)]
+						// 		console.log(setFilterRecipeByClickOnTagAfterRefresh2)
+
+						// 		for(const recipe of setFilterRecipeByClickOnTagAfterRefresh2){
+						// 			container.innerHTML += new Recipe(recipe).render()
+						// 		}
+						// 		generateKeyword(e)
+						// 		filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+		
+		
+						// 	})
+						// }
+
+
+					})
+				}
+
+
+
 			}	
+
+
+
+
+
+
+
 		
 			
 			//si on supprime tous les keywords, les vignettes filtrées par le champ de recherche principal réaparaissent
 			if(divKeyword.children.length ===0 && userResearch.length>2){
 				console.log('divKeyword.children.length ===0 && userResearch.length>2')
 				//on réaffiche les recettes filtrées par la barre de recherche
-				console.log(setFilterRecipeBySearchBar)
+				console.log('cas2')
 				container.innerHTML=''
 				for(const el of setFilterRecipeBySearchBar){
 					container.innerHTML += new Recipe(el).render()
@@ -243,23 +298,28 @@ const generateKeyword = (e) => {
 
 	)
 }
-// let tabSpans=[]
-// spans.forEach((span) =>
-// 	span.addEventListener('click',(e)=>{
-// 		tabSpans=[]
-// 		container.innerHTML=''
-// 		generateKeyword(e)
-// 		filter(e.target.innerHTML,tabSpans,recipes)
-// 		let setTabSpans = [...new Set(tabSpans)]
-// 		for(const recipe of setTabSpans){
-// 			container.innerHTML += new Recipe(recipe).render()
-// 		}
-// 		console.log(setTabSpans)
 
-// 		filterIngAppUst()
-// 	}
-// 	))
+//*************************************Scénario alternatif A2 */
+const tags = document.querySelectorAll('.list')
+let setFilterRecipesByOnlyTag
+console.log( tags)
+for(const tag of tags){
+	tag.addEventListener('click', (e)=> {
+		let filterRecipesByOnlyTag = []
+	
+		filterByTag(e,recipes,filterRecipesByOnlyTag,container)
+		console.log(filterRecipesByOnlyTag)
+		setFilterRecipesByOnlyTag = [...new Set(filterRecipesByOnlyTag)]
+		console.log(setFilterRecipesByOnlyTag)
+		for(const recipe of setFilterRecipesByOnlyTag){
+			container.innerHTML += new Recipe(recipe).render()
+		}
+		generateKeyword(e)
+		filterIngAppUst(setFilterRecipesByOnlyTag,ingredientsContainer,appliancesContainer,ustensilesContainer)
 
+
+	})
+}
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
 const container = document.createElement('div')
@@ -283,6 +343,7 @@ let setFilterRecipeByClickOnTag2
 
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
+
 	userResearch= e.target.value.toLowerCase()
 	if(userResearch.length===0){
 		recipes.forEach(
@@ -337,6 +398,7 @@ searchInput.addEventListener('input', (e) => {
 
 
 			})
+			//****************************************scénario alternatif A1 */
 			if(filterRecipe.length===0){
 				container.innerHTML = '<p class="noFound"> Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc. </p>'
 			}
@@ -352,6 +414,7 @@ searchInput.addEventListener('input', (e) => {
 const inputs = document.querySelectorAll('.input')
 for(const input of inputs){
 	input.addEventListener('input', (e)=> {
+		console.log('clock')
 		let value = e.target.value.toLowerCase()
 		const target = e.target.getAttribute('class')
 		//maj des ingrédients
