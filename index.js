@@ -392,12 +392,14 @@ searchInput.addEventListener('input', (e) => {
 
 	userResearch= e.target.value.toLowerCase()
 	if(userResearch.length===0){
+		container.innerHTML=''
 		recipes.forEach(
 			(element) => (container.innerHTML += new Recipe(element).render())
 		)
 	}	
 	if(userResearch.length > 2  ){
 		let filterRecipe = [] // recettes filtrées par la barre de recherche
+		console.log(filterRecipe.length)
 		container.innerHTML = ''		
 		filter(userResearch, filterRecipe, recipes)
 		setFilterRecipeBySearchBar = [...new Set(filterRecipe)]
@@ -408,7 +410,8 @@ searchInput.addEventListener('input', (e) => {
 		//maj des ingrédients appareils et ustensiles
 
 		filterIngAppUst(setFilterRecipeBySearchBar,ingredientsContainer,appliancesContainer,ustensilesContainer)
-		
+	
+
 		//****************************************affinage de la recherche par tag
 		let tags = document.querySelectorAll('.list')
 		
@@ -442,19 +445,22 @@ searchInput.addEventListener('input', (e) => {
 					})
 				}
 				
-
+			
 
 			})
-			//****************************************scénario alternatif A1 */
-			if(filterRecipe.length===0){
-				container.innerHTML = '<p class="noFound"> Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc. </p>'
-			}
+
+		
 		}
 		
+		if(setFilterRecipeBySearchBar.length===0){
+			console.log(('0'))
+			container.innerHTML = '<p class="noFound"> Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc. </p>'
+		}
 		
 	}
 	
 })
+//****************************************scénario alternatif A1 */
 
 // //*********************************************filtre par les champs de recherche avancés */
 
