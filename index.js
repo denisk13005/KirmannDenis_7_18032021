@@ -334,6 +334,7 @@ const tags = document.querySelectorAll('.list')
 let setFilterRecipesByOnlyTag2 // recettes filtrées après 2 tags
 for(const tag of tags){
 	tag.addEventListener('click', (e)=> {
+		console.log('a2')
 		let filterRecipesByOnlyTag = []	
 		filterByTag(e,recipes,filterRecipesByOnlyTag,container)
 		setFilterRecipeByClickOnTagAfterRefresh = [...new Set(filterRecipesByOnlyTag)]
@@ -359,6 +360,7 @@ for(const tag of tags){
 
 	})
 }
+
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
 const container = document.createElement('div')
@@ -459,92 +461,29 @@ searchInput.addEventListener('input', (e) => {
 const inputs = document.querySelectorAll('.input')
 for(const input of inputs){
 	input.addEventListener('input', (e)=> {
-		let value = e.target.value.toLowerCase()
-		const target = e.target.getAttribute('class')
+		let userResearchByTag = e.target.value.toLowerCase()
 
 		if(userResearch===undefined || userResearch.length<3 ){
-			//maj des ingrédients
-			if(target.includes('ing')){
-				ingredientsContainer.innerHTML = ''
-				let ingredientsMAJ = []
-				for(const ingredient of ingredients){
-					if(ingredient.includes(value)){
-						ingredientsMAJ.push(ingredient)
-					}
-				}
-				let setIngredientsMAJ = [...new Set(ingredientsMAJ)]
-				for(const ingredient of setIngredientsMAJ){
-					ingredientsContainer.innerHTML += `<span class="list list__ingredients">${ingredient}</span>`
-
-
-				}
-			}
-			//maj des appareils
-			else if(target.includes('app')){
-				appliancesContainer.innerHTML = ''
-				let appliancesMAJ = []
-				for(const appliance of appliances){
-					if(appliance.includes(value)){
-						appliancesMAJ.push(appliance)
-					}
-				}
-				let setAppliancesMAJ = [...new Set(appliancesMAJ)]
-				for(const appliance of setAppliancesMAJ){
-					appliancesContainer.innerHTML += `<span class="list list__appliances">${appliance}</span>`
-				}
-			}
-			//maj des ustensiles
-			else{
-				ustensilesContainer.innerHTML = ''
-				let ustensilesMAJ = []
-				for(const ustensile of ustensiles){
-					if(ustensile.includes(value)){
-						ustensilesMAJ.push(ustensile)
-					}
-				}
-				let setUstensilesMAJ = [...new Set(ustensilesMAJ)]
-				for(const ustensile of setUstensilesMAJ){
-					ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${ustensile}</span>`
-				}
-			}
-			//recettes filtrées par les champs de recherche avancés
-	
-			let filterRecipeByInput=[]	
-			filter(value,filterRecipeByInput, recipes)
-			let setFilterRecipeBySearchBarByInput = [...new Set(filterRecipeByInput)]
-			let spansFilterAdvanced = document.querySelectorAll('.list')
-			for(const span of spansFilterAdvanced){
-				//rendu des recettes par filtrage avancé
-
-				span.addEventListener('click',()=>{
+			let filterRecipesByTagsInput=[]
+			console.log([...new Set(filterRecipesByTagsInput)])
+			filter(userResearchByTag,filterRecipesByTagsInput,recipes)
+			filterIngAppUst([...new Set(filterRecipesByTagsInput)],ingredientsContainer,appliancesContainer,ustensilesContainer)
+			let tags = document.querySelectorAll('.list')
+			for(const tag of tags){
+				tag.addEventListener('click',(e)=>{
 					container.innerHTML = ''
-					for(const recipe of setFilterRecipeBySearchBarByInput){
+					for(const recipe of [...new Set(filterRecipesByTagsInput)]){
 						container.innerHTML += new Recipe(recipe).render()
+
 					}
-				}				
-				)
-			}
-			//génération du keyword
-			for(const span of spansFilterAdvanced){
-				span.addEventListener('click',generateKeyword)
-			}	
-			for(const span of spansFilterAdvanced){
-				span.addEventListener('click', ()=> {
-					filterRecipeByInput = []
-					filter(e.target.innerHTML,filterRecipeByInput,recipes)
-		
+					generateKeyword(e)
 				})
 			}
-	
-
 			
 		}
-
-
 		else{
-			//maj des ingrédients
 			let filterRecipesByTagsInput=[]
-			filter(value, filterRecipesByTagsInput, setFilterRecipeBySearchBar)
+			filter(userResearchByTag, filterRecipesByTagsInput, setFilterRecipeBySearchBar)
 			filterIngAppUst([...new Set(filterRecipesByTagsInput)],ingredientsContainer,appliancesContainer,ustensilesContainer)
 			let tags = document.querySelectorAll('.list')
 			for(const tag of tags){
