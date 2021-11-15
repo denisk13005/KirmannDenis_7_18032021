@@ -381,6 +381,8 @@ let setFilterRecipeBySearchBar // résultats de la recherche par barre de recher
 let setFilterRecipeByClickOnTag
 //recettes triées après click sur 2 tags
 let setFilterRecipeByClickOnTag2
+//recettes triées après click sur 3 tags
+let setFilterRecipeByClickOnTag3
 
 const searchInput = document.getElementById('search')
 searchInput.addEventListener('input', (e) => {
@@ -435,13 +437,23 @@ searchInput.addEventListener('input', (e) => {
 						generateKeyword(e)
 						filterIngAppUst(setFilterRecipeByClickOnTag2,ingredientsContainer,appliancesContainer,ustensilesContainer)
 
-						
+						let tags3=document.querySelectorAll('.list')
+						for(const tag3 of tags3){
+							tag3.addEventListener('click',(e)=>{
+								let filter3 = []
+								filterByTag(e,filter2,filter3,container)
+								setFilterRecipeByClickOnTag3 = [...new Set(filter3)]
+								for(const recipe of setFilterRecipeByClickOnTag3){
+									container.innerHTML += new Recipe(recipe).render()
+								}
+								generateKeyword(e)
+								filterIngAppUst(setFilterRecipeByClickOnTag3,ingredientsContainer,appliancesContainer,ustensilesContainer)
+
+							})
+						}						
 
 					})
 				}
-				
-			
-
 			})
 
 		
