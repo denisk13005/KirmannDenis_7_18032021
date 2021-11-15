@@ -320,6 +320,11 @@ header {
   margin-bottom: 25px;
   border-radius: 5px;
   overflow: hidden;
+  transition: transform 0.2s;
+  &:hover {
+    transform: scale(1.03);
+    cursor: pointer;
+  }
   @media (max-width: 900px) {
     width: 100%;
   }

@@ -583,6 +583,16 @@ header img {
   margin-bottom: 25px;
   border-radius: 5px;
   overflow: hidden;
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
+}
+
+.card:hover {
+  -webkit-transform: scale(1.03);
+          transform: scale(1.03);
+  cursor: pointer;
 }
 
 @media (max-width: 900px) {
