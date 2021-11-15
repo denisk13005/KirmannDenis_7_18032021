@@ -31,7 +31,6 @@ export default function filterByTag(e,arrayOfRecipes,filterRecipeByTag,container
 			for(const el of recipe.ustensils){
 				if(el.toLowerCase().match(value)){
 					filterRecipeByTag.push(recipe)
-					console.log(recipe)
 				}
 			}
 		}
