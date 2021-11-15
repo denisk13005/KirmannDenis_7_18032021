@@ -175,7 +175,6 @@ const generateKeyword = (e) => {
 						filterByTag(e,recipes,filterRecipesByOnlyTag2,container)
 
 						setFilterRecipeByClickOnTagAfterRefresh = [...new Set(filterRecipesByOnlyTag2)]
-						console.log(setFilterRecipeByClickOnTagAfterRefresh)
 
 						for(const recipe of setFilterRecipeByClickOnTagAfterRefresh){
 							container.innerHTML += new Recipe(recipe).render()
@@ -191,7 +190,6 @@ const generateKeyword = (e) => {
 								
 								filterByTag(e,setFilterRecipeByClickOnTagAfterRefresh,filterRecipeByClickOnTagAfterRefresh2,container)
 								setFilterRecipeByClickOnTagAfterRefresh2=[...new Set(filterRecipeByClickOnTagAfterRefresh2)]
-								console.log(setFilterRecipeByClickOnTagAfterRefresh2)
 
 								for(const recipe of setFilterRecipeByClickOnTagAfterRefresh2){
 									container.innerHTML += new Recipe(recipe).render()
@@ -225,7 +223,6 @@ const generateKeyword = (e) => {
 						let filterRecipeByClickOnTagAfterRefresh2 = []						
 						filterByTag(e,setFilterRecipeByClickOnTagAfterRefresh,filterRecipeByClickOnTagAfterRefresh2,container)
 						setFilterRecipeByClickOnTagAfterRefresh2=[...new Set(filterRecipeByClickOnTagAfterRefresh2)]
-						console.log(setFilterRecipeByClickOnTagAfterRefresh2)
 						for(const recipe of setFilterRecipeByClickOnTagAfterRefresh2){
 							container.innerHTML += new Recipe(recipe).render()
 						}
@@ -248,7 +245,6 @@ const generateKeyword = (e) => {
 			if(divKeyword.children.length ===0 && userResearch.length>2){
 				console.log('divKeyword.children.length ===0 && userResearch.length>2')
 				//on réaffiche les recettes filtrées par la barre de recherche
-				console.log('cas2')
 				container.innerHTML=''
 				for(const el of setFilterRecipeBySearchBar){
 					container.innerHTML += new Recipe(el).render()
@@ -264,7 +260,6 @@ const generateKeyword = (e) => {
 						filterByTag(e,setFilterRecipeBySearchBar,filterRecipeByClickOnTagAfterRefresh,container)
 
 						setFilterRecipeByClickOnTagAfterRefresh = [...new Set(filterRecipeByClickOnTagAfterRefresh)]
-						console.log(setFilterRecipeByClickOnTagAfterRefresh)
 
 						for(const recipe of setFilterRecipeByClickOnTagAfterRefresh){
 							container.innerHTML += new Recipe(recipe).render()
@@ -280,7 +275,6 @@ const generateKeyword = (e) => {
 								
 								filterByTag(e,filterRecipeByClickOnTagAfterRefresh,filterRecipeByClickOnTagAfterRefresh2,container)
 								setFilterRecipeByClickOnTagAfterRefresh2=[...new Set(filterRecipeByClickOnTagAfterRefresh2)]
-								console.log(setFilterRecipeByClickOnTagAfterRefresh2)
 
 								for(const recipe of setFilterRecipeByClickOnTagAfterRefresh2){
 									container.innerHTML += new Recipe(recipe).render()
@@ -343,7 +337,6 @@ for(const tag of tags){
 		let filterRecipesByOnlyTag = []	
 		filterByTag(e,recipes,filterRecipesByOnlyTag,container)
 		setFilterRecipeByClickOnTagAfterRefresh = [...new Set(filterRecipesByOnlyTag)]
-		console.log(setFilterRecipeByClickOnTagAfterRefresh)
 		for(const recipe of setFilterRecipeByClickOnTagAfterRefresh){
 			container.innerHTML += new Recipe(recipe).render()
 		}
@@ -399,7 +392,6 @@ searchInput.addEventListener('input', (e) => {
 	}	
 	if(userResearch.length > 2  ){
 		let filterRecipe = [] // recettes filtrées par la barre de recherche
-		console.log(filterRecipe.length)
 		container.innerHTML = ''		
 		filter(userResearch, filterRecipe, recipes)
 		setFilterRecipeBySearchBar = [...new Set(filterRecipe)]
@@ -453,7 +445,6 @@ searchInput.addEventListener('input', (e) => {
 		}
 		
 		if(setFilterRecipeBySearchBar.length===0){
-			console.log(('0'))
 			container.innerHTML = '<p class="noFound"> Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc. </p>'
 		}
 		
@@ -539,24 +530,20 @@ for(const input of inputs){
 			for(const span of spansFilterAdvanced){
 				span.addEventListener('click', ()=> {
 					filterRecipeByInput = []
-					console.log('click')
 					filter(e.target.innerHTML,filterRecipeByInput,recipes)
 		
 				})
 			}
-			console.log(filterRecipeByInput)
-			console.log(userResearch.length)
+	
 
 			
 		}
 
 
 		else{
-			console.log('userresearch>2')
 			//maj des ingrédients
 			let filterRecipesByTagsInput=[]
 			filter(value, filterRecipesByTagsInput, setFilterRecipeBySearchBar)
-			console.log([...new Set(filterRecipesByTagsInput)])
 			filterIngAppUst([...new Set(filterRecipesByTagsInput)],ingredientsContainer,appliancesContainer,ustensilesContainer)
 			let tags = document.querySelectorAll('.list')
 			for(const tag of tags){
