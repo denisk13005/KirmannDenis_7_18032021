@@ -463,7 +463,7 @@ for(const input of inputs){
 	input.addEventListener('input', (e)=> {
 		let value = e.target.value.toLowerCase()
 		const target = e.target.getAttribute('class')
-		
+
 		if(userResearch===undefined || userResearch.length<3 ){
 			//maj des ingrédients
 			if(target.includes('ing')){
@@ -552,6 +552,17 @@ for(const input of inputs){
 			filter(value, filterRecipesByTagsInput, setFilterRecipeBySearchBar)
 			console.log([...new Set(filterRecipesByTagsInput)])
 			filterIngAppUst([...new Set(filterRecipesByTagsInput)],ingredientsContainer,appliancesContainer,ustensilesContainer)
+			let tags = document.querySelectorAll('.list')
+			for(const tag of tags){
+				tag.addEventListener('click',(e)=>{
+					container.innerHTML = ''
+					for(const recipe of [...new Set(filterRecipesByTagsInput)]){
+						container.innerHTML += new Recipe(recipe).render()
+
+					}
+					generateKeyword(e)
+				})
+			}
 
 
 
