@@ -157,7 +157,7 @@ const generateKeyword = (e) => {
 
 			//si la recherche a été effectuée par le champ de recherche avancé et que le champ de recherche pricipal n'a pas été rempli ou si plus de keyword sélectionnés et recherche < 2 on rafraichit les vignettes
 			if((divKeyword.children.length === 0 && userResearch === undefined) || (divKeyword.children.length === 0 && userResearch.length <= 2)){
-				console.log('cas1')
+				console.log('ligne 160')
 				container.innerHTML =''
 				for(const recipe of recipes){
 					container.innerHTML += new Recipe(recipe).render()
@@ -207,7 +207,7 @@ const generateKeyword = (e) => {
 			}	
 			//lorsque qu'il reste 1 keyword sélectionné si on a commancé la recherche par un tag
 			if((divKeyword.children.length === 1 && userResearch === undefined) || (divKeyword.children.length === 1 && userResearch.length <= 2)){
-				console.log('keyword ==1 && userResearch === undefined')
+				console.log('keyword ==1 && userResearch === undefined ligne 210')
 				console.log(setFilterRecipeByClickOnTagAfterRefresh)
 				container.innerHTML =''
 				for(const recipe of setFilterRecipeByClickOnTagAfterRefresh){
@@ -243,7 +243,7 @@ const generateKeyword = (e) => {
 			
 			//si on supprime tous les keywords, les vignettes filtrées par le champ de recherche principal réaparaissent
 			if(divKeyword.children.length ===0 && userResearch.length>2){
-				console.log('divKeyword.children.length ===0 && userResearch.length>2')
+				console.log('divKeyword.children.length ===0 && userResearch.length>2 ligne 246')
 				//on réaffiche les recettes filtrées par la barre de recherche
 				container.innerHTML=''
 				for(const el of setFilterRecipeBySearchBar){
@@ -292,7 +292,7 @@ const generateKeyword = (e) => {
 			}
 			if(divKeyword.children.length === 1 && userResearch.length>2 ){
 				//on réaffiche les recettes filtrées par tag
-				console.log('divKeyword.children.length === 1 && userResearch>2')
+				console.log('divKeyword.children.length === 1 && userResearch>2 ligne 295')
 				container.innerHTML = ''
 				for(const el of setFilterRecipeByClickOnTag){
 					container.innerHTML += new Recipe(el).render()
@@ -393,7 +393,6 @@ searchInput.addEventListener('input', (e) => {
 		recipes.forEach(
 			(element) => (container.innerHTML += new Recipe(element).render())
 		)
-		filterIngAppUst(recipes,ingredientsContainer,appliancesContainer,ustensilesContainer)
 	}	
 	if(userResearch.length > 2  ){
 		let filterRecipe = [] // recettes filtrées par la barre de recherche
