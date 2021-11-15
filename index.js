@@ -124,6 +124,7 @@ document.body.addEventListener('click', (e) => {
 			.forEach((el) => el.classList.remove('arrow'))
 	}
 })
+
 // génération des keywords en fonction du choix utilisateur
 const divKeyword = document.querySelector('.keyword')
 let color
@@ -161,47 +162,55 @@ const generateKeyword = (e) => {
 					tag.addEventListener('click', (e)=> {
 						//on relance l'affinage de la recherche par tag
 						console.log('cas 1+1tag')
-						let setFilterRecipesByOnlyTag2 = []
+						let filterRecipesByOnlyTag2 = []
 						container.innerHTML=''
-						filterByTag(e,recipes,setFilterRecipesByOnlyTag2,container)
+						filterByTag(e,recipes,filterRecipesByOnlyTag2,container)
 
-						setFilterRecipesByOnlyTag2 = [...new Set(setFilterRecipesByOnlyTag2)]
+						setFilterRecipeByClickOnTagAfterRefresh = [...new Set(filterRecipesByOnlyTag2)]
+						console.log(setFilterRecipeByClickOnTagAfterRefresh)
 
-						for(const recipe of setFilterRecipesByOnlyTag2){
+						for(const recipe of setFilterRecipeByClickOnTagAfterRefresh){
 							container.innerHTML += new Recipe(recipe).render()
 						}
 						generateKeyword(e)
-						filterIngAppUst(setFilterRecipesByOnlyTag2,ingredientsContainer,appliancesContainer,ustensilesContainer)
-						// //on relance l'affinage de la recherche pour 2 tags
-						// const tagsRefresh = document.querySelectorAll('.list')
-						// for(const tag of tagsRefresh){
-						// 	tag.addEventListener('click', (e)=> {
-						// 		//on relance l'affinage de la recherche par tag
-						// 		let filterRecipeByClickOnTagAfterRefresh2 = []
+						filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh,ingredientsContainer,appliancesContainer,ustensilesContainer)
+						//on relance l'affinage de la recherche pour 2 tags
+						const tagsRefresh = document.querySelectorAll('.list')
+						for(const tag of tagsRefresh){
+							tag.addEventListener('click', (e)=> {
+								//on relance l'affinage de la recherche par tag
+								let filterRecipeByClickOnTagAfterRefresh2 = []
 								
-						// 		filterByTag(e,filterRecipeByClickOnTagAfterRefresh,filterRecipeByClickOnTagAfterRefresh2,container)
-						// 		setFilterRecipeByClickOnTagAfterRefresh2=[...new Set(filterRecipeByClickOnTagAfterRefresh2)]
-						// 		console.log(setFilterRecipeByClickOnTagAfterRefresh2)
+								filterByTag(e,setFilterRecipeByClickOnTagAfterRefresh,filterRecipeByClickOnTagAfterRefresh2,container)
+								setFilterRecipeByClickOnTagAfterRefresh2=[...new Set(filterRecipeByClickOnTagAfterRefresh2)]
+								console.log(setFilterRecipeByClickOnTagAfterRefresh2)
 
-						// 		for(const recipe of setFilterRecipeByClickOnTagAfterRefresh2){
-						// 			container.innerHTML += new Recipe(recipe).render()
-						// 		}
-						// 		generateKeyword(e)
-						// 		filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+								for(const recipe of setFilterRecipeByClickOnTagAfterRefresh2){
+									container.innerHTML += new Recipe(recipe).render()
+								}
+								generateKeyword(e)
+								filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh2,ingredientsContainer,appliancesContainer,ustensilesContainer)
 		
 		
-						// 	})
-						// }
+							})
+						}
 
 
 					})
 				}
-
-
-
 			}	
+			//lorsque qu'il reste 1 keyword sélectionné si on a commancé la recherche par un tag
+			if((divKeyword.children.length === 1 && userResearch === undefined) || (divKeyword.children.length === 1 && userResearch.length <= 2)){
+				console.log('keyword ==1 && userResearch === undefined')
+				console.log(setFilterRecipeByClickOnTagAfterRefresh)
+				container.innerHTML =''
+				// for(const recipe of setFilterRecipesByOnlyTag){
+				// 	container.innerHTML += new Recipe(recipe).render()
+				// }
+				//on remet à jour les ing ...
+				filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh,ingredientsContainer,appliancesContainer,ustensilesContainer)
 
-
+			}
 
 
 
@@ -309,7 +318,6 @@ for(const tag of tags){
 		let filterRecipesByOnlyTag = []
 	
 		filterByTag(e,recipes,filterRecipesByOnlyTag,container)
-		console.log(filterRecipesByOnlyTag)
 		setFilterRecipesByOnlyTag = [...new Set(filterRecipesByOnlyTag)]
 		console.log(setFilterRecipesByOnlyTag)
 		for(const recipe of setFilterRecipesByOnlyTag){
@@ -384,6 +392,7 @@ searchInput.addEventListener('input', (e) => {
 		
 		for(const tag of tags){
 			tag.addEventListener('click', (e)=>{
+				console.log('barre de recherche + 1 tag')
 				console.log(setFilterRecipeBySearchBar)
 				let filter1 = []
 				filterByTag(e,setFilterRecipeBySearchBar,filter1,container)	
