@@ -389,6 +389,7 @@ searchInput.addEventListener('input', (e) => {
 		recipes.forEach(
 			(element) => (container.innerHTML += new Recipe(element).render())
 		)
+		filterIngAppUst(recipes,ingredientsContainer,appliancesContainer,ustensilesContainer)
 	}	
 	if(userResearch.length > 2  ){
 		let filterRecipe = [] // recettes filtrées par la barre de recherche
