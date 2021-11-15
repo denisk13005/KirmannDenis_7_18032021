@@ -204,10 +204,10 @@ const generateKeyword = (e) => {
 				console.log('keyword ==1 && userResearch === undefined')
 				console.log(setFilterRecipeByClickOnTagAfterRefresh)
 				container.innerHTML =''
-				// for(const recipe of setFilterRecipesByOnlyTag){
-				// 	container.innerHTML += new Recipe(recipe).render()
-				// }
-				//on remet à jour les ing ...
+				for(const recipe of setFilterRecipeByClickOnTagAfterRefresh){
+					container.innerHTML += new Recipe(recipe).render()
+				}
+				// on remet à jour les ing ...
 				filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh,ingredientsContainer,appliancesContainer,ustensilesContainer)
 
 			}
@@ -309,30 +309,26 @@ const generateKeyword = (e) => {
 }
 
 //*************************************Scénario alternatif A2 */
+
 const tags = document.querySelectorAll('.list')
-let setFilterRecipesByOnlyTag // recettes filtrées après 1 tag
 let setFilterRecipesByOnlyTag2 // recettes filtrées après 2 tags
-console.log( tags)
 for(const tag of tags){
 	tag.addEventListener('click', (e)=> {
-		let filterRecipesByOnlyTag = []
-	
+		let filterRecipesByOnlyTag = []	
 		filterByTag(e,recipes,filterRecipesByOnlyTag,container)
-		setFilterRecipesByOnlyTag = [...new Set(filterRecipesByOnlyTag)]
-		console.log(setFilterRecipesByOnlyTag)
-		for(const recipe of setFilterRecipesByOnlyTag){
+		setFilterRecipeByClickOnTagAfterRefresh = [...new Set(filterRecipesByOnlyTag)]
+		console.log(setFilterRecipeByClickOnTagAfterRefresh)
+		for(const recipe of setFilterRecipeByClickOnTagAfterRefresh){
 			container.innerHTML += new Recipe(recipe).render()
 		}
 		generateKeyword(e)
-		filterIngAppUst(setFilterRecipesByOnlyTag,ingredientsContainer,appliancesContainer,ustensilesContainer)
+		filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh,ingredientsContainer,appliancesContainer,ustensilesContainer)
 		const tags = document.querySelectorAll('.list')
 		for(const tag of tags){
 			tag.addEventListener('click', (e)=>{
 				let filterRecipesByOnlyTag2=[]
-				filterByTag(e,filterRecipesByOnlyTag,filterRecipesByOnlyTag2,container)
-				console.log(filterRecipesByOnlyTag)
+				filterByTag(e,setFilterRecipeByClickOnTagAfterRefresh,filterRecipesByOnlyTag2,container)
 				setFilterRecipesByOnlyTag2 = [...new Set(filterRecipesByOnlyTag2)]
-				console.log(setFilterRecipesByOnlyTag)
 				for(const recipe of setFilterRecipesByOnlyTag2){
 					container.innerHTML += new Recipe(recipe).render()
 				}
