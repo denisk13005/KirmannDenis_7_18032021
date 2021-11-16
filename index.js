@@ -282,7 +282,25 @@ const generateKeyword = (e) => {
 								}
 								generateKeyword(e)
 								filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+								
+								const tagsRefresh = document.querySelectorAll('.list')
+								for(const tag of tagsRefresh){
+									tag.addEventListener('click', (e)=> {
+										//on relance l'affinage de la recherche par tag
+										let filterRecipeByClickOnTagAfterRefresh3 = []
+										
+										filterByTag(e,filterRecipeByClickOnTagAfterRefresh2,filterRecipeByClickOnTagAfterRefresh3,container)
+										setFilterRecipeByClickOnTagAfterRefresh3=[...new Set(filterRecipeByClickOnTagAfterRefresh3)]
 		
+										for(const recipe of setFilterRecipeByClickOnTagAfterRefresh3){
+											container.innerHTML += new Recipe(recipe).render()
+										}
+										generateKeyword(e)
+										filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh3,ingredientsContainer,appliancesContainer,ustensilesContainer)
+				
+				
+									})
+								}
 		
 							})
 						}
@@ -317,7 +335,26 @@ const generateKeyword = (e) => {
 						generateKeyword(e)
 						filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh2,ingredientsContainer,appliancesContainer,ustensilesContainer)
 	
+						const tagsRefresh = document.querySelectorAll('.list')
+						for(const tag of tagsRefresh){
+							tag.addEventListener('click', (e)=> {
+								//on relance l'affinage de la recherche par tag
+								container.innerHTML = ''
+								let filterRecipeByClickOnTagAfterRefresh3 = []
+								filterByTag(e,setFilterRecipeByClickOnTag2,filterRecipeByClickOnTagAfterRefresh3,container)
+								setFilterRecipeByClickOnTagAfterRefresh3=[...new Set(filterRecipeByClickOnTagAfterRefresh3)]
+								for(const recipe of setFilterRecipeByClickOnTagAfterRefresh3){
+									container.innerHTML += new Recipe(recipe).render()
+								}
+
+								generateKeyword(e)
+								filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh3,ingredientsContainer,appliancesContainer,ustensilesContainer)
 	
+	
+							})
+						}
+
+
 					})
 				}
 				
