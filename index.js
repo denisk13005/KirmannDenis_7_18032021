@@ -1,136 +1,29 @@
 import recipes from './js/recipes.js'
-import Header from './js/header.js'
-import Search from './js/search.js'
 import Keywords from './js/keyWords.js'
-import SearchBtns from './js/searchBtns.js'
 import Recipe from './js/recipe.js'
 import { filter } from './js/filter.js'
 import { filterIngAppUst } from './js/filterIngAppUst.js'
 import filterByTag from './js/filterByTag.js'
-// recupération des ingrédients
-const ingredients = []
-recipes.forEach((element) => {
-	element.ingredients.forEach((el) =>
-		ingredients.push(el.ingredient.toLowerCase())
-	)
-})
-let setIngredients = [...new Set(ingredients)] //supression des doublons et conversion en tableau
+import generateDOM from './js/domGeneration.js'
+// génération du dom
+generateDOM()
 
-//récupération des appareils
-const appliances = []
-recipes.forEach((element) => appliances.push(element.appliance.toLowerCase()))
-const setAppliances = [...new Set(appliances)]
+const main = document.getElementsByTagName('main')
+console.log(main[0].children)
 
-// récupération des ustensiles
-const ustensiles = []
-recipes.forEach((element) => {
-	element.ustensils.forEach((el) => ustensiles.push(el.toLowerCase()))
-})
-const setUstensile = [...new Set(ustensiles)]
-
-// génération des éléments DOM
-const body = document.body
-const main = document.createElement('main')
-body.appendChild(main)
-
-//génération du header
-const logo = 'img/logo.png'
-const header = new Header(logo).render()
-main.innerHTML += header
-
-//génération de la barre de recherche
-const loupe = 'img/loupe.svg'
-const search = new Search(loupe).render()
-main.innerHTML += search
-
-//génération des mots clé
-const keyword = document.createElement('div')
-keyword.classList.add('keyword')
-main.appendChild(keyword)
-
-
-
-//********************************boutons de sélection *****************/
-
-//génération des boutons de choix de recherche
-const btns = new SearchBtns(
-	setIngredients,
-	setAppliances,
-	setUstensile
-).render()
-main.innerHTML += btns
-
-//animation de la fleche
-document.querySelectorAll('.btn').forEach((el) =>
-	el.addEventListener('click', () => {
-		el.classList.toggle('arrow')
-	})
-)
-//récupération des éléments du dom
 const ingredientsContainer = document.querySelector('.ingredients__container')
 const appliancesContainer = document.querySelector('.appliances__container')
 const ustensilesContainer = document.querySelector('.ustensiles__container')
-const btnIngredients = document.querySelector('.btn__ingredients')
-const btnAppliances = document.querySelector('.btn__appareil')
-const btnUstensiles = document.querySelector('.btn__ustensiles')
-const ingInput = document.querySelector('.input__ing')
-const ingApp = document.querySelector('.input__app')
-const ingUst = document.querySelector('.input__ust')
-// apparition des ingrédients
-btnIngredients.addEventListener('click', () => {
-	ingredientsContainer.classList.toggle('ingredients__container--visible'),
-	appliancesContainer.classList.remove('appliances__container--visible'),
-	ustensilesContainer.classList.remove('ustensiles__container--visible'),
-	btnAppliances.classList.remove('arrow')
-	btnUstensiles.classList.remove('arrow')
-	ingApp.classList.remove('input__app--visible')
-	ingUst.classList.remove('input__ust--visible')
-	ingInput.classList.toggle('input__ing--visible')
-	ingInput.focus()
-})
-//apparition des appareils
-btnAppliances.addEventListener('click', () => {
-	appliancesContainer.classList.toggle('appliances__container--visible'),
-	ustensilesContainer.classList.remove('ustensiles__container--visible'),
-	ingredientsContainer.classList.remove('ingredients__container--visible'),
-	btnUstensiles.classList.remove('arrow')
-	btnIngredients.classList.remove('arrow')
-	ingUst.classList.remove('input__ust--visible')
-	ingInput.classList.remove('input__ing--visible')
-	ingApp.classList.toggle('input__app--visible')
-	ingApp.focus()
-})
-//apparition des ustensiles
-btnUstensiles.addEventListener('click', () => {
-	ustensilesContainer.classList.toggle('ustensiles__container--visible'),
-	ingredientsContainer.classList.remove('ingredients__container--visible'),
-	appliancesContainer.classList.remove('appliances__container--visible'),
-	btnIngredients.classList.remove('arrow')
-	btnAppliances.classList.remove('arrow')
-	ingInput.classList.remove('input__ing--visible')
-	ingApp.classList.remove('input__app--visible')
-	ingUst.classList.toggle('input__ust--visible')
-	ingUst.focus()
-})
-//fermeture des choix au click ailleur que sur un boutton
-document.body.addEventListener('click', (e) => {
-	if (e.target.getAttribute('data-name') !== 'button') {
-		ingredientsContainer.classList.remove('ingredients__container--visible'),
-		appliancesContainer.classList.remove('appliances__container--visible'),
-		ustensilesContainer.classList.remove('ustensiles__container--visible')
-		ingInput.classList.remove('input__ing--visible')
-		ingApp.classList.remove('input__app--visible')
-		ingUst.classList.remove('input__ust--visible')
-		document
-			.querySelectorAll('.btn')
-			.forEach((el) => el.classList.remove('arrow'))
-	}
-})
+//*******************************************recettes*********************/
+//génération du conteneur des recettes
+const container = document.createElement('div')
+container.classList.add('container')
+main[0].appendChild(container)
+//génération des fiches de recettes
 
-
-
-
-
+recipes.forEach(
+	(element) => (container.innerHTML += new Recipe(element).render())
+)
 
 
 // génération des keywords en fonction du choix utilisateur
@@ -155,7 +48,7 @@ const generateKeyword = (e) => {
 	croix.forEach((el) =>{
 		el.addEventListener('click', () => {
 			el.parentElement.remove()//on suprimme le keyword sélectionné
-
+			
 			//si la recherche a été effectuée par le champ de recherche avancé et que le champ de recherche pricipal n'a pas été rempli ou si plus de keyword sélectionnés et recherche < 2 on rafraichit les vignettes
 			if((divKeyword.children.length === 0 && userResearch === undefined) || (divKeyword.children.length === 0 && userResearch.length <= 2)){
 				console.log('ligne 160')
@@ -397,7 +290,10 @@ const generateKeyword = (e) => {
 	)
 }
 
+
+
 //*************************************Scénario alternatif A2 */
+
 
 const tags = document.querySelectorAll('.list')
 let setFilterRecipesByOnlyTag2 // recettes filtrées après 2 tags
@@ -430,16 +326,7 @@ for(const tag of tags){
 	})
 }
 
-//*******************************************recettes*********************/
-//génération du conteneur des recettes
-const container = document.createElement('div')
-container.classList.add('container')
-main.appendChild(container)
-//génération des fiches de recettes
 
-recipes.forEach(
-	(element) => (container.innerHTML += new Recipe(element).render())
-)
 
 
 //******************************************filtre par la barre de recherche principale**************/
