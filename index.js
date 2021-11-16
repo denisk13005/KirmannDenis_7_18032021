@@ -138,6 +138,7 @@ const divKeyword = document.querySelector('.keyword')
 let color
 let setFilterRecipeByClickOnTagAfterRefresh// recettes restantes au 1er click sur les tag
 let setFilterRecipeByClickOnTagAfterRefresh2  // recettes testantes au 2eme click sur un tag
+let setFilterRecipeByClickOnTagAfterRefresh3// recettes testantes au 3eme click sur un tag
 const generateKeyword = (e) => {
 	if (e.target.getAttribute('class').includes('ingredients')) {
 		color = 'blue'
@@ -290,6 +291,8 @@ const generateKeyword = (e) => {
 					})
 				}
 			}
+
+
 			if(divKeyword.children.length === 1 && userResearch.length>2 ){
 				//on réaffiche les recettes filtrées par tag
 				console.log('divKeyword.children.length === 1 && userResearch>2 ligne 295')
@@ -318,7 +321,36 @@ const generateKeyword = (e) => {
 					})
 				}
 				
-			}		
+			}	
+
+
+			if(divKeyword.children.length === 2 && userResearch.length>2 ){
+				console.log('divKeyword.children.length === 2 && userResearch.length>2 ligne 328')
+				container.innerHTML = ''
+				for(const el of setFilterRecipeByClickOnTag2){
+					container.innerHTML += new Recipe(el).render()
+				}
+				filterIngAppUst(setFilterRecipeByClickOnTag2,ingredientsContainer,appliancesContainer,ustensilesContainer)
+				//on relance l'affinage de la recherche pour 2 tags
+				const tagsRefresh = document.querySelectorAll('.list')
+				for(const tag of tagsRefresh){
+					tag.addEventListener('click', (e)=> {
+						//on relance l'affinage de la recherche par tag
+						container.innerHTML = ''
+						let filterRecipeByClickOnTagAfterRefresh3 = []
+						filterByTag(e,setFilterRecipeByClickOnTag2,filterRecipeByClickOnTagAfterRefresh3,container)
+						setFilterRecipeByClickOnTagAfterRefresh3=[...new Set(filterRecipeByClickOnTagAfterRefresh3)]
+						for(const recipe of setFilterRecipeByClickOnTagAfterRefresh3){
+							container.innerHTML += new Recipe(recipe).render()
+						}
+
+						generateKeyword(e)
+						filterIngAppUst(setFilterRecipeByClickOnTagAfterRefresh3,ingredientsContainer,appliancesContainer,ustensilesContainer)
+	
+	
+					})
+				}
+			}
 			
 		})
 		
@@ -433,15 +465,19 @@ searchInput.addEventListener('input', (e) => {
 						for(const recipe of setFilterRecipeByClickOnTag2){
 							container.innerHTML += new Recipe(recipe).render()
 						}			
+						console.log(setFilterRecipeByClickOnTag2)
 						generateKeyword(e)
 						filterIngAppUst(setFilterRecipeByClickOnTag2,ingredientsContainer,appliancesContainer,ustensilesContainer)
 
 						let tags3=document.querySelectorAll('.list')
 						for(const tag3 of tags3){
 							tag3.addEventListener('click',(e)=>{
+								console.log('barre de recherche + 2 tags')
+
 								let filter3 = []
 								filterByTag(e,filter2,filter3,container)
 								setFilterRecipeByClickOnTag3 = [...new Set(filter3)]
+								console.log(setFilterRecipeByClickOnTag3)
 								for(const recipe of setFilterRecipeByClickOnTag3){
 									container.innerHTML += new Recipe(recipe).render()
 								}
