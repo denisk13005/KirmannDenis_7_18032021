@@ -1,3 +1,4 @@
+import generateKeyword from './generateKeyword.js'
 /**
  * 
  * @param {Event} e
@@ -6,9 +7,24 @@
  * @param {HTMLElement} container 
  */
 
+let arrayOfTags = []
+
 export default function filterByTag(e,arrayOfRecipes,filterRecipeByTag,container){
 	let value = e.target.innerHTML.toLowerCase() // récupére le contenu textuel du span
 	let type = e.target.getAttribute('class') // défini le type de span cliqué(ing, app, ust)
+	if(arrayOfTags.includes(value)){
+		console.log(arrayOfTags)
+		let index = arrayOfTags.indexOf(value)
+		arrayOfTags.splice(index,1)
+		console.log(arrayOfTags)
+
+	}else{
+		arrayOfTags.push(value)
+		generateKeyword
+	}
+
+
+	console.log(arrayOfTags)
 	container.innerHTML = ''
 	if(type.includes('ingredients')){
 		for(const recipe of arrayOfRecipes){
