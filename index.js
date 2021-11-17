@@ -360,6 +360,8 @@ searchInput.addEventListener('input', (e) => {
 		for(const recipe of setFilterRecipeBySearchBar){
 			container.innerHTML += new Recipe(recipe).render()
 		}
+		
+
 		//maj des ingrédients appareils et ustensiles
 
 		filterIngAppUst(setFilterRecipeBySearchBar,ingredientsContainer,appliancesContainer,ustensilesContainer,container)

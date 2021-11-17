@@ -8,14 +8,14 @@ export default class Search{
 	render(){
 		const search=
     `
-    <div class="search">
+    <section class="search">
       <input
         id="search"
         type="text"
         placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
       />
       <img class="loupe" src="${this.loupe}" alt="loupe de recherche" />
-    </div>
+    </section>
     `
 		return search
    
