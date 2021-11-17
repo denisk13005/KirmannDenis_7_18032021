@@ -1,5 +1,5 @@
+import closeKeyword from './closeKeyword.js'
 import filterByTag from './filterByTag.js'
-import generateKeyword from './generateKeyword.js'
 //***********************************fonction de filtre des ing, app et ust ********/
 /**
  * 
@@ -38,6 +38,12 @@ export const filterIngAppUst = (arrayOfRecipes,ingredientsContainer,appliancesCo
 		ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${el}</span>`
 	}
 	
-	document.querySelectorAll('.list').forEach(el => el.addEventListener('click', generateKeyword))
+	document.querySelectorAll('.list').forEach(el => el.addEventListener('click', (e)=>{
+		filterByTag(e)
+		const closeBtns = document.querySelectorAll('.croix')
+		closeBtns.forEach(el => el.addEventListener('click', closeKeyword))
+		
+		
+	}))
 }
 
