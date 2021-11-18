@@ -13,8 +13,9 @@ import {filterIngAppUst} from './filterIngAppUst.js'
 
 let arrayOfTags = []
 
-export default function filterByTag(e,arrayOfRecipes,color,divKeyword){
-	let value = e.target.innerHTML.toLowerCase() // récupére le contenu textuel du span
+export default function filterByTag(e,arrayOfRecipes,tags){
+	let value = e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
+	arrayOfTags = tags
 	if(arrayOfTags.includes(value)){
 		console.log(arrayOfTags)
 		let index = arrayOfTags.indexOf(value)
@@ -23,14 +24,16 @@ export default function filterByTag(e,arrayOfRecipes,color,divKeyword){
 
 	}else{
 		arrayOfTags.push(value)
-		generateKeyword(e,color,divKeyword)	
+		generateKeyword(e)	
 		filterOnclick(arrayOfRecipes,arrayOfTags)
 	}	
 
 
 }
 
-function filterOnclick(arrayOfRecipes,arrayOfTags,arrayOfRecipesToRender){			let container = document.querySelector('.container')
+function filterOnclick(arrayOfRecipes,arrayOfTags,arrayOfRecipesToRender){		
+	
+	let container = document.querySelector('.container')
 	arrayOfRecipesToRender=[]
 	for(const tag of arrayOfTags){
 		console.log(tag)

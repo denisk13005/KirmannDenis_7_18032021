@@ -364,7 +364,7 @@ searchInput.addEventListener('input', (e) => {
 
 		//maj des ingrédients appareils et ustensiles
 
-		filterIngAppUst(setFilterRecipeBySearchBar,ingredientsContainer,appliancesContainer,ustensilesContainer,container)
+		filterIngAppUst(setFilterRecipeBySearchBar)
 
 	
 
