@@ -1,5 +1,6 @@
 import generateKeyword from './generateKeyword.js'
 import Recipe from './recipe.js'
+import {filterIngAppUst} from './filterIngAppUst.js'
 
 // import setFilterRecipeBySearchBar from'../index.js'
 /**
@@ -56,6 +57,6 @@ function filterOnclick(arrayOfRecipes,arrayOfTags,arrayOfRecipesToRender){			let
 	for(const recipe of arrayOfRecipesToRender){
 		container.innerHTML += new Recipe(recipe).render()
 	}
-
+	filterIngAppUst(arrayOfRecipesToRender)
 
 }
