@@ -8,7 +8,10 @@ import filterByTag from './filterByTag.js'
  * @param {HTMLElement} appliancesContainer 
  * @param {HTMLElement} ustensilesContainer 
  */
-export const filterIngAppUst = (arrayOfRecipes,ingredientsContainer,appliancesContainer,ustensilesContainer) =>{
+export const filterIngAppUst = (arrayOfRecipes) =>{
+	const ingredientsContainer = document.querySelector('.ingredients__container')
+	const appliancesContainer = document.querySelector('.appliances__container')
+	const ustensilesContainer = document.querySelector('.ustensiles__container')
 	ingredientsContainer.innerHTML = ''
 	appliancesContainer.innerHTML= ''
 	ustensilesContainer.innerHTML= ''
