@@ -39,7 +39,7 @@ export const filterIngAppUst = (arrayOfRecipes,ingredientsContainer,appliancesCo
 	}
 	
 	document.querySelectorAll('.list').forEach(el => el.addEventListener('click', (e)=>{
-		filterByTag(e)
+		filterByTag(e,arrayOfRecipes)
 		const closeBtns = document.querySelectorAll('.croix')
 		closeBtns.forEach(el => el.addEventListener('click', closeKeyword))
 		

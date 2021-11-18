@@ -1,4 +1,6 @@
 import generateKeyword from './generateKeyword.js'
+import Recipe from './recipe.js'
+
 // import setFilterRecipeBySearchBar from'../index.js'
 /**
  * 
@@ -9,10 +11,8 @@ import generateKeyword from './generateKeyword.js'
  */
 
 let arrayOfTags = []
-let arrayOfRecipes = []
 
-export default function filterByTag(e,color,divKeyword){
-	let container = document.querySelector('.container')
+export default function filterByTag(e,arrayOfRecipes,color,divKeyword){
 	let value = e.target.innerHTML.toLowerCase() // récupére le contenu textuel du span
 	if(arrayOfTags.includes(value)){
 		console.log(arrayOfTags)
@@ -23,45 +23,39 @@ export default function filterByTag(e,color,divKeyword){
 	}else{
 		arrayOfTags.push(value)
 		generateKeyword(e,color,divKeyword)	
-		filterOnclick
+		filterOnclick(arrayOfRecipes,arrayOfTags)
 	}	
-	
+
+
 }
 
-function filterOnclick(arrayOfRecipes,arrayOfTags){
+function filterOnclick(arrayOfRecipes,arrayOfTags,arrayOfRecipesToRender){			let container = document.querySelector('.container')
+	arrayOfRecipesToRender=[]
 	for(const tag of arrayOfTags){
-		for(const recipe of arrayOfRecipes){
-
-
-
-
+		console.log(tag)
+		for(const recipe of arrayOfRecipes){	
+			for(const el of recipe.ingredients){
+				if(el.ingredient.toLowerCase().match(tag))
+					arrayOfRecipesToRender.push(recipe)
+			
+			}	
+			if(recipe.appliance.toLowerCase().match(tag)){
+				arrayOfRecipesToRender.push(recipe)
+			}
+			for(const el of recipe.ustensils){
+				if(el.toLowerCase().match(tag)){
+					arrayOfRecipesToRender.push(recipe)
+				}
+			}
 		}
+
 	}
+
+	console.log(arrayOfRecipesToRender)
+	container.innerHTML = ''
+	for(const recipe of arrayOfRecipesToRender){
+		container.innerHTML += new Recipe(recipe).render()
+	}
+
+
 }
-// console.log(arrayOfTags)
-// container.innerHTML = ''
-// if(type.includes('ingredients')){
-// 	for(const recipe of arrayOfRecipes){
-// 		for(const el of recipe.ingredients){
-// 			if(el.ingredient.toLowerCase().match(value)){
-// 				filterRecipeByTag.push(recipe)
-// 			}
-// 		}
-// 	}
-// }
-// else if(type.includes('appliances')){
-// 	for(const recipe of arrayOfRecipes){
-// 		if(recipe.appliance.toLowerCase().match(value)){
-// 			filterRecipeByTag.push(recipe)
-// 		}
-// 	}
-// }
-// else{
-// 	for(const recipe of arrayOfRecipes){
-// 		for(const el of recipe.ustensils){
-// 			if(el.toLowerCase().match(value)){
-// 				filterRecipeByTag.push(recipe)
-// 			}
-// 		}
-// 	}
-// }	
