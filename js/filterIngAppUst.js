@@ -4,11 +4,10 @@ import filterByTag from './filterByTag.js'
 /**
  * 
  * @param {Object} arrayOfRecipes tableau de recettes 
- * @param {HTMLElement} ingredientsContainer 
- * @param {HTMLElement} appliancesContainer 
- * @param {HTMLElement} ustensilesContainer 
+ *
  */
 export const filterIngAppUst = (arrayOfRecipes) =>{
+	console.log(arrayOfRecipes)
 	const ingredientsContainer = document.querySelector('.ingredients__container')
 	const appliancesContainer = document.querySelector('.appliances__container')
 	const ustensilesContainer = document.querySelector('.ustensiles__container')
@@ -42,9 +41,14 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	}
 	
 	document.querySelectorAll('.list').forEach(el => el.addEventListener('click', (e)=>{
-		filterByTag(e,arrayOfRecipes)
+		let valueOfTag
+		filterByTag(e,valueOfTag,arrayOfRecipes)
+		console.log(arrayOfRecipes)
 		const closeBtns = document.querySelectorAll('.croix')
-		closeBtns.forEach(el => el.addEventListener('click', closeKeyword))
+		closeBtns.forEach(el => el.addEventListener('click', (e)=> {
+			closeKeyword(e,valueOfTag,arrayOfRecipes)
+			
+		}))
 		
 		
 	}))

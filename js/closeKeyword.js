@@ -1,7 +1,6 @@
-export default function closeKeyword(e){
-	let tags = document.querySelectorAll('')
+import filterByTag from './filterByTag.js'
+export default function closeKeyword(e,valueOfTag,arrayOfRecipes){
 	e.target.parentElement.remove(e.target)
-	let valueOfTag = e.target.parentElement.children[0].innerHTML
-	// console.log(e.target.parentElement.children[0].innerHTML)
-	console.log(tags.indexOf(valueOfTag)) 
+	valueOfTag = e.target.parentElement.children[0].innerHTML.toLowerCase()
+	filterByTag(e,valueOfTag,arrayOfRecipes)
 }

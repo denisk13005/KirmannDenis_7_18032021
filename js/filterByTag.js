@@ -11,33 +11,38 @@ import {filterIngAppUst} from './filterIngAppUst.js'
  * @param {HTMLElement} container 
  */
 
-let arrayOfTags = []
-
-export default function filterByTag(e,arrayOfRecipes,tags){
+let arrayOfTags=[]
+let globalArrayOfRecipes = []
+export default function filterByTag(e,valueOfTag,arrayOfRecipes){
+	console.log(arrayOfRecipes)
 	let value = e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
-	arrayOfTags = tags
+	globalArrayOfRecipes = arrayOfRecipes
 	if(arrayOfTags.includes(value)){
-		console.log(arrayOfTags)
 		let index = arrayOfTags.indexOf(value)
 		arrayOfTags.splice(index,1)
 		console.log(arrayOfTags)
 
-	}else{
+	}
+	if(arrayOfTags.includes(valueOfTag)){
+		let index = arrayOfTags.indexOf(valueOfTag)
+		arrayOfTags.splice(index,1)
+		filterOnclick(globalArrayOfRecipes,arrayOfTags)
+	}
+	
+	else{
 		arrayOfTags.push(value)
 		generateKeyword(e)	
-		filterOnclick(arrayOfRecipes,arrayOfTags)
+		filterOnclick(globalArrayOfRecipes,arrayOfTags)
 	}	
-
 
 }
 
-function filterOnclick(arrayOfRecipes,arrayOfTags,arrayOfRecipesToRender){		
+function filterOnclick(globalArrayOfRecipes,arrayOfTags,arrayOfRecipesToRender){		
 	
 	let container = document.querySelector('.container')
 	arrayOfRecipesToRender=[]
 	for(const tag of arrayOfTags){
-		console.log(tag)
-		for(const recipe of arrayOfRecipes){	
+		for(const recipe of globalArrayOfRecipes){	
 			for(const el of recipe.ingredients){
 				if(el.ingredient.toLowerCase().match(tag))
 					arrayOfRecipesToRender.push(recipe)
@@ -54,12 +59,19 @@ function filterOnclick(arrayOfRecipes,arrayOfTags,arrayOfRecipesToRender){
 		}
 
 	}
-
+	let setArrayOfRecipesToRender = [...new Set(arrayOfRecipesToRender)]
 	console.log(arrayOfRecipesToRender)
 	container.innerHTML = ''
-	for(const recipe of arrayOfRecipesToRender){
+	for(const recipe of setArrayOfRecipesToRender){
 		container.innerHTML += new Recipe(recipe).render()
 	}
-	filterIngAppUst(arrayOfRecipesToRender)
+	filterIngAppUst(setArrayOfRecipesToRender)
+	globalArrayOfRecipes=setArrayOfRecipesToRender
+	console.log(setArrayOfRecipesToRender)
+	console.log('tableau des tags')
+	console.log(arrayOfTags)
+	console.log('global array of recipes')
+	console.log(globalArrayOfRecipes)
+
 
 }

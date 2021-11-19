@@ -10,7 +10,6 @@ import generateDOM from './js/domGeneration.js'
 generateDOM()
 
 const main = document.getElementsByTagName('main')
-console.log(main[0].children)
 
 const ingredientsContainer = document.querySelector('.ingredients__container')
 const appliancesContainer = document.querySelector('.appliances__container')
@@ -342,6 +341,7 @@ let setFilterRecipeByClickOnTag2
 let setFilterRecipeByClickOnTag3
 
 const searchInput = document.getElementById('search')
+
 searchInput.addEventListener('input', (e) => {
 
 	userResearch= e.target.value.toLowerCase()
@@ -350,7 +350,9 @@ searchInput.addEventListener('input', (e) => {
 		recipes.forEach(
 			(element) => (container.innerHTML += new Recipe(element).render())
 		)
+		filterIngAppUst(recipes)		
 	}	
+
 	if(userResearch.length > 2  ){
 		let filterRecipe = [] // recettes filtrées par la barre de recherche
 		container.innerHTML = ''		
