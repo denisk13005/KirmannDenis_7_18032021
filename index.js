@@ -4,7 +4,6 @@ import generateKeyword from './js/generateKeyword.js'
 import Recipe from './js/recipe.js'
 import { filter } from './js/filter.js'
 import { filterIngAppUst } from './js/filterIngAppUst.js'
-import filterByTag from './js/filterByTag.js'
 import generateDOM from './js/domGeneration.js'
 // génération du dom
 generateDOM()
@@ -24,6 +23,7 @@ main[0].appendChild(container)
 recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
+filterIngAppUst(recipes) //lance le filtre et le tri au tag
 
 
 // génération des keywords en fonction du choix utilisateur
@@ -341,9 +341,7 @@ let setFilterRecipeByClickOnTag2
 let setFilterRecipeByClickOnTag3
 
 const searchInput = document.getElementById('search')
-
 searchInput.addEventListener('input', (e) => {
-
 	userResearch= e.target.value.toLowerCase()
 	if(userResearch.length===0){
 		container.innerHTML=''
@@ -430,6 +428,7 @@ searchInput.addEventListener('input', (e) => {
 		
 	}
 	
+
 })
 //****************************************scénario alternatif A1 */
 
