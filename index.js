@@ -3,8 +3,10 @@ import recipes from './js/recipes.js'
 import generateKeyword from './js/generateKeyword.js'
 import Recipe from './js/recipe.js'
 import { filter } from './js/filter.js'
-import { filterIngAppUst } from './js/filterIngAppUst.js'
+import { filterIngAppUst  } from './js/filterIngAppUst.js'
+import  filterByTag  from './js/filterIngAppUst.js'
 import generateDOM from './js/domGeneration.js'
+
 // génération du dom
 generateDOM()
 
@@ -24,7 +26,13 @@ recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
 filterIngAppUst(recipes) //lance le filtre et le tri au tag
+let tags = document.querySelectorAll('.list')
+for(const tag of tags){
+	tag.addEventListener('click', (e)=> {
+		filterByTag(e,recipes)
 
+	})
+}
 
 // génération des keywords en fonction du choix utilisateur
 const divKeyword = document.querySelector('.keyword')
@@ -341,6 +349,7 @@ let setFilterRecipeByClickOnTag2
 let setFilterRecipeByClickOnTag3
 
 const searchInput = document.getElementById('search')
+searchInput.focus()
 searchInput.addEventListener('input', (e) => {
 	userResearch= e.target.value.toLowerCase()
 	if(userResearch.length===0){

@@ -589,6 +589,10 @@ header img {
   transition: transform 0.2s, -webkit-transform 0.2s;
 }
 
+.card__none {
+  color: blueviolet;
+}
+
 .card:hover {
   -webkit-transform: scale(1.03);
           transform: scale(1.03);

@@ -18,7 +18,7 @@ export default class Recipe{
 	render(){
 		const card = 
     `
-    <div class="card">
+    <div class="card" data-ing="${this.ingredients.map(el=>el.ingredient)}">
       <div class="img"></div>
       <div class="description">
         <div class="nameAndTime">

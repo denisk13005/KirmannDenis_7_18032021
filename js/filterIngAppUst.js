@@ -6,12 +6,22 @@ import generateKeyword from './generateKeyword.js'
 /**
  * 
  * @param {Object} arrayOfRecipes tableau de recettes 
+ * @param {Object} arrayOfFilteredRecipes tableau des recettes ayant subit un filterByTag
  *
  */
-let recettesBarreRecherche
+let filteredRecipesBySearchBar // recettes filtrées par la barre de recherche
+let arrayOfFilteredRecipes
+let filteredRecipesBy1Tag
 export const filterIngAppUst = (arrayOfRecipes) =>{
-	recettesBarreRecherche = arrayOfRecipes
-	console.log(arrayOfRecipes)
+	console.log(arrayOfTagsLength)
+	if(arrayOfTagsLength ==0){
+		filteredRecipesBySearchBar = arrayOfRecipes
+		arrayOfFilteredRecipes = filteredRecipesBySearchBar
+	}
+	if(arrayOfTagsLength == 1){
+		arrayOfFilteredRecipes = filteredRecipesBy1Tag
+	}
+	console.log(arrayOfFilteredRecipes)
 	const ingredientsContainer = document.querySelector('.ingredients__container')
 	const appliancesContainer = document.querySelector('.appliances__container')
 	const ustensilesContainer = document.querySelector('.ustensiles__container')
@@ -21,7 +31,7 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	let ingredientsFilter = []
 	let appliancesFilter = []
 	let ustensilesFilter = []
-	for(const recipe of arrayOfRecipes){
+	for(const recipe of arrayOfFilteredRecipes){
 		for(const el of recipe.ingredients){
 			ingredientsFilter.push(el.ingredient)
 		}
@@ -45,60 +55,56 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	}
 	
 	document.querySelectorAll('.list').forEach(el => el.addEventListener('click', (e)=>{
-		
-		let arrayOfRecipesToFilter=arrayOfRecipes
-		filterByTag(e,arrayOfRecipesToFilter)
+		filterByTag(e,arrayOfFilteredRecipes)		
 		const closeBtns = document.querySelectorAll('.croix')
 		closeBtns.forEach(el => el.addEventListener('click', (e)=> {
 			closeKeyword(e)
-			
+				
 		}))
-		
-		
 	}))
 }
 
 
 
-let arrayOfTags=[]
-let arrayOfTagsLength = 0
-
-let filteredArrayOfRecipesBySearchbar
-let globalArrayOfRecipes = []
-function filterByTag(e,arrayOfRecipes,valueOfTag){
-	let value = e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
-	globalArrayOfRecipes = arrayOfRecipes
-	if(arrayOfTags.includes(value)){
-		console.log('deja dans le tableau')
-		return
-		// let index = arrayOfTags.indexOf(value)
-		// arrayOfTags.splice(index,1)
+let arrayOfTags=[] // tableau des tags sur lesquels on a clické
+let arrayOfTagsLength = 0 // initialisation du nombre de tags sélectionnés
+let filteredRecipesByTag = [] // recettes filtrées après un click sur un tag
+let valueOfTag ='' // value du tag quand on click sur close
+/**
+ * 
+ * @param {*} e 
+ * @param {*} arrayOfRecipes 
+ * @param {*} valueOfTag 
+ * @returns 
+ */
+function filterByTag(e,arrayOfFilteredRecipes){
+	valueOfTag =	e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
+	filteredRecipesByTag = arrayOfFilteredRecipes
+	if(!arrayOfTags.includes(valueOfTag)){
+		arrayOfTags.push(valueOfTag)
+		arrayOfTagsLength++
+		generateKeyword(e)
 
 	} 
 
-	else{
-		arrayOfTags.push(value)
-		arrayOfTagsLength++
-	}	
 	console.log(arrayOfTags)
-	filterOnclick(globalArrayOfRecipes,arrayOfTags,e)
-	generateKeyword(e)
+	filterOnclick(filteredRecipesByTag,arrayOfTags)
 	console.log(arrayOfTagsLength)
+
 
 }
 
 
 
-
-function filterOnclick(globalArrayOfRecipes,arrayOfTags,e,arrayOfRecipesToRender){	
+function filterOnclick(filteredRecipesByTag,arrayOfTags,arrayOfRecipesToRender){	
 	let container = document.querySelector('.container')
 	arrayOfRecipesToRender=[]
 	for(const tag of arrayOfTags){
-		for(const recipe of globalArrayOfRecipes){	
+		for(const recipe of filteredRecipesByTag){	
 			for(const el of recipe.ingredients){
 				if(el.ingredient.toLowerCase().match(tag))
 					arrayOfRecipesToRender.push(recipe)
-			
+				
 			}	
 			if(recipe.appliance.toLowerCase().match(tag)){
 				arrayOfRecipesToRender.push(recipe)
@@ -109,23 +115,33 @@ function filterOnclick(globalArrayOfRecipes,arrayOfTags,e,arrayOfRecipesToRender
 				}
 			}
 		}
-
+		
 	}
-	let setArrayOfRecipesToRender = [...new Set(arrayOfRecipesToRender)]
+	arrayOfFilteredRecipes  = [...new Set(arrayOfRecipesToRender)]
 	container.innerHTML = ''
 	if(arrayOfTagsLength>0){
-		for(const recipe of setArrayOfRecipesToRender){
+		for(const recipe of arrayOfFilteredRecipes){
 			container.innerHTML += new Recipe(recipe).render()
 		}	
 	}
+
+	console.log(valueOfTag)
+	console.log(filteredRecipesBySearchBar)
+	if(arrayOfTagsLength == 1){
+		filteredRecipesBy1Tag = arrayOfFilteredRecipes
+	}
+	
+
+	filterIngAppUst(arrayOfFilteredRecipes)
 	
 	
-	// globalArrayOfRecipes=setArrayOfRecipesToRender
-	// filterIngAppUst(globalArrayOfRecipes)
-
-
 }
-
+/**
+ * 
+ * @param {*} e 
+ * @param {string} valueOfTag contenu du tag qu'on veut fermer
+ * @param {*} arrayOfRecipes 
+ */
 function closeKeyword(e,valueOfTag,arrayOfRecipes){
 	let container = document.querySelector('.container')
 	valueOfTag = e.target.parentElement.children[0].innerHTML.toLowerCase()	
@@ -139,10 +155,13 @@ function closeKeyword(e,valueOfTag,arrayOfRecipes){
 	if(arrayOfTagsLength == 0){	
 		container.innerHTML = ''
 		console.log('ok')
-		for(const recipe of recettesBarreRecherche){
+		for(const recipe of filteredRecipesBySearchBar){
 			container.innerHTML += new Recipe(recipe).render()
 		}	
+		filterIngAppUst(filteredRecipesBySearchBar)
 	}
 	
-	// filterByTag(e,arrayOfRecipes,valueOfTag)
+	
 }
+
+export default filterByTag
