@@ -85,11 +85,10 @@ function filterByTag(e,arrayOfFilteredRecipes){
 		arrayOfTagsLength++
 		generateKeyword(e)
 
-	} 
-
-	console.log(arrayOfTags)
+	} else{
+		alert('tag déja sélectionné')
+	}
 	filterOnclick(filteredRecipesByTag,arrayOfTags)
-	console.log(arrayOfTagsLength)
 
 
 }
@@ -142,11 +141,10 @@ function filterOnclick(filteredRecipesByTag,arrayOfTags,arrayOfRecipesToRender){
  * @param {string} valueOfTag contenu du tag qu'on veut fermer
  * @param {*} arrayOfRecipes 
  */
-function closeKeyword(e,valueOfTag,arrayOfRecipes){
+function closeKeyword(e,valueOfTag){
 	let container = document.querySelector('.container')
 	valueOfTag = e.target.parentElement.children[0].innerHTML.toLowerCase()	
 	let index = arrayOfTags.indexOf(valueOfTag)
-	e.target.parentElement.remove(e.target)
 	console.log(index)
 	arrayOfTags.splice(index,1)
 	console.log(arrayOfTags)
@@ -161,6 +159,7 @@ function closeKeyword(e,valueOfTag,arrayOfRecipes){
 		filterIngAppUst(filteredRecipesBySearchBar)
 	}
 	
+	e.target.parentElement.remove(e.target)
 	
 }
 
