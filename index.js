@@ -1,9 +1,9 @@
 import recipes from './js/recipes.js'
 // import Keywords from './js/keyWords.js'
-import generateKeyword from './js/generateKeyword.js'
+// import generateKeyword from './js/generateKeyword.js'
 import Recipe from './js/recipe.js'
 import { filter } from './js/filter.js'
-import { filterIngAppUst  } from './js/filterIngAppUst.js'
+import createArrayOfTag, { filterIngAppUst  } from './js/filterIngAppUst.js'
 import  filterByTag  from './js/filterIngAppUst.js'
 import generateDOM from './js/domGeneration.js'
 
@@ -29,7 +29,7 @@ filterIngAppUst(recipes) //lance le filtre et le tri au tag
 let tags = document.querySelectorAll('.list')
 for(const tag of tags){
 	tag.addEventListener('click', (e)=> {
-		filterByTag(e,recipes)
+		createArrayOfTag(e,recipes)
 
 	})
 }
@@ -443,55 +443,55 @@ searchInput.addEventListener('input', (e) => {
 
 // //*********************************************filtre par les champs de recherche avancés */
 
-const inputs = document.querySelectorAll('.input')
-for(const input of inputs){
-	input.addEventListener('input', (e)=> {
-		let userResearchByTag = e.target.value.toLowerCase()
+// const inputs = document.querySelectorAll('.input')
+// for(const input of inputs){
+// 	input.addEventListener('input', (e)=> {
+// 		let userResearchByTag = e.target.value.toLowerCase()
 
-		if(userResearch===undefined || userResearch.length<3 ){
-			let filterRecipesByTagsInput=[]
-			console.log([...new Set(filterRecipesByTagsInput)])
-			filter(userResearchByTag,filterRecipesByTagsInput,recipes)
-			filterIngAppUst([...new Set(filterRecipesByTagsInput)],ingredientsContainer,appliancesContainer,ustensilesContainer)
-			let tags = document.querySelectorAll('.list')
-			for(const tag of tags){
-				tag.addEventListener('click',(e)=>{
-					container.innerHTML = ''
-					for(const recipe of [...new Set(filterRecipesByTagsInput)]){
-						container.innerHTML += new Recipe(recipe).render()
+// 		if(userResearch===undefined || userResearch.length<3 ){
+// 			let filterRecipesByTagsInput=[]
+// 			console.log([...new Set(filterRecipesByTagsInput)])
+// 			filter(userResearchByTag,filterRecipesByTagsInput,recipes)
+// 			filterIngAppUst([...new Set(filterRecipesByTagsInput)],ingredientsContainer,appliancesContainer,ustensilesContainer)
+// 			let tags = document.querySelectorAll('.list')
+// 			for(const tag of tags){
+// 				tag.addEventListener('click',(e)=>{
+// 					container.innerHTML = ''
+// 					for(const recipe of [...new Set(filterRecipesByTagsInput)]){
+// 						container.innerHTML += new Recipe(recipe).render()
 
-					}
-					generateKeyword(e)
-				})
-			}
+// 					}
+// 					generateKeyword(e)
+// 				})
+// 			}
 			
-		}
-		else{
-			let filterRecipesByTagsInput=[]
-			filter(userResearchByTag, filterRecipesByTagsInput, setFilterRecipeBySearchBar)
-			filterIngAppUst([...new Set(filterRecipesByTagsInput)],ingredientsContainer,appliancesContainer,ustensilesContainer)
-			let tags = document.querySelectorAll('.list')
-			for(const tag of tags){
-				tag.addEventListener('click',(e)=>{
-					container.innerHTML = ''
-					for(const recipe of [...new Set(filterRecipesByTagsInput)]){
-						container.innerHTML += new Recipe(recipe).render()
+// 		}
+// 		else{
+// 			let filterRecipesByTagsInput=[]
+// 			filter(userResearchByTag, filterRecipesByTagsInput, setFilterRecipeBySearchBar)
+// 			filterIngAppUst([...new Set(filterRecipesByTagsInput)],ingredientsContainer,appliancesContainer,ustensilesContainer)
+// 			let tags = document.querySelectorAll('.list')
+// 			for(const tag of tags){
+// 				tag.addEventListener('click',(e)=>{
+// 					container.innerHTML = ''
+// 					for(const recipe of [...new Set(filterRecipesByTagsInput)]){
+// 						container.innerHTML += new Recipe(recipe).render()
 
-					}
-					generateKeyword(e)
-				})
-			}
+// 					}
+// 					generateKeyword(e)
+// 				})
+// 			}
 
 
 
 		
-		}
+// 		}
 	
-	})
+// 	})
 
 
 
 
 	
-}
+// }
 

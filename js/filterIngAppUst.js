@@ -12,14 +12,21 @@ import generateKeyword from './generateKeyword.js'
 let filteredRecipesBySearchBar // recettes filtrées par la barre de recherche
 let arrayOfFilteredRecipes
 let filteredRecipesBy1Tag
+let filteredRecipesBy2Tag
 export const filterIngAppUst = (arrayOfRecipes) =>{
 	console.log(arrayOfTagsLength)
 	if(arrayOfTagsLength ==0){
 		filteredRecipesBySearchBar = arrayOfRecipes
 		arrayOfFilteredRecipes = filteredRecipesBySearchBar
+		console.log('0 tag')
 	}
 	if(arrayOfTagsLength == 1){
 		arrayOfFilteredRecipes = filteredRecipesBy1Tag
+		console.log('1 tag')
+	}
+	if(arrayOfTagsLength == 2 ){
+		arrayOfFilteredRecipes = filteredRecipesBy2Tag
+		console.log('2 tags')
 	}
 	console.log(arrayOfFilteredRecipes)
 	const ingredientsContainer = document.querySelector('.ingredients__container')
@@ -55,7 +62,7 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	}
 	
 	document.querySelectorAll('.list').forEach(el => el.addEventListener('click', (e)=>{
-		filterByTag(e,arrayOfFilteredRecipes)		
+		createArrayOfTag(e,arrayOfFilteredRecipes)		
 		const closeBtns = document.querySelectorAll('.croix')
 		closeBtns.forEach(el => el.addEventListener('click', (e)=> {
 			closeKeyword(e)
@@ -77,7 +84,7 @@ let valueOfTag ='' // value du tag quand on click sur close
  * @param {*} valueOfTag 
  * @returns 
  */
-function filterByTag(e,arrayOfFilteredRecipes){
+function createArrayOfTag(e,arrayOfFilteredRecipes){
 	valueOfTag =	e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
 	filteredRecipesByTag = arrayOfFilteredRecipes
 	if(!arrayOfTags.includes(valueOfTag)){
@@ -85,15 +92,18 @@ function filterByTag(e,arrayOfFilteredRecipes){
 		arrayOfTagsLength++
 		generateKeyword(e)
 
-	} else{
-		alert('tag déja sélectionné')
-	}
+	} 
 	filterOnclick(filteredRecipesByTag,arrayOfTags)
 
 
 }
 
-
+/**
+ * 
+ * @param {Object} filteredRecipesByTag tableau de recettes filtrées (par barre de recherche ou par tag)
+ * @param {Object} arrayOfTags tableau des tags sélectionnés
+ * @param {Object} arrayOfRecipesToRender tableau de recettes triées a afficher
+ */
 
 function filterOnclick(filteredRecipesByTag,arrayOfTags,arrayOfRecipesToRender){	
 	let container = document.querySelector('.container')
@@ -126,20 +136,29 @@ function filterOnclick(filteredRecipesByTag,arrayOfTags,arrayOfRecipesToRender){
 
 	console.log(valueOfTag)
 	console.log(filteredRecipesBySearchBar)
-	if(arrayOfTagsLength == 1){
-		filteredRecipesBy1Tag = arrayOfFilteredRecipes
-	}
-	
+	// if(arrayOfTagsLength == 0){
+	// 	console.log('0')
+	// 	filterIngAppUst(arrayOfFilteredRecipes)
 
-	filterIngAppUst(arrayOfFilteredRecipes)
+
+	// }
+	// if(arrayOfTagsLength == 1){
+	// 	filteredRecipesBy1Tag = arrayOfFilteredRecipes
+	// }
+	// if(arrayOfTagsLength==2){
+	// 	filteredRecipesBy2Tag = arrayOfFilteredRecipes
+	// }
+	
+	console.log(filteredRecipesBy1Tag)
+	console.log(arrayOfFilteredRecipes)
 	
 	
 }
 /**
  * 
- * @param {*} e 
+ * @param {Event} e 
  * @param {string} valueOfTag contenu du tag qu'on veut fermer
- * @param {*} arrayOfRecipes 
+ * 
  */
 function closeKeyword(e,valueOfTag){
 	let container = document.querySelector('.container')
@@ -163,4 +182,4 @@ function closeKeyword(e,valueOfTag){
 	
 }
 
-export default filterByTag
+export default createArrayOfTag
