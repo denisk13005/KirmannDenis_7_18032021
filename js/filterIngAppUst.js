@@ -77,7 +77,6 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 
 let arrayOfTags=[] // tableau des tags sur lesquels on a clické
 let arrayOfTagsLength = 0 // initialisation du nombre de tags sélectionnés
-let filteredRecipesByTag = [] // recettes filtrées après un click sur un tag
 let valueOfTag ='' // value du tag quand on click sur close
 /**
  * 
@@ -178,6 +177,22 @@ function closeKeyword(e,valueOfTag){
 			container.innerHTML += new Recipe(recipe).render()
 		}	
 		filterIngAppUst(filteredRecipesBySearchBar)
+	}
+	if(arrayOfTagsLength == 1){	
+		container.innerHTML = ''
+		console.log('ok')
+		for(const recipe of filteredRecipesBy1Tag){
+			container.innerHTML += new Recipe(recipe).render()
+		}	
+		filterIngAppUst(filteredRecipesBy1Tag)
+	}
+	if(arrayOfTagsLength == 2){	
+		container.innerHTML = ''
+		console.log('ok')
+		for(const recipe of filteredRecipesBy2Tag){
+			container.innerHTML += new Recipe(recipe).render()
+		}	
+		filterIngAppUst(filteredRecipesBy2Tag)
 	}
 	
 	e.target.parentElement.remove(e.target)
