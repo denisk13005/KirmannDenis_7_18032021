@@ -5,8 +5,8 @@ import generateKeyword from './generateKeyword.js'
 //***********************************fonction de filtre des ing, app et ust ********/
 /**
  * 
- * @param {Object} arrayOfRecipes tableau de recettes 
- * @param {Object} arrayOfFilteredRecipes tableau des recettes ayant subit un filterByTag
+ * @param {Array} arrayOfRecipes tableau de recettes 
+ * @param {Array} arrayOfFilteredRecipes tableau des recettes ayant subit un filterByTag
  *
  */
 let filteredRecipesBySearchBar // recettes filtrées par la barre de recherche
@@ -19,16 +19,8 @@ let filteredRecipesBy4Tag
 export const filterIngAppUst = (arrayOfRecipes) =>{
 	if(arrayOfTagsLength == 0){
 		filteredRecipesBySearchBar = arrayOfRecipes
-	}
-	if(arrayOfTagsLength ==1){
-		filteredRecipesBy1Tag = arrayOfRecipes
-	}
-	console.log(arrayOfTagsLength)
-	console.log('ligne 19 arrayof recipes')
-	console.log(arrayOfRecipes)
+	}	
 
-	console.log('arrayOfFilteredRecipes ligne 23')
-	console.log(arrayOfFilteredRecipes)
 	const ingredientsContainer = document.querySelector('.ingredients__container')
 	const appliancesContainer = document.querySelector('.appliances__container')
 	const ustensilesContainer = document.querySelector('.ustensiles__container')
@@ -63,7 +55,6 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	const tags = document.querySelectorAll('.list')
 	for(const tag of tags){
 		tag.addEventListener('click', (e)=>{
-			console.log(('on est la'))			
 			createArrayOfTag(e,arrayOfRecipes)				
 			const closeBtns = document.querySelectorAll('.croix')
 			closeBtns.forEach(el => el.addEventListener('click', (e)=> {
@@ -82,14 +73,11 @@ let arrayOfTagsLength = 0 // initialisation du nombre de tags sélectionnés
 let valueOfTag ='' // value du tag quand on click sur close
 /**
  * 
- * @param {*} e 
- * @param {*} arrayOfRecipes 
- * @param {*} valueOfTag 
- * @returns 
+ * @param {Event} e 
+ * @param {Array} arrayOfRecipes 
  */
 function createArrayOfTag(e,arrayOfRecipes){
 	arrayOfTags= []
-	console.log('create of tag')
 	valueOfTag =	e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
 
 	if(!arrayOfTags.includes(valueOfTag)){
@@ -98,7 +86,6 @@ function createArrayOfTag(e,arrayOfRecipes){
 		generateKeyword(e)
 
 	} 
-	console.log(arrayOfTags)
 
 	filterByTag(arrayOfRecipes,arrayOfTags)
 
@@ -114,8 +101,7 @@ function createArrayOfTag(e,arrayOfRecipes){
  */
 
 function filterByTag(filteredRecipesByTag,arrayOfTags){	
-	console.log(filteredRecipesByTag)
-	console.log(('filterByTag'))
+
 	let container = document.querySelector('.container')
 	let arrayOfRecipesToRender=[]
 	for(const recipe of filteredRecipesByTag){	
@@ -146,7 +132,6 @@ function filterByTag(filteredRecipesByTag,arrayOfTags){
 	if(arrayOfTagsLength==1){
 		console.log('arrayOfTagsLength==1')
 		filteredRecipesBy1Tag = arrayOfFilteredRecipes
-		console.log(('1'))
 		filterIngAppUst(filteredRecipesBy1Tag)
 	}
 	if(arrayOfTagsLength == 2){
@@ -177,14 +162,10 @@ function closeKeyword(e,valueOfTag){
 	let container = document.querySelector('.container')
 	valueOfTag = e.target.parentElement.children[0].innerHTML.toLowerCase()	
 	let index = arrayOfTags.indexOf(valueOfTag)
-	console.log(index)
 	arrayOfTags.splice(index,1)
-	console.log(arrayOfTags)
 	arrayOfTagsLength--
-	console.log(arrayOfTagsLength)
 	if(arrayOfTagsLength == 0){	
 		container.innerHTML = ''
-		console.log('ok')
 		for(const recipe of filteredRecipesBySearchBar){
 			container.innerHTML += new Recipe(recipe).render()
 		}	
@@ -192,7 +173,6 @@ function closeKeyword(e,valueOfTag){
 	}
 	if(arrayOfTagsLength == 1){	
 		container.innerHTML = ''
-		console.log('ok')
 		for(const recipe of filteredRecipesBy1Tag){
 			container.innerHTML += new Recipe(recipe).render()
 		}	
@@ -200,7 +180,6 @@ function closeKeyword(e,valueOfTag){
 	}
 	if(arrayOfTagsLength == 2){	
 		container.innerHTML = ''
-		console.log('ok')
 		for(const recipe of filteredRecipesBy2Tag){
 			container.innerHTML += new Recipe(recipe).render()
 		}	
@@ -209,7 +188,6 @@ function closeKeyword(e,valueOfTag){
 	
 	if(arrayOfTagsLength == 3){	
 		container.innerHTML = ''
-		console.log('ok')
 		for(const recipe of filteredRecipesBy3Tag){
 			container.innerHTML += new Recipe(recipe).render()
 		}	

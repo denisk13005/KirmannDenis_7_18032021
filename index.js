@@ -11,9 +11,6 @@ generateDOM()
 
 const main = document.getElementsByTagName('main')
 
-const ingredientsContainer = document.querySelector('.ingredients__container')
-const appliancesContainer = document.querySelector('.appliances__container')
-const ustensilesContainer = document.querySelector('.ustensiles__container')
 //*******************************************recettes*********************/
 //génération du conteneur des recettes
 const container = document.createElement('div')
@@ -24,7 +21,7 @@ main[0].appendChild(container)
 recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
-filterIngAppUst(recipes) //lance le filtre et le tri au tag
+filterIngAppUst(recipes)  //lance le filtre et le tri au tag
 
 
 //******************************************filtre par la barre de recherche principale**************/
@@ -38,6 +35,7 @@ const searchInput = document.getElementById('search')
 searchInput.focus()
 searchInput.addEventListener('input', (e) => {
 	userResearch= e.target.value.toLowerCase()
+	// si on efface tous les caractères de la barre de recherche toutes les recettes se réaffichent
 	if(userResearch.length===0){
 		container.innerHTML=''
 		recipes.forEach(
@@ -73,11 +71,7 @@ searchInput.addEventListener('input', (e) => {
 /***************************************scénario alternatif A1 */
 
 //*********************************************filtre par les champs de recherche avancés */
-for(const recipe of recipes){
-	for(const el of recipe.ustensils){
-		console.log(el)
-	}
-}
+
 
 const inputs = document.querySelectorAll('.input')
 for(const input of inputs){
