@@ -55,19 +55,22 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	for(const el of setUstensilesFilter){
 		ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${el}</span>`
 	}
-	
-	document.querySelectorAll('.list').forEach(el => el.addEventListener('click', (e)=>{
-		console.log(('on est la'))
-		if(arrayOfTagsLength==0){
-			createArrayOfTag(e,arrayOfRecipes)	
+	const tags = document.querySelectorAll('.list')
+	for(const tag of tags){
+		tag.addEventListener('click', (e)=>{
+			console.log(('on est la'))
+			if(arrayOfTagsLength==0){
+				createArrayOfTag(e,arrayOfRecipes)	
 
-		}
-		const closeBtns = document.querySelectorAll('.croix')
-		closeBtns.forEach(el => el.addEventListener('click', (e)=> {
-			closeKeyword(e)
+			}
+			const closeBtns = document.querySelectorAll('.croix')
+			closeBtns.forEach(el => el.addEventListener('click', (e)=> {
+				closeKeyword(e)
 				
-		}))
-	}))
+			}))
+		})
+	}
+
 }
 
 

@@ -3,8 +3,7 @@ import recipes from './js/recipes.js'
 // import generateKeyword from './js/generateKeyword.js'
 import Recipe from './js/recipe.js'
 import { filter } from './js/filter.js'
-import createArrayOfTag, { filterIngAppUst  } from './js/filterIngAppUst.js'
-import  filterByTag  from './js/filterIngAppUst.js'
+import  {filterIngAppUst}   from './js/filterIngAppUst.js'
 import generateDOM from './js/domGeneration.js'
 
 // génération du dom
