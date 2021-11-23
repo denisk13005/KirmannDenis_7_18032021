@@ -13,15 +13,18 @@ let filteredRecipesBySearchBar // recettes filtrées par la barre de recherche
 let arrayOfFilteredRecipes
 let filteredRecipesBy1Tag
 let filteredRecipesBy2Tag
+
 export const filterIngAppUst = (arrayOfRecipes) =>{
 	console.log(arrayOfTagsLength)
 	if(arrayOfTagsLength ==0){
 		filteredRecipesBySearchBar = arrayOfRecipes
 		arrayOfFilteredRecipes = filteredRecipesBySearchBar
 		console.log('0 tag')
+		console.log(arrayOfFilteredRecipes)
 	}
 	if(arrayOfTagsLength == 1){
 		arrayOfFilteredRecipes = filteredRecipesBy1Tag
+		console.log(arrayOfFilteredRecipes)
 		console.log('1 tag')
 	}
 	if(arrayOfTagsLength == 2 ){
@@ -84,16 +87,18 @@ let valueOfTag ='' // value du tag quand on click sur close
  * @param {*} valueOfTag 
  * @returns 
  */
-function createArrayOfTag(e,arrayOfFilteredRecipes){
+function createArrayOfTag(e){
 	valueOfTag =	e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
-	filteredRecipesByTag = arrayOfFilteredRecipes
+
 	if(!arrayOfTags.includes(valueOfTag)){
 		arrayOfTags.push(valueOfTag)
 		arrayOfTagsLength++
 		generateKeyword(e)
 
 	} 
-	filterOnclick(filteredRecipesByTag,arrayOfTags)
+	filterOnclick(arrayOfFilteredRecipes,arrayOfTags)
+	// filterIngAppUst(arrayOfFilteredRecipes)
+
 
 
 }
@@ -105,9 +110,9 @@ function createArrayOfTag(e,arrayOfFilteredRecipes){
  * @param {Object} arrayOfRecipesToRender tableau de recettes triées a afficher
  */
 
-function filterOnclick(filteredRecipesByTag,arrayOfTags,arrayOfRecipesToRender){	
+function filterOnclick(filteredRecipesByTag,arrayOfTags){	
 	let container = document.querySelector('.container')
-	arrayOfRecipesToRender=[]
+	let arrayOfRecipesToRender=[]
 	for(const tag of arrayOfTags){
 		for(const recipe of filteredRecipesByTag){	
 			for(const el of recipe.ingredients){
@@ -133,23 +138,7 @@ function filterOnclick(filteredRecipesByTag,arrayOfTags,arrayOfRecipesToRender){
 			container.innerHTML += new Recipe(recipe).render()
 		}	
 	}
-
-	console.log(valueOfTag)
-	console.log(filteredRecipesBySearchBar)
-	// if(arrayOfTagsLength == 0){
-	// 	console.log('0')
-	// 	filterIngAppUst(arrayOfFilteredRecipes)
-
-
-	// }
-	// if(arrayOfTagsLength == 1){
-	// 	filteredRecipesBy1Tag = arrayOfFilteredRecipes
-	// }
-	// if(arrayOfTagsLength==2){
-	// 	filteredRecipesBy2Tag = arrayOfFilteredRecipes
-	// }
-	
-	console.log(filteredRecipesBy1Tag)
+	console.log('arrayOfFilteredRecipes Ligne 141')
 	console.log(arrayOfFilteredRecipes)
 	
 	

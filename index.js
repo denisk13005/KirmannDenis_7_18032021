@@ -26,13 +26,6 @@ recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
 filterIngAppUst(recipes) //lance le filtre et le tri au tag
-let tags = document.querySelectorAll('.list')
-for(const tag of tags){
-	tag.addEventListener('click', (e)=> {
-		createArrayOfTag(e,recipes)
-
-	})
-}
 
 // génération des keywords en fonction du choix utilisateur
 const divKeyword = document.querySelector('.keyword')
@@ -368,8 +361,7 @@ searchInput.addEventListener('input', (e) => {
 		//génération des recettes filtrées
 		for(const recipe of setFilterRecipeBySearchBar){
 			container.innerHTML += new Recipe(recipe).render()
-		}
-		
+		}		
 
 		//maj des ingrédients appareils et ustensiles
 
