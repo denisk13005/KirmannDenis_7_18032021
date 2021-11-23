@@ -1,6 +1,4 @@
 import recipes from './js/recipes.js'
-// import Keywords from './js/keyWords.js'
-// import generateKeyword from './js/generateKeyword.js'
 import Recipe from './js/recipe.js'
 import { filter } from './js/filter.js'
 import  {filterIngAppUst}   from './js/filterIngAppUst.js'
