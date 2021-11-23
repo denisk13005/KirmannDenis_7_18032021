@@ -13,6 +13,8 @@ let filteredRecipesBySearchBar // recettes filtrées par la barre de recherche
 let arrayOfFilteredRecipes
 let filteredRecipesBy1Tag
 let filteredRecipesBy2Tag
+let filteredRecipesBy3Tag
+let filteredRecipesBy4Tag
 
 export const filterIngAppUst = (arrayOfRecipes) =>{
 	if(arrayOfTagsLength == 0){
@@ -152,6 +154,16 @@ function filterByTag(filteredRecipesByTag,arrayOfTags){
 		filterIngAppUst(filteredRecipesBy2Tag)
 	}
 	
+	if(arrayOfTagsLength == 3){
+		filteredRecipesBy3Tag = arrayOfFilteredRecipes
+		filterIngAppUst(filteredRecipesBy3Tag)
+	}
+	
+	if(arrayOfTagsLength == 4){
+		filteredRecipesBy4Tag = arrayOfFilteredRecipes
+		filterIngAppUst(filteredRecipesBy4Tag)
+	}
+	
 	
 	
 }
@@ -193,6 +205,15 @@ function closeKeyword(e,valueOfTag){
 			container.innerHTML += new Recipe(recipe).render()
 		}	
 		filterIngAppUst(filteredRecipesBy2Tag)
+	}
+	
+	if(arrayOfTagsLength == 3){	
+		container.innerHTML = ''
+		console.log('ok')
+		for(const recipe of filteredRecipesBy3Tag){
+			container.innerHTML += new Recipe(recipe).render()
+		}	
+		filterIngAppUst(filteredRecipesBy3Tag)
 	}
 	
 	e.target.parentElement.remove(e.target)
