@@ -15,12 +15,15 @@ let filteredRecipesBy1Tag
 let filteredRecipesBy2Tag
 
 export const filterIngAppUst = (arrayOfRecipes) =>{
-	console.log(arrayOfTagsLength)
-	console.log('ligne 19 arrayof recipes')
-	console.log(arrayOfRecipes)
 	if(arrayOfTagsLength == 0){
 		filteredRecipesBySearchBar = arrayOfRecipes
 	}
+	if(arrayOfTagsLength ==1){
+		filteredRecipesBy1Tag = arrayOfRecipes
+	}
+	console.log(arrayOfTagsLength)
+	console.log('ligne 19 arrayof recipes')
+	console.log(arrayOfRecipes)
 
 	console.log('arrayOfFilteredRecipes ligne 23')
 	console.log(arrayOfFilteredRecipes)
@@ -58,11 +61,8 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	const tags = document.querySelectorAll('.list')
 	for(const tag of tags){
 		tag.addEventListener('click', (e)=>{
-			console.log(('on est la'))
-			if(arrayOfTagsLength==0){
-				createArrayOfTag(e,arrayOfRecipes)	
-
-			}
+			console.log(('on est la'))			
+			createArrayOfTag(e,arrayOfRecipes)				
 			const closeBtns = document.querySelectorAll('.croix')
 			closeBtns.forEach(el => el.addEventListener('click', (e)=> {
 				closeKeyword(e)
@@ -87,6 +87,7 @@ let valueOfTag ='' // value du tag quand on click sur close
  * @returns 
  */
 function createArrayOfTag(e,arrayOfRecipes){
+	arrayOfTags= []
 	console.log('create of tag')
 	valueOfTag =	e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
 
@@ -96,6 +97,8 @@ function createArrayOfTag(e,arrayOfRecipes){
 		generateKeyword(e)
 
 	} 
+	console.log(arrayOfTags)
+
 	filterByTag(arrayOfRecipes,arrayOfTags)
 
 
@@ -110,15 +113,17 @@ function createArrayOfTag(e,arrayOfRecipes){
  */
 
 function filterByTag(filteredRecipesByTag,arrayOfTags){	
+	console.log(filteredRecipesByTag)
 	console.log(('filterByTag'))
 	let container = document.querySelector('.container')
 	let arrayOfRecipesToRender=[]
-	for(const tag of arrayOfTags){
-		for(const recipe of filteredRecipesByTag){	
+	for(const recipe of filteredRecipesByTag){	
+		for(const tag of arrayOfTags){
+
 			for(const el of recipe.ingredients){
 				if(el.ingredient.toLowerCase().match(tag))
 					arrayOfRecipesToRender.push(recipe)
-				
+					
 			}	
 			if(recipe.appliance.toLowerCase().match(tag)){
 				arrayOfRecipesToRender.push(recipe)
@@ -129,8 +134,8 @@ function filterByTag(filteredRecipesByTag,arrayOfTags){
 				}
 			}
 		}
-		
 	}
+		
 	arrayOfFilteredRecipes = [...new Set(arrayOfRecipesToRender)]
 	container.innerHTML = ''
 	for(const recipe of arrayOfFilteredRecipes){
@@ -138,9 +143,14 @@ function filterByTag(filteredRecipesByTag,arrayOfTags){
 	}	
 
 	if(arrayOfTagsLength==1){
+		console.log('arrayOfTagsLength==1')
 		filteredRecipesBy1Tag = arrayOfFilteredRecipes
 		console.log(('1'))
 		filterIngAppUst(filteredRecipesBy1Tag)
+	}
+	if(arrayOfTagsLength == 2){
+		filteredRecipesBy2Tag = arrayOfFilteredRecipes
+		filterIngAppUst(filteredRecipesBy2Tag)
 	}
 	
 	
