@@ -72,25 +72,18 @@ let arrayOfTags=[] // tableau des tags sur lesquels on a clické
 let arrayOfTagsLength = 0 // initialisation du nombre de tags sélectionnés
 let valueOfTag ='' // value du tag quand on click sur close
 /**
- * 
  * @param {Event} e 
  * @param {Array} arrayOfRecipes 
  */
 function createArrayOfTag(e,arrayOfRecipes){
 	arrayOfTags= []
 	valueOfTag =	e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
-
 	if(!arrayOfTags.includes(valueOfTag)){
 		arrayOfTags.push(valueOfTag)
 		arrayOfTagsLength++
 		generateKeyword(e)
-
 	} 
-
 	filterByTag(arrayOfRecipes,arrayOfTags)
-
-
-
 }
 
 /**
@@ -130,7 +123,6 @@ function filterByTag(filteredRecipesByTag,arrayOfTags){
 	}	
 
 	if(arrayOfTagsLength==1){
-		console.log('arrayOfTagsLength==1')
 		filteredRecipesBy1Tag = arrayOfFilteredRecipes
 		filterIngAppUst(filteredRecipesBy1Tag)
 	}
@@ -152,6 +144,7 @@ function filterByTag(filteredRecipesByTag,arrayOfTags){
 	
 	
 }
+/****************************************************************Supression d'un tag au click sur la croix********************************/
 /**
  * 
  * @param {Event} e 
