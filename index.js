@@ -71,32 +71,37 @@ searchInput.addEventListener('input', (e) => {
 /***************************************scénario alternatif A1 */
 
 //*********************************************filtre par les champs de recherche avancés */
-/**
- * 
- * @param {string} userResearch 
- * @param {Array} arrayOfRecipes 
- * @param {Array} ArrayofFilteredRecipes 
- */
-// const filterByAdvancedInput = (userResearch,arrayOfRecipes,ArrayofFilteredRecipes) => {
-// 	for(const recipe of arrayOfRecipes){
-// 		for(const el of recipe.ingredients){
-// 			if(el.ingredient.toLowerCase().match(userResearch))
-// 				// ArrayofFilteredRecipes.push(recipe)
-// 				console.log(el.ingredient)
 
-// 		}
-// 		if(recipe.appliance.toLowerCase().match(userResearch)){
-// 			ArrayofFilteredRecipes.push(recipe)
-// 		}
-// 		for(const ustensil of recipe.ustensils){
-// 			if(ustensil.toLowerCase().match(userResearch)){
-// 				ArrayofFilteredRecipes.push(recipe)
+function filteredByAdvancedSearchField(userResearchByTag,arrayOfRecipes,recipesFilteredByAdvancedSearchField){
+	for(const recipe of arrayOfRecipes){
+		for(const el of recipe.ingredients){
 
-// 			}
-// 		}
-// 	}
-// 	filterIngAppUst(ArrayofFilteredRecipes)
-// }
+			if(el.ingredient.toLowerCase().match(userResearchByTag)){
+				ingredientsContainer.innerHTML += `<span  class="list list__ingredients">${el.ingredient}</span>`
+				recipesFilteredByAdvancedSearchField.push(recipe)
+			}
+		}
+		if(recipe.appliance.toLowerCase().match(userResearchByTag)){
+			appliancesContainer.innerHTML += `<span  class="list list__appliance">${recipe.appliance}</span>`				
+			recipesFilteredByAdvancedSearchField.push(recipe)
+		}
+		for(const ustensils of recipe.ustensils){
+			if(ustensils.toLowerCase().match(userResearchByTag)){
+				ustensilesContainer.innerHTML += `<span  class="list list__ustensiles">${ustensils}</span>`	
+				recipesFilteredByAdvancedSearchField.push(recipe)
+
+			}
+		}
+
+		let tagFilteredByAdvancedInput = document.querySelectorAll('.list')
+		for(const tag of tagFilteredByAdvancedInput){
+			tag.addEventListener('click', filterIngAppUst([...new Set(recipesFilteredByAdvancedSearchField)]))
+		}
+	}
+	
+
+}
+
 const divKeywords = document.querySelector('.keyword')
 const inputs = document.querySelectorAll('.input')
 const ingredientsContainer = document.querySelector('.ingredients__container')
@@ -106,88 +111,17 @@ console.log(ingredientsContainer)
 for(const input of inputs){
 	input.addEventListener('input', (e)=> {
 		let userResearchByTag = e.target.value.toLowerCase()		
-
 		let numberOfTagsSelected = divKeywords.children.length
 		ingredientsContainer.innerHTML=''
 		appliancesContainer.innerHTML = ''
 		ustensilesContainer.innerHTML = ''
-		console.log(recipes)
-		let recipesTest = []
-
-		// if(e.target.getAttribute('class').match('ing')){
-		for(const recipe of setFilterRecipeBySearchBar){
-			for(const el of recipe.ingredients){
-
-				if(el.ingredient.toLowerCase().match(userResearchByTag)){
-					ingredientsContainer.innerHTML += `<span  class="list list__ingredients">${el.ingredient}</span>`
-					recipesTest.push(recipe)
-				}
-			}
-			if(recipe.appliance.toLowerCase().match(userResearchByTag)){
-				appliancesContainer.innerHTML += `<span  class="list list__appliance">${recipe.appliance}</span>`				
-				recipesTest.push(recipe)
-			}
-			for(const ustensils of recipe.ustensils){
-				if(ustensils.toLowerCase().match(userResearchByTag)){
-					ustensilesContainer.innerHTML += `<span  class="list list__ustensiles">${ustensils}</span>`	
-					recipesTest.push(recipe)
-
-				}
-			}
+		let recipesFilteredByAdvancedSearchField = []
+		if(userResearch.length > 2){
+			filteredByAdvancedSearchField(userResearchByTag,setFilterRecipeBySearchBar,recipesFilteredByAdvancedSearchField)
 
 		}
-		let tagFilteredByAdvancedInput = document.querySelectorAll('.list')
-		for(const tag of tagFilteredByAdvancedInput){
-			tag.addEventListener('click', filterIngAppUst([...new Set(recipesTest)]))
-		}
+
 		
-		if(userResearchByTag.length == 0){
-			console.log('ok')
-			filterIngAppUst(setFilterRecipeBySearchBar)
-		}
-			
-		// }
-		// else if(e.target.getAttribute('class').match('app')){
-
-		// 	type= 'app'
-		// }
-		// else{
-		// 	type = 'ust'
-		// }
-	
-		// console.log(numberOfTagsSelected)
-		// let filterRecipesByTagsInput=[]
-		// filterByAdvancedInput(userResearchByTag,recipes,filterRecipesByTagsInput)
-		// if((userResearch<2 || userResearch == undefined) && divKeywords.children.length ==0){		
-		// 	let filterRecipesByTagsInput=[]
-		// 	console.log('else')
-		// 	filterByAdvancedInput(userResearchByTag,recipes,filterRecipesByTagsInput)
-
-			
-		// }
-		// if((userResearch<2 || userResearch == undefined) && divKeywords.children.length !==0){
-		// 	console.log('(userResearch<2 || userResearch == undefined) && divKeywords.children.length !==0')
-		// 	let filterRecipesByTagsInput=[]
-		// 	console.log('else')
-		// 	filterByAdvancedInput(userResearchByTag,recipes,filterRecipesByTagsInput)
-		// }
-
-		// else if(userResearch.length >2){
-		// 	console.log('divKeywords.length == 0 && userResearch >2')
-		// 	let filterRecipesByTagsInput=[]
-		// 	filterByAdvancedInput(userResearchByTag,setFilterRecipeBySearchBar,filterRecipesByTagsInput)
-
-		// }
-
-		// if(numberOfTagsSelected == 0 && (userResearchByTag ==0 || userResearchByTag === undefined) && userResearch == 0){
-		// 	container.innerHTML = ''
-		// 	recipes.forEach(
-		// 		(element) => (container.innerHTML += new Recipe(element).render())
-		// 	) 
-		// 	filterIngAppUst(recipes)	
-		// }
-			
-	
 
 	})	
 }
