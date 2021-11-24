@@ -19,8 +19,10 @@ main[0].appendChild(container)
 recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
-filterIngAppUst(recipes)  //lance le filtre et le tri au tag
+let arrayOfFilteredRecipesToReturn = []
 
+filterIngAppUst(recipes,arrayOfFilteredRecipesToReturn)  //lance le filtre et le tri au tag
+console.log(arrayOfFilteredRecipesToReturn)
 
 //******************************************filtre par la barre de recherche principale**************/
 let userResearch // entrée utilisateur dans search
@@ -69,39 +71,71 @@ searchInput.addEventListener('input', (e) => {
 /***************************************scénario alternatif A1 */
 
 //*********************************************filtre par les champs de recherche avancés */
+/**
+ * 
+ * @param {string} userResearch 
+ * @param {Array} arrayOfRecipes 
+ * @param {Array} ArrayofFilteredRecipes 
+ */
+const filterByAdvancedInput = (userResearch,arrayOfRecipes,ArrayofFilteredRecipes) => {
+	for(const recipe of arrayOfRecipes){
+		for(const el of recipe.ingredients){
+			if(el.ingredient.toLowerCase().match(userResearch))
+				// ArrayofFilteredRecipes.push(recipe)
+				console.log(el.ingredient)
 
+		}
+		if(recipe.appliance.toLowerCase().match(userResearch)){
+			ArrayofFilteredRecipes.push(recipe)
+		}
+		for(const ustensil of recipe.ustensils){
+			if(ustensil.toLowerCase().match(userResearch)){
+				ArrayofFilteredRecipes.push(recipe)
 
+			}
+		}
+	}
+	filterIngAppUst(ArrayofFilteredRecipes)
+}
+const divKeywords = document.querySelector('.keyword')
 const inputs = document.querySelectorAll('.input')
 for(const input of inputs){
 	input.addEventListener('input', (e)=> {
 		let userResearchByTag = e.target.value.toLowerCase()		
+		let numberOfTagsSelected = divKeywords.children.length
+		console.log(numberOfTagsSelected)
 		let filterRecipesByTagsInput=[]
-		console.log([...new Set(filterRecipesByTagsInput)])
-		for(const recipe of recipes){
-			for(const el of recipe.ingredients){
-				if(el.ingredient.toLowerCase().match(userResearchByTag))
-					filterRecipesByTagsInput.push(recipe)
+		filterByAdvancedInput(userResearchByTag,recipes,filterRecipesByTagsInput)
+		// if((userResearch<2 || userResearch == undefined) && divKeywords.children.length ==0){		
+		// 	let filterRecipesByTagsInput=[]
+		// 	console.log('else')
+		// 	filterByAdvancedInput(userResearchByTag,recipes,filterRecipesByTagsInput)
 
-			}
-			if(recipe.appliance.toLowerCase().match(userResearchByTag)){
-				filterRecipesByTagsInput.push(recipe)
-			}
-			for(const ustensil of recipe.ustensils){
-				if(ustensil.toLowerCase().match(userResearchByTag)){
-					filterRecipesByTagsInput.push(recipe)
+			
+		// }
+		// if((userResearch<2 || userResearch == undefined) && divKeywords.children.length !==0){
+		// 	console.log('(userResearch<2 || userResearch == undefined) && divKeywords.children.length !==0')
+		// 	let filterRecipesByTagsInput=[]
+		// 	console.log('else')
+		// 	filterByAdvancedInput(userResearchByTag,recipes,filterRecipesByTagsInput)
+		// }
 
-				}
-			}
-		}
-		// filter(userResearchByTag,filterRecipesByTagsInput,recipes)
-		filterIngAppUst([...new Set(filterRecipesByTagsInput)])		
+		// else if(userResearch.length >2){
+		// 	console.log('divKeywords.length == 0 && userResearch >2')
+		// 	let filterRecipesByTagsInput=[]
+		// 	filterByAdvancedInput(userResearchByTag,setFilterRecipeBySearchBar,filterRecipesByTagsInput)
+
+		// }
+
+		// if(numberOfTagsSelected == 0 && (userResearchByTag ==0 || userResearchByTag === undefined) && userResearch == 0){
+		// 	container.innerHTML = ''
+		// 	recipes.forEach(
+		// 		(element) => (container.innerHTML += new Recipe(element).render())
+		// 	) 
+		// 	filterIngAppUst(recipes)	
+		// }
 			
 	
-		if(userResearchByTag.length == 0){
-			container.innerHTML = ''		
-			for(const recipe of recipes){
-				container.innerHTML += new Recipe(recipe).render()
-			}
-		}
+
 	})	
 }

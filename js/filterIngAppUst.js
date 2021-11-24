@@ -142,7 +142,6 @@ function filterByTag(filteredRecipesByTag,arrayOfTags){
 	}
 	
 	
-	
 }
 /****************************************************************Supression d'un tag au click sur la croix********************************/
 /**
