@@ -6,6 +6,8 @@ export default class Keywords{
 	constructor(value,color){
 		this.value=value
 		this.color=color
+	
+		
 	}
 	render(){
 		const userChoice=
@@ -15,8 +17,8 @@ export default class Keywords{
       <img class="croix" src="img/croix.png" alt="" />
     </div>
     `
+	
 		return userChoice
 	}
 }
 
-   
