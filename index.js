@@ -104,7 +104,7 @@ function filteredByAdvancedSearchField(
 		ingredientsContainer.innerHTML += `<span  class="list list__ingredients">${el}</span>`
 	}
 	for (const el of [...new Set(appliancesFilteredByAdvancedSearchField)]) {
-		appliancesContainer.innerHTML += `<span  class="list list__appliance">${el}</span>`
+		appliancesContainer.innerHTML += `<span  class="list list__appliances">${el}</span>`
 	}
 	for (const el of [...new Set(ustensilsFilteredByAdvancedSearchField)]) {
 		ustensilesContainer.innerHTML += `<span  class="list list__ustensiles">${el}</span>`
@@ -135,6 +135,7 @@ for (const input of inputs) {
 		let tagsFilteredByAdvancedSearchField = document.querySelectorAll('.list')
 		for (const tag of tagsFilteredByAdvancedSearchField) {
 			tag.addEventListener('click', (e) => {
+				console.log(e)
 				createArrayOfTag([...new Set(recipesFilteredByAdvancedSearchField)], e)
 				const closeBtns = document.querySelectorAll('.croix')
 				for (const btn of closeBtns) {
