@@ -55,7 +55,7 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	const tags = document.querySelectorAll('.list')
 	for(const tag of tags){
 		tag.addEventListener('click', (e)=>{
-			createArrayOfTag(e,arrayOfRecipes)				
+			createArrayOfTag(arrayOfRecipes,e)				
 			const closeBtns = document.querySelectorAll('.croix')
 			closeBtns.forEach(el => el.addEventListener('click', (e)=> {
 				closeKeyword(e)
@@ -75,7 +75,7 @@ let valueOfTag ='' // value du tag quand on click sur close
  * @param {Event} e 
  * @param {Array} arrayOfRecipes 
  */
-function createArrayOfTag(e,arrayOfRecipes){
+function createArrayOfTag(arrayOfRecipes,e){
 	arrayOfTags= []
 	valueOfTag =	e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
 	if(!arrayOfTags.includes(valueOfTag)){
@@ -85,7 +85,7 @@ function createArrayOfTag(e,arrayOfRecipes){
 	} 
 	filterByTag(arrayOfRecipes,arrayOfTags)
 }
-
+export {createArrayOfTag}
 /**
  * 
  * @param {Object} filteredRecipesByTag tableau de recettes filtrées (par barre de recherche ou par tag)
@@ -143,6 +143,7 @@ function filterByTag(filteredRecipesByTag,arrayOfTags){
 	
 	
 }
+
 /****************************************************************Supression d'un tag au click sur la croix********************************/
 /**
  * 

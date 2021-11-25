@@ -2,6 +2,7 @@ import recipes from './js/recipes.js'
 import Recipe from './js/recipe.js'
 import { filter } from './js/filter.js'
 import  {filterIngAppUst}   from './js/filterIngAppUst.js'
+import {createArrayOfTag} from './js/filterIngAppUst.js'
 import generateDOM from './js/domGeneration.js'
 
 // génération du dom
@@ -73,32 +74,45 @@ searchInput.addEventListener('input', (e) => {
 //*********************************************filtre par les champs de recherche avancés */
 
 function filteredByAdvancedSearchField(userResearchByTag,arrayOfRecipes,recipesFilteredByAdvancedSearchField){
+	ingredientsContainer.innerHTML=''
+	appliancesContainer.innerHTML = ''
+	ustensilesContainer.innerHTML = ''
+	let ingredientsFilteredByAdvancedSearchField = []
+	let appliancesFilteredByAdvancedSearchField = []
+	let ustensilsFilteredByAdvancedSearchField = []
 	for(const recipe of arrayOfRecipes){
 		for(const el of recipe.ingredients){
 
 			if(el.ingredient.toLowerCase().match(userResearchByTag)){
-				ingredientsContainer.innerHTML += `<span  class="list list__ingredients">${el.ingredient}</span>`
+				ingredientsFilteredByAdvancedSearchField.push(el.ingredient)
 				recipesFilteredByAdvancedSearchField.push(recipe)
 			}
 		}
 		if(recipe.appliance.toLowerCase().match(userResearchByTag)){
-			appliancesContainer.innerHTML += `<span  class="list list__appliance">${recipe.appliance}</span>`				
+			appliancesFilteredByAdvancedSearchField.push(recipe.appliance)
 			recipesFilteredByAdvancedSearchField.push(recipe)
 		}
 		for(const ustensils of recipe.ustensils){
 			if(ustensils.toLowerCase().match(userResearchByTag)){
-				ustensilesContainer.innerHTML += `<span  class="list list__ustensiles">${ustensils}</span>`	
+				ustensilsFilteredByAdvancedSearchField.push(ustensils)
 				recipesFilteredByAdvancedSearchField.push(recipe)
 
 			}
 		}
 
-		let tagFilteredByAdvancedInput = document.querySelectorAll('.list')
-		for(const tag of tagFilteredByAdvancedInput){
-			tag.addEventListener('click', filterIngAppUst([...new Set(recipesFilteredByAdvancedSearchField)]))
-		}
+	}	
+	console.log(ingredientsFilteredByAdvancedSearchField)
+	for(const el of [...new Set(ingredientsFilteredByAdvancedSearchField)]){
+		ingredientsContainer.innerHTML += `<span  class="list list__ingredients">${el}</span>`
 	}
-	
+	for(const el of [...new Set(appliancesFilteredByAdvancedSearchField)]){
+		appliancesContainer.innerHTML += `<span  class="list list__appliance">${el}</span>`	
+	}
+	for(const el of [...new Set(ustensilsFilteredByAdvancedSearchField)]){
+		ustensilesContainer.innerHTML += `<span  class="list list__ustensiles">${el}</span>`	
+
+	}
+
 
 }
 
@@ -112,16 +126,21 @@ for(const input of inputs){
 	input.addEventListener('input', (e)=> {
 		let userResearchByTag = e.target.value.toLowerCase()		
 		let numberOfTagsSelected = divKeywords.children.length
-		ingredientsContainer.innerHTML=''
-		appliancesContainer.innerHTML = ''
-		ustensilesContainer.innerHTML = ''
+	
 		let recipesFilteredByAdvancedSearchField = []
 		if(userResearch.length > 2){
 			filteredByAdvancedSearchField(userResearchByTag,setFilterRecipeBySearchBar,recipesFilteredByAdvancedSearchField)
-
-		}
-
 		
+		}
+		console.log(recipesFilteredByAdvancedSearchField)
 
+
+		let tagsFilteredByAdvancedSearchField = document.querySelectorAll('.list')
+		for(const tag of  tagsFilteredByAdvancedSearchField){
+			tag.addEventListener('click', (e)=> {
+				createArrayOfTag([...new Set(recipesFilteredByAdvancedSearchField)],e)
+			})
+		}
+		console.log(tagsFilteredByAdvancedSearchField)
 	})	
 }
