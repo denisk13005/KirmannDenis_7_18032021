@@ -21,10 +21,8 @@ main[0].appendChild(container)
 recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
-let arrayOfFilteredRecipesToReturn = []
 
-filterIngAppUst(recipes, arrayOfFilteredRecipesToReturn) //lance le filtre et le tri au tag
-console.log(arrayOfFilteredRecipesToReturn)
+filterIngAppUst(recipes) //lance le filtre et le tri au tag
 
 //******************************************filtre par la barre de recherche principale**************/
 let userResearch // entrée utilisateur dans search
@@ -69,7 +67,12 @@ searchInput.addEventListener('input', (e) => {
 /***************************************scénario alternatif A1 */
 
 //*********************************************filtre par les champs de recherche avancés */
-
+/**
+ * 
+ * @param {string} userResearchByTag recherche par champ de recherche avancée
+ * @param {Array} arrayOfRecipes tableau des recettes a filtrer
+ * @param {Array} recipesFilteredByAdvancedSearchField tableau de recettes filtrées
+ */
 function filteredByAdvancedSearchField(
 	userResearchByTag,
 	arrayOfRecipes,
@@ -110,7 +113,7 @@ function filteredByAdvancedSearchField(
 		ustensilesContainer.innerHTML += `<span  class="list list__ustensiles">${el}</span>`
 	}
 }
-
+console.log(userResearch)
 const divKeywords = document.querySelector('.keyword')
 const inputs = document.querySelectorAll('.input')
 const ingredientsContainer = document.querySelector('.ingredients__container')
@@ -123,13 +126,22 @@ for (const input of inputs) {
 		let numberOfTagsSelected = divKeywords.children.length
 
 		let recipesFilteredByAdvancedSearchField = []
-		if (userResearch.length > 2) {
+		if(userResearch === undefined){
+			console.log('undifined')
 			filteredByAdvancedSearchField(
 				userResearchByTag,
-				setFilterRecipeBySearchBar,
+				recipes,
 				recipesFilteredByAdvancedSearchField
 			)
 		}
+		// if (userResearch.length > 2) {
+		// 	filteredByAdvancedSearchField(
+		// 		userResearchByTag,
+		// 		setFilterRecipeBySearchBar,
+		// 		recipesFilteredByAdvancedSearchField
+		// 	)
+		// }
+
 		console.log(recipesFilteredByAdvancedSearchField)
 
 		let tagsFilteredByAdvancedSearchField = document.querySelectorAll('.list')
