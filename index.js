@@ -87,17 +87,17 @@ function filteredByAdvancedSearchField(
 	for (const recipe of arrayOfRecipes) {
 		for (const el of recipe.ingredients) {
 			if (el.ingredient.toLowerCase().match(userResearchByTag)) {
-				ingredientsFilteredByAdvancedSearchField.push(el.ingredient)
+				ingredientsFilteredByAdvancedSearchField.push(el.ingredient.toLowerCase())
 				recipesFilteredByAdvancedSearchField.push(recipe)
 			}
 		}
 		if (recipe.appliance.toLowerCase().match(userResearchByTag)) {
-			appliancesFilteredByAdvancedSearchField.push(recipe.appliance)
+			appliancesFilteredByAdvancedSearchField.push(recipe.appliance.toLowerCase())
 			recipesFilteredByAdvancedSearchField.push(recipe)
 		}
 		for (const ustensils of recipe.ustensils) {
 			if (ustensils.toLowerCase().match(userResearchByTag)) {
-				ustensilsFilteredByAdvancedSearchField.push(ustensils)
+				ustensilsFilteredByAdvancedSearchField.push(ustensils.toLowerCase())
 				recipesFilteredByAdvancedSearchField.push(recipe)
 			}
 		}
@@ -126,21 +126,21 @@ for (const input of inputs) {
 		let numberOfTagsSelected = divKeywords.children.length
 
 		let recipesFilteredByAdvancedSearchField = []
-		if(userResearch === undefined){
+		if(userResearch === undefined && numberOfTagsSelected == 0 ){
 			console.log('undifined')
 			filteredByAdvancedSearchField(
 				userResearchByTag,
 				recipes,
 				recipesFilteredByAdvancedSearchField
+			)			
+		}
+		if (userResearch.length > 2) {
+			filteredByAdvancedSearchField(
+				userResearchByTag,
+				setFilterRecipeBySearchBar,
+				recipesFilteredByAdvancedSearchField
 			)
 		}
-		// if (userResearch.length > 2) {
-		// 	filteredByAdvancedSearchField(
-		// 		userResearchByTag,
-		// 		setFilterRecipeBySearchBar,
-		// 		recipesFilteredByAdvancedSearchField
-		// 	)
-		// }
 
 		console.log(recipesFilteredByAdvancedSearchField)
 
