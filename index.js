@@ -65,7 +65,6 @@ searchInput.addEventListener('input', (e) => {
 		}
 	}
 })
-/***************************************scénario alternatif A1 */
 
 //*********************************************filtre par les champs de recherche avancés */
 /**
@@ -125,69 +124,88 @@ let recipesFilteredByAdvancedSearchField1
 let recipesFilteredByAdvancedSearchField2
 for (const input of inputs) {
 	input.addEventListener('input', (e) => {
+		console.log(filteredRecipesBy1Tag)
 		let userResearchByTag = e.target.value.toLowerCase()
 		let numberOfTagsSelected = divKeywords.children.length
 		console.log(numberOfTagsSelected)
 		let recipesFilteredByAdvancedSearchField = []
 
-
+		// on commence par le click sur un tag
+		
+			
+		if(numberOfTagsSelected==1){
+			filteredByAdvancedSearchField(
+				userResearchByTag,
+				filteredRecipesBy1Tag,
+				recipesFilteredByAdvancedSearchField
+			)
+		}
+		else if(numberOfTagsSelected==2){
+			filteredByAdvancedSearchField(
+				userResearchByTag,
+				filteredRecipesBy2Tag,
+				recipesFilteredByAdvancedSearchField
+			)
+		}
+		
 		// champ de recherche principal pas rempli
-		if((userResearch === undefined || userResearch.length < 2) && numberOfTagsSelected == 0 ){
-			console.log('(userResearch === undefined || userResearch.length < 2) && numberOfTagsSelected == 0')
-			filteredByAdvancedSearchField(
-				userResearchByTag,
-				recipes,
-				recipesFilteredByAdvancedSearchField
-			)		
-			recipesFilteredByAdvancedSearchField1=recipesFilteredByAdvancedSearchField
-		}
-		else if((userResearch === undefined || userResearch.length < 2) &&numberOfTagsSelected == 1 ){
-			console.log('(userResearch === undefined || userResearch.length <2 ) && numberOfTagsSelected == 1')
-			filteredByAdvancedSearchField(
-				userResearchByTag,
-				recipesFilteredByAdvancedSearchField1,
-				recipesFilteredByAdvancedSearchField
-			)		
-			recipesFilteredByAdvancedSearchField2=recipesFilteredByAdvancedSearchField
-		}
-		else if((userResearch === undefined || userResearch.length < 2) &&numberOfTagsSelected == 2){
-			console.log('(userResearch === undefined || userResearch.length <2 ) && numberOfTagsSelected == 2')
-			filteredByAdvancedSearchField(
-				userResearchByTag,
-				recipesFilteredByAdvancedSearchField2,
-				recipesFilteredByAdvancedSearchField
-			)		
+		else if((userResearch === undefined || userResearch.length < 2)  ){
+			if(numberOfTagsSelected == 0){
+				console.log('(userResearch === undefined || userResearch.length < 2) && numberOfTagsSelected == 0')
+				filteredByAdvancedSearchField(
+					userResearchByTag,
+					recipes,
+					recipesFilteredByAdvancedSearchField
+				)		
+				recipesFilteredByAdvancedSearchField1=recipesFilteredByAdvancedSearchField
+			}
+			else if(numberOfTagsSelected==1){
+				filteredByAdvancedSearchField(
+					userResearchByTag,
+					recipesFilteredByAdvancedSearchField1,
+					recipesFilteredByAdvancedSearchField
+				)		
+				recipesFilteredByAdvancedSearchField2=recipesFilteredByAdvancedSearchField
+			}
+			else if(numberOfTagsSelected==2){
+				filteredByAdvancedSearchField(
+					userResearchByTag,
+					recipesFilteredByAdvancedSearchField2,
+					recipesFilteredByAdvancedSearchField
+				)		
+			}
 		}
 
 
 		// champ de recherche principal rempli
-		else if (userResearch.length > 2 && numberOfTagsSelected==0 ){
-			console.log('userResearch.length > 2 && numberOfTagsSelected==0')
-			filteredByAdvancedSearchField(
-				userResearchByTag,
-				setFilterRecipeBySearchBar,
-				recipesFilteredByAdvancedSearchField
-			)
-			recipesFilteredByAdvancedSearchField1 = recipesFilteredByAdvancedSearchField
+		else if (userResearch.length > 2 ){
+			if(numberOfTagsSelected==0){
+				filteredByAdvancedSearchField(
+					userResearchByTag,
+					setFilterRecipeBySearchBar,
+					recipesFilteredByAdvancedSearchField
+				)
+				recipesFilteredByAdvancedSearchField1 = recipesFilteredByAdvancedSearchField
+			}
+			else if(numberOfTagsSelected==1){
+				filteredByAdvancedSearchField(
+					userResearchByTag,
+					recipesFilteredByAdvancedSearchField1,
+					recipesFilteredByAdvancedSearchField
+				)
+				recipesFilteredByAdvancedSearchField2 = recipesFilteredByAdvancedSearchField
+			}
+			else if(numberOfTagsSelected==2){
+				filteredByAdvancedSearchField(
+					userResearchByTag,
+					recipesFilteredByAdvancedSearchField2,
+					recipesFilteredByAdvancedSearchField
+				)
+			}
+			
 
 		}
-		else if (userResearch.length > 2 && numberOfTagsSelected==1) {
-			console.log('userResearch.length > 2 && numberOfTagsSelected==1')
-			filteredByAdvancedSearchField(
-				userResearchByTag,
-				recipesFilteredByAdvancedSearchField1	,
-				recipesFilteredByAdvancedSearchField
-			)
-			recipesFilteredByAdvancedSearchField2 = recipesFilteredByAdvancedSearchField
-		}
-		else if(userResearch.length > 2 && numberOfTagsSelected==2){
-			console.log('userResearch.length > 2 && numberOfTagsSelected==2')
-			filteredByAdvancedSearchField(
-				userResearchByTag,
-				recipesFilteredByAdvancedSearchField2	,
-				recipesFilteredByAdvancedSearchField
-			)
-		}
+		
 
 
 		//récupération des tags générés après filtrage avancé
