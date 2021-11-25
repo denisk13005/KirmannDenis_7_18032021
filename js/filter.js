@@ -6,17 +6,18 @@
  * @param {Array} arrayOfRecipes tableau de recettes où faire la recherche
  */
 export const filter = (userResearch , arrayOfFilteredRecipes, arrayOfRecipes)=>{
-	for (const recipe of arrayOfRecipes) {
-		for(const ingredient of recipe.ingredients){
-			if(ingredient.ingredient.toLowerCase().match(userResearch)){
+	arrayOfRecipes.forEach(recipe => {
+		recipe.ingredients.forEach(el => {
+			if(el.ingredient.toLowerCase().includes(userResearch)){
 				arrayOfFilteredRecipes.push(recipe)
 			}
-		}	
-		if(recipe.name.toLowerCase().match(userResearch)){
+		})
+		if(recipe.name.toLowerCase().includes(userResearch)){
 			arrayOfFilteredRecipes.push(recipe)
 		}
-		if(recipe.description.toLowerCase().match(userResearch)){
+		if(recipe.description.toLowerCase().includes(userResearch)){
 			arrayOfFilteredRecipes.push(recipe)
 		}			
-	}
+	})
+	console.log(arrayOfFilteredRecipes)
 }
