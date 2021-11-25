@@ -126,7 +126,7 @@ for (const input of inputs) {
 		let numberOfTagsSelected = divKeywords.children.length
 
 		let recipesFilteredByAdvancedSearchField = []
-		if(userResearch === undefined && numberOfTagsSelected == 0 ){
+		if((userResearch === undefined || userResearch.length == 0) && numberOfTagsSelected == 0 ){
 			console.log('undifined')
 			filteredByAdvancedSearchField(
 				userResearchByTag,
@@ -134,7 +134,7 @@ for (const input of inputs) {
 				recipesFilteredByAdvancedSearchField
 			)			
 		}
-		if (userResearch.length > 2) {
+		else if (userResearch.length > 2) {
 			filteredByAdvancedSearchField(
 				userResearchByTag,
 				setFilterRecipeBySearchBar,
