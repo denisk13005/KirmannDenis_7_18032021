@@ -4,7 +4,7 @@ import { filter } from './js/filter.js'
 import { filterIngAppUst } from './js/filterIngAppUst.js'
 import { createArrayOfTag } from './js/filterIngAppUst.js'
 import { closeKeyword } from './js/filterIngAppUst.js'
-import {filteredRecipesBy1Tag,filteredRecipesBy2Tag,filteredRecipesBy3Tag,filteredRecipesBy4Tag } from './js/filterIngAppUst.js'
+import {filteredRecipesBy1Tag,filteredRecipesBy2Tag} from './js/filterIngAppUst.js'
 import generateDOM from './js/domGeneration.js'
 
 // génération du dom
