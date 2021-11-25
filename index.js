@@ -4,6 +4,7 @@ import { filter } from './js/filter.js'
 import { filterIngAppUst } from './js/filterIngAppUst.js'
 import { createArrayOfTag } from './js/filterIngAppUst.js'
 import { closeKeyword } from './js/filterIngAppUst.js'
+import {filteredRecipesBy1Tag,filteredRecipesBy2Tag,filteredRecipesBy3Tag,filteredRecipesBy4Tag } from './js/filterIngAppUst.js'
 import generateDOM from './js/domGeneration.js'
 
 // génération du dom
@@ -120,20 +121,34 @@ const ingredientsContainer = document.querySelector('.ingredients__container')
 const appliancesContainer = document.querySelector('.appliances__container')
 const ustensilesContainer = document.querySelector('.ustensiles__container')
 console.log(ingredientsContainer)
+let recipesFilteredByAdvancedSearchField1
+let recipesFilteredByAdvancedSearchField2
 for (const input of inputs) {
 	input.addEventListener('input', (e) => {
 		let userResearchByTag = e.target.value.toLowerCase()
 		let numberOfTagsSelected = divKeywords.children.length
-
+		console.log(numberOfTagsSelected)
 		let recipesFilteredByAdvancedSearchField = []
-		if((userResearch === undefined || userResearch.length == 0) && numberOfTagsSelected == 0 ){
-			console.log('undifined')
+		if((userResearch === undefined || userResearch.length < 2) && numberOfTagsSelected == 0 ){
+			console.log('(userResearch === undefined || userResearch.length < 2) && numberOfTagsSelected == 0')
 			filteredByAdvancedSearchField(
 				userResearchByTag,
 				recipes,
 				recipesFilteredByAdvancedSearchField
-			)			
+			)		
+			recipesFilteredByAdvancedSearchField1=recipesFilteredByAdvancedSearchField
 		}
+		else if((userResearch === undefined || userResearch.length <2 ) && numberOfTagsSelected == 1 ){
+			console.log('(userResearch === undefined || userResearch.length <2 ) && numberOfTagsSelected == 1')
+			filteredByAdvancedSearchField(
+				userResearchByTag,
+				recipesFilteredByAdvancedSearchField1,
+				recipesFilteredByAdvancedSearchField
+			)		
+			recipesFilteredByAdvancedSearchField2=recipesFilteredByAdvancedSearchField1
+		}
+
+
 		else if (userResearch.length > 2) {
 			filteredByAdvancedSearchField(
 				userResearchByTag,
@@ -147,8 +162,10 @@ for (const input of inputs) {
 		let tagsFilteredByAdvancedSearchField = document.querySelectorAll('.list')
 		for (const tag of tagsFilteredByAdvancedSearchField) {
 			tag.addEventListener('click', (e) => {
+				
 				console.log(e)
 				createArrayOfTag([...new Set(recipesFilteredByAdvancedSearchField)], e)
+				
 				const closeBtns = document.querySelectorAll('.croix')
 				for (const btn of closeBtns) {
 					btn.addEventListener('click', (e) => {
