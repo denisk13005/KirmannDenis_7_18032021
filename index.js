@@ -121,17 +121,18 @@ const appliancesContainer = document.querySelector('.appliances__container')
 const ustensilesContainer = document.querySelector('.ustensiles__container')
 let recipesFilteredByAdvancedSearchField1
 let recipesFilteredByAdvancedSearchField2
-for (const input of inputs) {
+inputs.forEach(input => {
+
 	input.addEventListener('input', (e) => {
 		console.log(filteredRecipesBy1Tag)
 		let userResearchByTag = e.target.value.toLowerCase()
 		let numberOfTagsSelected = divKeywords.children.length
 		console.log(numberOfTagsSelected)
 		let recipesFilteredByAdvancedSearchField = []
-
+	
 		// on commence par le click sur un tag
-		
 			
+				
 		if(numberOfTagsSelected==1){
 			filteredByAdvancedSearchField(
 				userResearchByTag,
@@ -146,11 +147,10 @@ for (const input of inputs) {
 				recipesFilteredByAdvancedSearchField
 			)
 		}
-		
-		// champ de recherche principal pas rempli
+			
+		// si le champ de recherche principal n'est pas rempli
 		else if((userResearch === undefined || userResearch.length < 2)  ){
 			if(numberOfTagsSelected == 0){
-				console.log('(userResearch === undefined || userResearch.length < 2) && numberOfTagsSelected == 0')
 				filteredByAdvancedSearchField(
 					userResearchByTag,
 					recipes,
@@ -174,8 +174,8 @@ for (const input of inputs) {
 				)		
 			}
 		}
-
-
+	
+	
 		// champ de recherche principal rempli
 		else if (userResearch.length > 2 ){
 			if(numberOfTagsSelected==0){
@@ -201,28 +201,30 @@ for (const input of inputs) {
 					recipesFilteredByAdvancedSearchField
 				)
 			}
-			
-
+				
+	
 		}
-		
-
-
+			
+	
+	
 		//récupération des tags générés après filtrage avancé
-
+	
 		let tagsFilteredByAdvancedSearchField = document.querySelectorAll('.list')
-		for (const tag of tagsFilteredByAdvancedSearchField) {
-			tag.addEventListener('click', (e) => {
-				
-				console.log(e)
-				createArrayOfTag([...new Set(recipesFilteredByAdvancedSearchField)], e)
-				
+		tagsFilteredByAdvancedSearchField.forEach(tag => {
+
+			tag.addEventListener('click', (e) => {					
+				createArrayOfTag([...new Set(recipesFilteredByAdvancedSearchField)], e)						
 				const closeBtns = document.querySelectorAll('.croix')
-				for (const btn of closeBtns) {
+				closeBtns.forEach(btn => {
 					btn.addEventListener('click', (e) => {
 						closeKeyword(e)
 					})
-				}
+
+				})
+					
 			})
-		}
+		})
+		
 	})
-}
+})
+
