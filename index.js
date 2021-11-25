@@ -148,7 +148,15 @@ for (const input of inputs) {
 				recipesFilteredByAdvancedSearchField1,
 				recipesFilteredByAdvancedSearchField
 			)		
-			recipesFilteredByAdvancedSearchField2=recipesFilteredByAdvancedSearchField1
+			recipesFilteredByAdvancedSearchField2=recipesFilteredByAdvancedSearchField
+		}
+		else if((userResearch === undefined || userResearch.length < 2) &&numberOfTagsSelected == 2){
+			console.log('(userResearch === undefined || userResearch.length <2 ) && numberOfTagsSelected == 2')
+			filteredByAdvancedSearchField(
+				userResearchByTag,
+				recipesFilteredByAdvancedSearchField2,
+				recipesFilteredByAdvancedSearchField
+			)		
 		}
 
 
@@ -170,7 +178,15 @@ for (const input of inputs) {
 				recipesFilteredByAdvancedSearchField1	,
 				recipesFilteredByAdvancedSearchField
 			)
-
+			recipesFilteredByAdvancedSearchField2 = recipesFilteredByAdvancedSearchField
+		}
+		else if(userResearch.length > 2 && numberOfTagsSelected==2){
+			console.log('userResearch.length > 2 && numberOfTagsSelected==2')
+			filteredByAdvancedSearchField(
+				userResearchByTag,
+				recipesFilteredByAdvancedSearchField2	,
+				recipesFilteredByAdvancedSearchField
+			)
 		}
 
 
