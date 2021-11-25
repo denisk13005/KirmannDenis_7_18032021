@@ -30,15 +30,11 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	let ingredientsFilter = []
 	let appliancesFilter = []
 	let ustensilesFilter = []
-	for(const recipe of arrayOfRecipes){
-		for(const el of recipe.ingredients){
-			ingredientsFilter.push(el.ingredient)
-		}
+	arrayOfRecipes.forEach(recipe => {
+		recipe.ingredients.forEach(el=> ingredientsFilter.push(el.ingredient))
 		appliancesFilter.push(recipe.appliance)
-		for(const el of recipe.ustensils){
-			ustensilesFilter.push(el)
-		}		
-	}
+		recipe.ustensils.forEach(el=> ustensilesFilter.push(el))
+	})
 	let setIngredientsFilter = [...new Set(ingredientsFilter.sort())]
 	let setAppliancesFilter = [...new Set(appliancesFilter.sort())]	
 	let setUstensilesFilter = [...new Set(ustensilesFilter.sort())]
