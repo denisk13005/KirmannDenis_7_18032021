@@ -129,6 +129,9 @@ for (const input of inputs) {
 		let numberOfTagsSelected = divKeywords.children.length
 		console.log(numberOfTagsSelected)
 		let recipesFilteredByAdvancedSearchField = []
+
+
+		// champ de recherche principal pas rempli
 		if((userResearch === undefined || userResearch.length < 2) && numberOfTagsSelected == 0 ){
 			console.log('(userResearch === undefined || userResearch.length < 2) && numberOfTagsSelected == 0')
 			filteredByAdvancedSearchField(
@@ -138,7 +141,7 @@ for (const input of inputs) {
 			)		
 			recipesFilteredByAdvancedSearchField1=recipesFilteredByAdvancedSearchField
 		}
-		else if((userResearch === undefined || userResearch.length <2 ) && numberOfTagsSelected == 1 ){
+		else if((userResearch === undefined || userResearch.length < 2) &&numberOfTagsSelected == 1 ){
 			console.log('(userResearch === undefined || userResearch.length <2 ) && numberOfTagsSelected == 1')
 			filteredByAdvancedSearchField(
 				userResearchByTag,
@@ -149,15 +152,29 @@ for (const input of inputs) {
 		}
 
 
-		else if (userResearch.length > 2) {
+		// champ de recherche principal rempli
+		else if (userResearch.length > 2 && numberOfTagsSelected==0 ){
+			console.log('userResearch.length > 2 && numberOfTagsSelected==0')
 			filteredByAdvancedSearchField(
 				userResearchByTag,
 				setFilterRecipeBySearchBar,
 				recipesFilteredByAdvancedSearchField
 			)
+			recipesFilteredByAdvancedSearchField1 = recipesFilteredByAdvancedSearchField
+
+		}
+		else if (userResearch.length > 2 && numberOfTagsSelected==1) {
+			console.log('userResearch.length > 2 && numberOfTagsSelected==1')
+			filteredByAdvancedSearchField(
+				userResearchByTag,
+				recipesFilteredByAdvancedSearchField1	,
+				recipesFilteredByAdvancedSearchField
+			)
+
 		}
 
-		console.log(recipesFilteredByAdvancedSearchField)
+
+		//récupération des tags générés après filtrage avancé
 
 		let tagsFilteredByAdvancedSearchField = document.querySelectorAll('.list')
 		for (const tag of tagsFilteredByAdvancedSearchField) {
@@ -174,6 +191,5 @@ for (const input of inputs) {
 				}
 			})
 		}
-		console.log(tagsFilteredByAdvancedSearchField)
 	})
 }
