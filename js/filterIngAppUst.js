@@ -2,6 +2,7 @@
 // import filterByTag from './filterByTag.js'
 import Recipe from './recipe.js'
 import generateKeyword from './generateKeyword.js'
+import recipes from './recipes.js'
 //***********************************fonction de filtre des ing, app et ust ********/
 /**
  * 
@@ -38,28 +39,20 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	let setIngredientsFilter = [...new Set(ingredientsFilter.sort())]
 	let setAppliancesFilter = [...new Set(appliancesFilter.sort())]	
 	let setUstensilesFilter = [...new Set(ustensilesFilter.sort())]
-	for(const el of setIngredientsFilter){
-		ingredientsContainer.innerHTML += `<span class="list list__ingredients">${el}</span>`
+	setIngredientsFilter.forEach(el => 	ingredientsContainer.innerHTML += `<span class="list list__ingredients">${el}</span>`)
+	setAppliancesFilter.forEach(el => appliancesContainer.innerHTML+= `<span class="list list__appliances">${el}</span>`)
+	setUstensilesFilter.forEach(el=> ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${el}</span>`)
 
-	}
-	for(const el of setAppliancesFilter){
-		appliancesContainer.innerHTML+= `<span class="list list__appliances">${el}</span>`
-	}
-	for(const el of setUstensilesFilter){
-		ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${el}</span>`
-	}
 	const tags = document.querySelectorAll('.list')
-	for(const tag of tags){
+	tags.forEach(tag => {
 		tag.addEventListener('click', (e)=>{
 			createArrayOfTag(arrayOfRecipes,e)				
 			const closeBtns = document.querySelectorAll('.croix')
 			closeBtns.forEach(el => el.addEventListener('click', (e)=> {
-				closeKeyword(e)
-				
+				closeKeyword(e)					
 			}))
 		})
-	}
-
+	})
 }
 
 
@@ -92,24 +85,25 @@ function filterByTag(filteredRecipesByTag,arrayOfTags){
 
 	let container = document.querySelector('.container')
 	let arrayOfRecipesToRender=[]
-	for(const recipe of filteredRecipesByTag){	
-		for(const tag of arrayOfTags){
-
-			for(const el of recipe.ingredients){
-				if(el.ingredient.toLowerCase().match(tag))
-					arrayOfRecipesToRender.push(recipe)
-					
-			}	
-			if(recipe.appliance.toLowerCase().match(tag)){
+	filteredRecipesByTag.forEach(recipe => {
+		arrayOfTags.forEach(tag => {
+			recipe.ingredients.forEach(el => {
+				if(el.ingredient.toLowerCase().includes(tag)){
+					arrayOfRecipesToRender.push(recipe)	
+				}
+			})
+			if(recipe.appliance.toLowerCase().includes(tag)){
 				arrayOfRecipesToRender.push(recipe)
 			}
-			for(const el of recipe.ustensils){
-				if(el.toLowerCase().match(tag)){
+			recipe.ustensils.forEach(el => {
+				if(el.toLowerCase().includes(tag)){
 					arrayOfRecipesToRender.push(recipe)
+
 				}
-			}
-		}
-	}
+			})
+		})
+	})
+
 		
 	arrayOfFilteredRecipes = [...new Set(arrayOfRecipesToRender)]
 	container.innerHTML = ''
