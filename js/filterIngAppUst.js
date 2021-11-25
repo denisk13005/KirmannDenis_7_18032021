@@ -107,9 +107,8 @@ function filterByTag(filteredRecipesByTag,arrayOfTags){
 		
 	arrayOfFilteredRecipes = [...new Set(arrayOfRecipesToRender)]
 	container.innerHTML = ''
-	for(const recipe of arrayOfFilteredRecipes){
-		container.innerHTML += new Recipe(recipe).render()
-	}	
+	arrayOfFilteredRecipes.forEach(recipe =>	container.innerHTML += new Recipe(recipe).render() )
+
 
 	if(arrayOfTagsLength==1){
 		filteredRecipesBy1Tag = arrayOfFilteredRecipes
