@@ -85,7 +85,6 @@ function createArrayOfTag(arrayOfRecipes,e){
 	} 
 	filterByTag(arrayOfRecipes,arrayOfTags)
 }
-export {createArrayOfTag}
 /**
  * 
  * @param {Object} filteredRecipesByTag tableau de recettes filtrées (par barre de recherche ou par tag)
@@ -191,4 +190,5 @@ function closeKeyword(e,valueOfTag){
 	
 }
 
-export default createArrayOfTag
+export {createArrayOfTag}
+export{closeKeyword}

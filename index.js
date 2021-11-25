@@ -3,6 +3,7 @@ import Recipe from './js/recipe.js'
 import { filter } from './js/filter.js'
 import  {filterIngAppUst}   from './js/filterIngAppUst.js'
 import {createArrayOfTag} from './js/filterIngAppUst.js'
+import { closeKeyword } from './js/filterIngAppUst.js'
 import generateDOM from './js/domGeneration.js'
 
 // génération du dom
@@ -139,6 +140,12 @@ for(const input of inputs){
 		for(const tag of  tagsFilteredByAdvancedSearchField){
 			tag.addEventListener('click', (e)=> {
 				createArrayOfTag([...new Set(recipesFilteredByAdvancedSearchField)],e)
+				 const closeBtns = document.querySelectorAll('.croix')
+				 for(const btn of closeBtns){
+					 btn.addEventListener('click', (e)=> {
+						 closeKeyword(e)
+					 })
+				 }
 			})
 		}
 		console.log(tagsFilteredByAdvancedSearchField)
