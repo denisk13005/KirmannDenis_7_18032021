@@ -113,7 +113,6 @@ function filteredByAdvancedSearchField(
 	setUstensilsFilteredByAdvancedSearchField.forEach(el => ustensilesContainer.innerHTML += `<span  class="list list__ustensiles">${el}</span>`)
 
 }
-console.log(userResearch)
 const divKeywords = document.querySelector('.keyword')
 const inputs = document.querySelectorAll('.input')
 const ingredientsContainer = document.querySelector('.ingredients__container')
