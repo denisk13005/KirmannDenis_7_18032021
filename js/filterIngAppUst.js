@@ -2,7 +2,6 @@
 // import filterByTag from './filterByTag.js'
 import Recipe from './recipe.js'
 import generateKeyword from './generateKeyword.js'
-import recipes from './recipes.js'
 //***********************************fonction de filtre des ing, app et ust ********/
 /**
  * 
@@ -147,31 +146,23 @@ function closeKeyword(e,valueOfTag){
 	arrayOfTagsLength--
 	if(arrayOfTagsLength == 0){	
 		container.innerHTML = ''
-		for(const recipe of filteredRecipesBySearchBar){
-			container.innerHTML += new Recipe(recipe).render()
-		}	
+		filteredRecipesBySearchBar.forEach(recipe => container.innerHTML += new Recipe(recipe).render())	
 		filterIngAppUst(filteredRecipesBySearchBar)
 	}
 	if(arrayOfTagsLength == 1){	
 		container.innerHTML = ''
-		for(const recipe of filteredRecipesBy1Tag){
-			container.innerHTML += new Recipe(recipe).render()
-		}	
+		filteredRecipesBy1Tag.forEach(recipe => 	container.innerHTML += new Recipe(recipe).render())
 		filterIngAppUst(filteredRecipesBy1Tag)
 	}
 	if(arrayOfTagsLength == 2){	
 		container.innerHTML = ''
-		for(const recipe of filteredRecipesBy2Tag){
-			container.innerHTML += new Recipe(recipe).render()
-		}	
+		filteredRecipesBy2Tag.forEach(recipe => 	container.innerHTML += new Recipe(recipe).render())
 		filterIngAppUst(filteredRecipesBy2Tag)
 	}
 	
 	if(arrayOfTagsLength == 3){	
 		container.innerHTML = ''
-		for(const recipe of filteredRecipesBy3Tag){
-			container.innerHTML += new Recipe(recipe).render()
-		}	
+		filteredRecipesBy3Tag.forEach(recipe => 	container.innerHTML += new Recipe(recipe).render())
 		filterIngAppUst(filteredRecipesBy3Tag)
 	}
 	
