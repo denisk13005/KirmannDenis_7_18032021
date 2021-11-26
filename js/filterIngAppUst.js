@@ -6,7 +6,6 @@ import generateKeyword from './generateKeyword.js'
 /**
  * 
  * @param {Array} arrayOfRecipes tableau de recettes 
- * @param {Array} arrayOfFilteredRecipes tableau des recettes ayant subit un filterByTag
  *
  */
 let filteredRecipesBySearchBar // recettes filtrées par la barre de recherche
@@ -75,9 +74,9 @@ function createArrayOfTag(arrayOfRecipes,e){
 }
 /**
  * 
- * @param {Object} filteredRecipesByTag tableau de recettes filtrées (par barre de recherche ou par tag)
- * @param {Object} arrayOfTags tableau des tags sélectionnés
- * @param {Object} arrayOfRecipesToRender tableau de recettes triées a afficher
+ * @param {Array} filteredRecipesByTag tableau de recettes filtrées (par barre de recherche ou par tag)
+ * @param {Array} arrayOfTags tableau des tags sélectionnés
+ * @param {Array} arrayOfRecipesToRender tableau de recettes triées a afficher
  */
 
 function filterByTag(filteredRecipesByTag,arrayOfTags){	

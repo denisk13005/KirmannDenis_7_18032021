@@ -19,5 +19,4 @@ export const filter = (userResearch , arrayOfFilteredRecipes, arrayOfRecipes)=>{
 			arrayOfFilteredRecipes.push(recipe)
 		}			
 	})
-	console.log(arrayOfFilteredRecipes)
 }
