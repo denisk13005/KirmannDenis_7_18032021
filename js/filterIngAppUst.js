@@ -129,7 +129,7 @@ function filterByTag(filteredRecipesByTag,arrayOfTags){
 	
 	
 }
-export {filteredRecipesBy1Tag,filteredRecipesBy2Tag,filteredRecipesBy3Tag,filteredRecipesBy4Tag}
+export {filteredRecipesBy1Tag,filteredRecipesBy2Tag}
 /****************************************************************Supression d'un tag au click sur la croix********************************/
 /**
  * 
