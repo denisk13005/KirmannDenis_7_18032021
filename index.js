@@ -35,6 +35,7 @@ const searchInput = document.getElementById('search')
 searchInput.focus()
 searchInput.addEventListener('input', (e) => {
 	userResearch = e.target.value.toLowerCase()
+
 	// si on efface tous les caractères de la barre de recherche toutes les recettes se réaffichent
 	if (userResearch.length === 0) {
 		container.innerHTML = ''
@@ -50,9 +51,7 @@ searchInput.addEventListener('input', (e) => {
 		filter(userResearch, filterRecipe, recipes)
 		setFilterRecipeBySearchBar = [...new Set(filterRecipe)]
 		//génération des recettes filtrées
-		for (const recipe of setFilterRecipeBySearchBar) {
-			container.innerHTML += new Recipe(recipe).render()
-		}
+		setFilterRecipeBySearchBar.forEach(recipe => container.innerHTML += new Recipe(recipe).render())
 
 		//maj des ingrédients appareils et ustensiles
 
@@ -84,55 +83,55 @@ function filteredByAdvancedSearchField(
 	let ingredientsFilteredByAdvancedSearchField = []
 	let appliancesFilteredByAdvancedSearchField = []
 	let ustensilsFilteredByAdvancedSearchField = []
-	for (const recipe of arrayOfRecipes) {
-		for (const el of recipe.ingredients) {
-			if (el.ingredient.toLowerCase().match(userResearchByTag)) {
+	arrayOfRecipes.forEach(recipe => {
+		recipe.ingredients.forEach(el => {
+			if (el.ingredient.toLowerCase().includes(userResearchByTag)) {
 				ingredientsFilteredByAdvancedSearchField.push(el.ingredient.toLowerCase())
 				recipesFilteredByAdvancedSearchField.push(recipe)
 			}
-		}
-		if (recipe.appliance.toLowerCase().match(userResearchByTag)) {
+		})
+		if (recipe.appliance.toLowerCase().includes(userResearchByTag)) {
 			appliancesFilteredByAdvancedSearchField.push(recipe.appliance.toLowerCase())
 			recipesFilteredByAdvancedSearchField.push(recipe)
 		}
-		for (const ustensils of recipe.ustensils) {
-			if (ustensils.toLowerCase().match(userResearchByTag)) {
-				ustensilsFilteredByAdvancedSearchField.push(ustensils.toLowerCase())
+		recipe.ustensils.forEach(el => {
+			if (el.toLowerCase().match(userResearchByTag)) {
+				ustensilsFilteredByAdvancedSearchField.push(el.toLowerCase())
 				recipesFilteredByAdvancedSearchField.push(recipe)
 			}
-		}
-	}
+		})
+	})
+
 	console.log(ingredientsFilteredByAdvancedSearchField)
-	for (const el of [...new Set(ingredientsFilteredByAdvancedSearchField)]) {
-		ingredientsContainer.innerHTML += `<span  class="list list__ingredients">${el}</span>`
-	}
-	for (const el of [...new Set(appliancesFilteredByAdvancedSearchField)]) {
-		appliancesContainer.innerHTML += `<span  class="list list__appliances">${el}</span>`
-	}
-	for (const el of [...new Set(ustensilsFilteredByAdvancedSearchField)]) {
-		ustensilesContainer.innerHTML += `<span  class="list list__ustensiles">${el}</span>`
-	}
+
+
+	let setIngredientsFilteredByAdvancedSearchField = [...new Set(ingredientsFilteredByAdvancedSearchField)]
+	let setAppliancesFilteredByAdvancedSearchField = [...new Set(appliancesFilteredByAdvancedSearchField)]
+	let setUstensilsFilteredByAdvancedSearchField = [...new Set(ustensilsFilteredByAdvancedSearchField)]
+	setIngredientsFilteredByAdvancedSearchField.forEach(el => ingredientsContainer.innerHTML += `<span  class="list list__ingredients">${el}</span>`)
+	setAppliancesFilteredByAdvancedSearchField.forEach(el => appliancesContainer.innerHTML += `<span  class="list list__appliances">${el}</span>`)
+	setUstensilsFilteredByAdvancedSearchField.forEach(el => ustensilesContainer.innerHTML += `<span  class="list list__ustensiles">${el}</span>`)
+
 }
-console.log(userResearch)
 const divKeywords = document.querySelector('.keyword')
 const inputs = document.querySelectorAll('.input')
 const ingredientsContainer = document.querySelector('.ingredients__container')
 const appliancesContainer = document.querySelector('.appliances__container')
 const ustensilesContainer = document.querySelector('.ustensiles__container')
-console.log(ingredientsContainer)
 let recipesFilteredByAdvancedSearchField1
 let recipesFilteredByAdvancedSearchField2
-for (const input of inputs) {
+inputs.forEach(input => {
+
 	input.addEventListener('input', (e) => {
 		console.log(filteredRecipesBy1Tag)
 		let userResearchByTag = e.target.value.toLowerCase()
 		let numberOfTagsSelected = divKeywords.children.length
 		console.log(numberOfTagsSelected)
 		let recipesFilteredByAdvancedSearchField = []
-
+	
 		// on commence par le click sur un tag
-		
 			
+				
 		if(numberOfTagsSelected==1){
 			filteredByAdvancedSearchField(
 				userResearchByTag,
@@ -147,11 +146,10 @@ for (const input of inputs) {
 				recipesFilteredByAdvancedSearchField
 			)
 		}
-		
-		// champ de recherche principal pas rempli
+			
+		// si le champ de recherche principal n'est pas rempli
 		else if((userResearch === undefined || userResearch.length < 2)  ){
 			if(numberOfTagsSelected == 0){
-				console.log('(userResearch === undefined || userResearch.length < 2) && numberOfTagsSelected == 0')
 				filteredByAdvancedSearchField(
 					userResearchByTag,
 					recipes,
@@ -175,8 +173,8 @@ for (const input of inputs) {
 				)		
 			}
 		}
-
-
+	
+	
 		// champ de recherche principal rempli
 		else if (userResearch.length > 2 ){
 			if(numberOfTagsSelected==0){
@@ -202,28 +200,30 @@ for (const input of inputs) {
 					recipesFilteredByAdvancedSearchField
 				)
 			}
-			
-
+				
+	
 		}
-		
-
-
+			
+	
+	
 		//récupération des tags générés après filtrage avancé
-
+	
 		let tagsFilteredByAdvancedSearchField = document.querySelectorAll('.list')
-		for (const tag of tagsFilteredByAdvancedSearchField) {
-			tag.addEventListener('click', (e) => {
-				
-				console.log(e)
-				createArrayOfTag([...new Set(recipesFilteredByAdvancedSearchField)], e)
-				
+		tagsFilteredByAdvancedSearchField.forEach(tag => {
+
+			tag.addEventListener('click', (e) => {					
+				createArrayOfTag([...new Set(recipesFilteredByAdvancedSearchField)], e)						
 				const closeBtns = document.querySelectorAll('.croix')
-				for (const btn of closeBtns) {
+				closeBtns.forEach(btn => {
 					btn.addEventListener('click', (e) => {
 						closeKeyword(e)
 					})
-				}
+
+				})
+					
 			})
-		}
+		})
+		
 	})
-}
+})
+

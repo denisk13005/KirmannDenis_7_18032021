@@ -6,7 +6,6 @@ import generateKeyword from './generateKeyword.js'
 /**
  * 
  * @param {Array} arrayOfRecipes tableau de recettes 
- * @param {Array} arrayOfFilteredRecipes tableau des recettes ayant subit un filterByTag
  *
  */
 let filteredRecipesBySearchBar // recettes filtrées par la barre de recherche
@@ -30,40 +29,28 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	let ingredientsFilter = []
 	let appliancesFilter = []
 	let ustensilesFilter = []
-	for(const recipe of arrayOfRecipes){
-		for(const el of recipe.ingredients){
-			ingredientsFilter.push(el.ingredient)
-		}
+	arrayOfRecipes.forEach(recipe => {
+		recipe.ingredients.forEach(el=> ingredientsFilter.push(el.ingredient))
 		appliancesFilter.push(recipe.appliance)
-		for(const el of recipe.ustensils){
-			ustensilesFilter.push(el)
-		}		
-	}
+		recipe.ustensils.forEach(el=> ustensilesFilter.push(el))
+	})
 	let setIngredientsFilter = [...new Set(ingredientsFilter.sort())]
 	let setAppliancesFilter = [...new Set(appliancesFilter.sort())]	
 	let setUstensilesFilter = [...new Set(ustensilesFilter.sort())]
-	for(const el of setIngredientsFilter){
-		ingredientsContainer.innerHTML += `<span class="list list__ingredients">${el}</span>`
+	setIngredientsFilter.forEach(el => 	ingredientsContainer.innerHTML += `<span class="list list__ingredients">${el}</span>`)
+	setAppliancesFilter.forEach(el => appliancesContainer.innerHTML+= `<span class="list list__appliances">${el}</span>`)
+	setUstensilesFilter.forEach(el=> ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${el}</span>`)
 
-	}
-	for(const el of setAppliancesFilter){
-		appliancesContainer.innerHTML+= `<span class="list list__appliances">${el}</span>`
-	}
-	for(const el of setUstensilesFilter){
-		ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${el}</span>`
-	}
 	const tags = document.querySelectorAll('.list')
-	for(const tag of tags){
+	tags.forEach(tag => {
 		tag.addEventListener('click', (e)=>{
 			createArrayOfTag(arrayOfRecipes,e)				
 			const closeBtns = document.querySelectorAll('.croix')
 			closeBtns.forEach(el => el.addEventListener('click', (e)=> {
-				closeKeyword(e)
-				
+				closeKeyword(e)					
 			}))
 		})
-	}
-
+	})
 }
 
 
@@ -87,39 +74,39 @@ function createArrayOfTag(arrayOfRecipes,e){
 }
 /**
  * 
- * @param {Object} filteredRecipesByTag tableau de recettes filtrées (par barre de recherche ou par tag)
- * @param {Object} arrayOfTags tableau des tags sélectionnés
- * @param {Object} arrayOfRecipesToRender tableau de recettes triées a afficher
+ * @param {Array} filteredRecipesByTag tableau de recettes filtrées (par barre de recherche ou par tag)
+ * @param {Array} arrayOfTags tableau des tags sélectionnés
+ * @param {Array} arrayOfRecipesToRender tableau de recettes triées a afficher
  */
 
 function filterByTag(filteredRecipesByTag,arrayOfTags){	
 
 	let container = document.querySelector('.container')
 	let arrayOfRecipesToRender=[]
-	for(const recipe of filteredRecipesByTag){	
-		for(const tag of arrayOfTags){
-
-			for(const el of recipe.ingredients){
-				if(el.ingredient.toLowerCase().match(tag))
-					arrayOfRecipesToRender.push(recipe)
-					
-			}	
-			if(recipe.appliance.toLowerCase().match(tag)){
+	filteredRecipesByTag.forEach(recipe => {
+		arrayOfTags.forEach(tag => {
+			recipe.ingredients.forEach(el => {
+				if(el.ingredient.toLowerCase().includes(tag)){
+					arrayOfRecipesToRender.push(recipe)	
+				}
+			})
+			if(recipe.appliance.toLowerCase().includes(tag)){
 				arrayOfRecipesToRender.push(recipe)
 			}
-			for(const el of recipe.ustensils){
-				if(el.toLowerCase().match(tag)){
+			recipe.ustensils.forEach(el => {
+				if(el.toLowerCase().includes(tag)){
 					arrayOfRecipesToRender.push(recipe)
+
 				}
-			}
-		}
-	}
+			})
+		})
+	})
+
 		
 	arrayOfFilteredRecipes = [...new Set(arrayOfRecipesToRender)]
 	container.innerHTML = ''
-	for(const recipe of arrayOfFilteredRecipes){
-		container.innerHTML += new Recipe(recipe).render()
-	}	
+	arrayOfFilteredRecipes.forEach(recipe =>	container.innerHTML += new Recipe(recipe).render() )
+
 
 	if(arrayOfTagsLength==1){
 		filteredRecipesBy1Tag = arrayOfFilteredRecipes
@@ -142,7 +129,7 @@ function filterByTag(filteredRecipesByTag,arrayOfTags){
 	
 	
 }
-export {filteredRecipesBy1Tag,filteredRecipesBy2Tag,filteredRecipesBy3Tag,filteredRecipesBy4Tag}
+export {filteredRecipesBy1Tag,filteredRecipesBy2Tag}
 /****************************************************************Supression d'un tag au click sur la croix********************************/
 /**
  * 
@@ -158,31 +145,23 @@ function closeKeyword(e,valueOfTag){
 	arrayOfTagsLength--
 	if(arrayOfTagsLength == 0){	
 		container.innerHTML = ''
-		for(const recipe of filteredRecipesBySearchBar){
-			container.innerHTML += new Recipe(recipe).render()
-		}	
+		filteredRecipesBySearchBar.forEach(recipe => container.innerHTML += new Recipe(recipe).render())	
 		filterIngAppUst(filteredRecipesBySearchBar)
 	}
 	if(arrayOfTagsLength == 1){	
 		container.innerHTML = ''
-		for(const recipe of filteredRecipesBy1Tag){
-			container.innerHTML += new Recipe(recipe).render()
-		}	
+		filteredRecipesBy1Tag.forEach(recipe => 	container.innerHTML += new Recipe(recipe).render())
 		filterIngAppUst(filteredRecipesBy1Tag)
 	}
 	if(arrayOfTagsLength == 2){	
 		container.innerHTML = ''
-		for(const recipe of filteredRecipesBy2Tag){
-			container.innerHTML += new Recipe(recipe).render()
-		}	
+		filteredRecipesBy2Tag.forEach(recipe => 	container.innerHTML += new Recipe(recipe).render())
 		filterIngAppUst(filteredRecipesBy2Tag)
 	}
 	
 	if(arrayOfTagsLength == 3){	
 		container.innerHTML = ''
-		for(const recipe of filteredRecipesBy3Tag){
-			container.innerHTML += new Recipe(recipe).render()
-		}	
+		filteredRecipesBy3Tag.forEach(recipe => 	container.innerHTML += new Recipe(recipe).render())
 		filterIngAppUst(filteredRecipesBy3Tag)
 	}
 	
