@@ -7,26 +7,24 @@ import SearchBtns from './searchBtns.js'
 
 export default function generateDOM(){
 
-	// recupération des ingrédients
+	// recupération des ingrédients appareils et ustensils
 	const ingredients = []
+	const appliances = []
+	const ustensiles = []
+
 	recipes.forEach((element) => {
 		element.ingredients.forEach((el) =>
 			ingredients.push(el.ingredient.toLowerCase())
 		)
-	})
-	let setIngredients = [...new Set(ingredients)] //supression des doublons et conversion en tableau
-
-	//récupération des appareils
-	const appliances = []
-	recipes.forEach((element) => appliances.push(element.appliance.toLowerCase()))
-	const setAppliances = [...new Set(appliances)]
-
-	// récupération des ustensiles
-	const ustensiles = []
-	recipes.forEach((element) => {
+		appliances.push(element.appliance.toLocaleLowerCase())
 		element.ustensils.forEach((el) => ustensiles.push(el.toLowerCase()))
+
 	})
+	//supression des doublons et conversion en tableau
+	const setIngredients = [...new Set(ingredients)] 
+	const setAppliances = [...new Set(appliances)]
 	const setUstensile = [...new Set(ustensiles)]
+
 
 	// génération des éléments DOM
 	const body = document.body

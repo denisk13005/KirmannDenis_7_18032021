@@ -71,7 +71,7 @@ function createArrayOfTag(arrayOfRecipes,e){
 		generateKeyword(e)
 	} 
 	filterByTag(arrayOfRecipes,arrayOfTags)
-}
+} 
 /**
  * 
  * @param {Array} filteredRecipesByTag tableau de recettes filtrées (par barre de recherche ou par tag)
