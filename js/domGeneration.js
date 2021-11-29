@@ -13,10 +13,13 @@ export default function generateDOM(){
 	const ustensiles = []
 
 	recipes.forEach((element) => {
-		element.ingredients.forEach((el) =>
+		element.ingredients.forEach((el) =>{
 			ingredients.push(el.ingredient.toLowerCase())
+		}
+	
+
 		)
-		appliances.push(element.appliance.toLocaleLowerCase())
+		appliances.push(element.appliance.toLowerCase())
 		element.ustensils.forEach((el) => ustensiles.push(el.toLowerCase()))
 
 	})

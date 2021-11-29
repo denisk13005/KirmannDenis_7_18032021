@@ -30,9 +30,9 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	let appliancesFilter = []
 	let ustensilesFilter = []
 	arrayOfRecipes.forEach(recipe => {
-		recipe.ingredients.forEach(el=> ingredientsFilter.push(el.ingredient))
-		appliancesFilter.push(recipe.appliance)
-		recipe.ustensils.forEach(el=> ustensilesFilter.push(el))
+		recipe.ingredients.forEach(el=> ingredientsFilter.push(el.ingredient.toLowerCase()))
+		appliancesFilter.push(recipe.appliance.toLowerCase())
+		recipe.ustensils.forEach(el=> ustensilesFilter.push(el.toLowerCase()))
 	})
 	let setIngredientsFilter = [...new Set(ingredientsFilter.sort())]
 	let setAppliancesFilter = [...new Set(appliancesFilter.sort())]	
@@ -63,12 +63,29 @@ let valueOfTag ='' // value du tag quand on click sur close
  * @param {Array} arrayOfRecipes 
  */
 function createArrayOfTag(arrayOfRecipes,e){
+	const inputs = document.querySelectorAll('.input')
+	const tagsInDivKeyword = document.querySelectorAll('.userChoice')
 	arrayOfTags= []
 	valueOfTag =	e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
+	console.log(tagsInDivKeyword)
+	let tagIsInDivkeyword
 	if(!arrayOfTags.includes(valueOfTag)){
 		arrayOfTags.push(valueOfTag)
 		arrayOfTagsLength++
-		generateKeyword(e)
+		tagsInDivKeyword.forEach(tag => {
+			tagIsInDivkeyword = tag.children[0].innerHTML==valueOfTag
+		})
+		if(tagIsInDivkeyword){
+			alert('vous avez déjà selectionné ce tag')
+		}
+		else if(tagIsInDivkeyword==undefined){
+			generateKeyword(e)			
+		}
+		else{
+			generateKeyword(e)			
+
+		}
+		inputs.forEach(input=> input.value='')
 	} 
 	filterByTag(arrayOfRecipes,arrayOfTags)
 } 
