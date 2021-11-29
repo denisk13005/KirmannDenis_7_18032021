@@ -22,8 +22,7 @@ main[0].appendChild(container)
 recipes.forEach(
 	(element) => (container.innerHTML += new Recipe(element).render())
 )
-
-filterIngAppUst(recipes) //lance le filtre et le tri au tag
+filterIngAppUst(recipes)
 
 //******************************************filtre par la barre de recherche principale**************/
 let userResearch // entrée utilisateur dans search
@@ -129,9 +128,8 @@ inputs.forEach(input => {
 		console.log(numberOfTagsSelected)
 		let recipesFilteredByAdvancedSearchField = []
 	
-		// on commence par le click sur un tag
-			
-				
+		// on commence par le click sur un tag			
+		
 		if(numberOfTagsSelected==1){
 			filteredByAdvancedSearchField(
 				userResearchByTag,
