@@ -84,7 +84,7 @@ function createArrayOfTag(arrayOfRecipes,e){
 			generateKeyword(e)			
 
 		}
-		inputs.forEach(input=> input.value='')
+		inputs.forEach(input=> input.value='')//vide le champ de recherhce principale lors de la sélection d'un tag
 	} 
 	filterByTag(arrayOfRecipes,arrayOfTags)
 } 
