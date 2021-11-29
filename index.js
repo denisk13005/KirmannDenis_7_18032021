@@ -101,7 +101,6 @@ function filteredByAdvancedSearchField(
 		})
 	})
 
-	console.log(ingredientsFilteredByAdvancedSearchField)
 
 
 	let setIngredientsFilteredByAdvancedSearchField = [...new Set(ingredientsFilteredByAdvancedSearchField)]
@@ -122,10 +121,8 @@ let recipesFilteredByAdvancedSearchField2
 inputs.forEach(input => {
 
 	input.addEventListener('input', (e) => {
-		console.log(filteredRecipesBy1Tag)
 		let userResearchByTag = e.target.value.toLowerCase()
 		let numberOfTagsSelected = divKeywords.children.length
-		console.log(numberOfTagsSelected)
 		let recipesFilteredByAdvancedSearchField = []
 	
 		// on commence par le click sur un tag			

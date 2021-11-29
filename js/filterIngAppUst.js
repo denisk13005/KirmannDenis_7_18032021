@@ -67,7 +67,6 @@ function createArrayOfTag(arrayOfRecipes,e){
 	const tagsInDivKeyword = document.querySelectorAll('.userChoice')
 	arrayOfTags= []
 	valueOfTag =	e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
-	console.log(tagsInDivKeyword)
 	let tagIsInDivkeyword
 	if(!arrayOfTags.includes(valueOfTag)){
 		arrayOfTags.push(valueOfTag)
