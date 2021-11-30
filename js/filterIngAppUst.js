@@ -63,7 +63,7 @@ let valueOfTag ='' // value du tag quand on click sur close
  * @param {Array} arrayOfRecipes 
  */
 function createArrayOfTag(arrayOfRecipes,e){
-	const inputs = document.querySelectorAll('.input')
+	const inputsOfAvancedSearch = document.querySelectorAll('.input')
 	const tagsInDivKeyword = document.querySelectorAll('.userChoice')
 	arrayOfTags= []
 	valueOfTag =	e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
@@ -84,7 +84,7 @@ function createArrayOfTag(arrayOfRecipes,e){
 			generateKeyword(e)			
 
 		}
-		inputs.forEach(input=> input.value='')//vide le champ de recherhce principale lors de la sélection d'un tag
+		inputsOfAvancedSearch.forEach(el=> el.value='')//vide le champ de recherhce principale lors de la sélection d'un tag
 	} 
 	filterByTag(arrayOfRecipes,arrayOfTags)
 } 
