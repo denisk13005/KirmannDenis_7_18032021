@@ -45,8 +45,10 @@ searchInput.addEventListener('input', (e) => {
 	}
 
 	if (userResearch.length > 2) {
-		container.innerHTML = ''		
+		container.innerHTML = ''	
+		console.time('test filter')	
 		const filterRecipe = filter(userResearch, recipes)
+		console.timeEnd('test filter')
 		setFilterRecipeBySearchBar = [...new Set(filterRecipe)]
 		//génération des recettes filtrées
 		for (const recipe of setFilterRecipeBySearchBar) {
@@ -54,8 +56,12 @@ searchInput.addEventListener('input', (e) => {
 		}
 
 		//maj des ingrédients appareils et ustensiles
+		
+		console.time('test filtering')	
 
 		filterIngAppUst(setFilterRecipeBySearchBar)
+		console.timeEnd('test filtering')
+
 
 		// affichage du message si aucune recette ne correspond à la recherche par barre de recherche
 		if (setFilterRecipeBySearchBar.length === 0) {
