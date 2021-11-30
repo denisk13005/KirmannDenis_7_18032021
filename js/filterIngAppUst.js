@@ -32,11 +32,11 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	let ustensilesFilter = []
 	for(const recipe of arrayOfRecipes){
 		for(const el of recipe.ingredients){
-			ingredientsFilter.push(el.ingredient)
+			ingredientsFilter.push(el.ingredient.toLowerCase())
 		}
-		appliancesFilter.push(recipe.appliance)
+		appliancesFilter.push(recipe.appliance.toLowerCase())
 		for(const el of recipe.ustensils){
-			ustensilesFilter.push(el)
+			ustensilesFilter.push(el.toLowerCase())
 		}		
 	}
 	let setIngredientsFilter = [...new Set(ingredientsFilter.sort())]
@@ -76,15 +76,31 @@ let valueOfTag ='' // value du tag quand on click sur close
  * @param {Array} arrayOfRecipes 
  */
 function createArrayOfTag(arrayOfRecipes,e){
+	const inputsOfAvancedSearch = document.querySelectorAll('.input')
+	const tagsInDivKeyword = document.querySelectorAll('.userChoice')
 	arrayOfTags= []
 	valueOfTag =	e.target.innerHTML.toLowerCase() // récupére le contenu textuel du tag 
+	let tagIsInDivkeyword
 	if(!arrayOfTags.includes(valueOfTag)){
 		arrayOfTags.push(valueOfTag)
 		arrayOfTagsLength++
-		generateKeyword(e)
+		tagsInDivKeyword.forEach(tag => {
+			tagIsInDivkeyword = tag.children[0].innerHTML==valueOfTag
+		})
+		if(tagIsInDivkeyword){
+			alert('vous avez déjà selectionné ce tag')
+		}
+		else if(tagIsInDivkeyword==undefined){
+			generateKeyword(e)			
+		}
+		else{
+			generateKeyword(e)			
+
+		}
+		inputsOfAvancedSearch.forEach(el=> el.value='')//vide le champ de recherhce principale lors de la sélection d'un tag
 	} 
 	filterByTag(arrayOfRecipes,arrayOfTags)
-}
+} 
 /**
  * 
  * @param {Object} filteredRecipesByTag tableau de recettes filtrées (par barre de recherche ou par tag)
