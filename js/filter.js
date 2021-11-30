@@ -5,7 +5,8 @@
  * @param {Array} arrayOfFilteredRecipes tableau de recettes filtrées par rapport à la recherche utilisateur
  * @param {Array} arrayOfRecipes tableau de recettes où faire la recherche
  */
-export const filter = (userResearch , arrayOfFilteredRecipes, arrayOfRecipes)=>{
+export const filter = (userResearch , arrayOfRecipes)=>{
+	let arrayOfFilteredRecipes = []
 	for (const recipe of arrayOfRecipes) {
 		for(const ingredient of recipe.ingredients){
 			if(ingredient.ingredient.toLowerCase().match(userResearch)){
@@ -19,4 +20,6 @@ export const filter = (userResearch , arrayOfFilteredRecipes, arrayOfRecipes)=>{
 			arrayOfFilteredRecipes.push(recipe)
 		}			
 	}
+	return arrayOfFilteredRecipes
+
 }
