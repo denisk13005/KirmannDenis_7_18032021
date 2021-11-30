@@ -43,7 +43,6 @@ searchInput.addEventListener('input', (e) => {
 		)
 		filterIngAppUst(recipes)
 	}
-
 	if (userResearch.length > 2) {
 		let filterRecipe = [] // recettes filtrées par la barre de recherche
 		container.innerHTML = ''
@@ -112,15 +111,15 @@ function filteredByAdvancedSearchField(
 
 }
 const divKeywords = document.querySelector('.keyword')
-const inputs = document.querySelectorAll('.input')
+const inputsAdvancedSearch = document.querySelectorAll('.input')
 const ingredientsContainer = document.querySelector('.ingredients__container')
 const appliancesContainer = document.querySelector('.appliances__container')
 const ustensilesContainer = document.querySelector('.ustensiles__container')
 let recipesFilteredByAdvancedSearchField1
 let recipesFilteredByAdvancedSearchField2
-inputs.forEach(input => {
+inputsAdvancedSearch.forEach(x => {
 
-	input.addEventListener('input', (e) => {
+	x.addEventListener('input', (e) => {
 		let userResearchByTag = e.target.value.toLowerCase()
 		let numberOfTagsSelected = divKeywords.children.length
 		let recipesFilteredByAdvancedSearchField = []
