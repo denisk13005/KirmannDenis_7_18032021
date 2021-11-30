@@ -117,15 +117,15 @@ function filteredByAdvancedSearchField(
 }
 console.log(userResearch)
 const divKeywords = document.querySelector('.keyword')
-const inputs = document.querySelectorAll('.input')
+const inputsAdvancedSearch = document.querySelectorAll('.input')
 const ingredientsContainer = document.querySelector('.ingredients__container')
 const appliancesContainer = document.querySelector('.appliances__container')
 const ustensilesContainer = document.querySelector('.ustensiles__container')
 console.log(ingredientsContainer)
 let recipesFilteredByAdvancedSearchField1
 let recipesFilteredByAdvancedSearchField2
-for (const input of inputs) {
-	input.addEventListener('input', (e) => {
+for (const el of inputsAdvancedSearch) {
+	el.addEventListener('input', (e) => {
 		console.log(filteredRecipesBy1Tag)
 		let userResearchByTag = e.target.value.toLowerCase()
 		let numberOfTagsSelected = divKeywords.children.length
