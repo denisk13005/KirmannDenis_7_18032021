@@ -39,11 +39,13 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 			ustensilesFilter.push(el.toLowerCase())
 		}		
 	}
+	//supression des doublons
 	let setIngredientsFilter = [...new Set(ingredientsFilter.sort())]
 	let setAppliancesFilter = [...new Set(appliancesFilter.sort())]	
 	let setUstensilesFilter = [...new Set(ustensilesFilter.sort())]
+	// génération des spans filtrés
 	for(const el of setIngredientsFilter){
-		ingredientsContainer.innerHTML += `<span class="list list__ingredients">${el}</span>`
+		ingredientsContainer.innerHTML += `<span  class="list list__ingredients">${el}</span>`
 
 	}
 	for(const el of setAppliancesFilter){
@@ -52,21 +54,23 @@ export const filterIngAppUst = (arrayOfRecipes) =>{
 	for(const el of setUstensilesFilter){
 		ustensilesContainer.innerHTML += `<span class="list list__ustensiles">${el}</span>`
 	}
+	// ajout d'un event listener sur les tags 
 	const tags = document.querySelectorAll('.list')
 	for(const tag of tags){
 		tag.addEventListener('click', (e)=>{
-			createArrayOfTag(arrayOfRecipes,e)				
+			createArrayOfTag(arrayOfRecipes,e)
+			//ajout d'un event listener sur la croix de fermeture des tags				
 			const closeBtns = document.querySelectorAll('.croix')
 			closeBtns.forEach(el => el.addEventListener('click', (e)=> {
 				closeKeyword(e)
 				
 			}))
 		})
+	
 	}
 
+
 }
-
-
 
 let arrayOfTags=[] // tableau des tags sur lesquels on a clické
 let arrayOfTagsLength = 0 // initialisation du nombre de tags sélectionnés
@@ -97,7 +101,7 @@ function createArrayOfTag(arrayOfRecipes,e){
 			generateKeyword(e)			
 
 		}
-		inputsOfAvancedSearch.forEach(el=> el.value='')//vide le champ de recherhce principale lors de la sélection d'un tag
+		inputsOfAvancedSearch.forEach(el=> el.value='')//vide le champ de recherche avancé lors de la sélection d'un tag
 	} 
 	filterByTag(arrayOfRecipes,arrayOfTags)
 } 
