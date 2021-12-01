@@ -69,7 +69,7 @@ searchInput.addEventListener('input', (e) => {
 //*********************************************filtre par les champs de recherche avancés */
 /**
  * 
- * @param {string} userResearchByTag recherche par champ de recherche avancée
+ * @param {string} userResearchByTag terme recherché dans un champ de recherche avancée
  * @param {Array} arrayOfRecipes tableau des recettes a filtrer
  * @param {Array} recipesFilteredByAdvancedSearchField tableau de recettes filtrées
  */
@@ -84,19 +84,20 @@ function filteredByAdvancedSearchField(
 	let ingredientsFilteredByAdvancedSearchField = []
 	let appliancesFilteredByAdvancedSearchField = []
 	let ustensilsFilteredByAdvancedSearchField = []
+	
 	arrayOfRecipes.forEach(recipe => {
 		recipe.ingredients.forEach(el => {
-			if (el.ingredient.toLowerCase().includes(userResearchByTag)) {
+			if (el.ingredient.toLowerCase().includes(userResearchByTag)) {//on vérifie si le terme entrée par l'utilisateur est présent dans les ingredients
 				ingredientsFilteredByAdvancedSearchField.push(el.ingredient.toLowerCase())
 				recipesFilteredByAdvancedSearchField.push(recipe)
 			}
 		})
-		if (recipe.appliance.toLowerCase().includes(userResearchByTag)) {
+		if (recipe.appliance.toLowerCase().includes(userResearchByTag)) {//on vérifie si le terme entrée par l'utilisateur est présent dans les appareils
 			appliancesFilteredByAdvancedSearchField.push(recipe.appliance.toLowerCase())
 			recipesFilteredByAdvancedSearchField.push(recipe)
 		}
 		recipe.ustensils.forEach(el => {
-			if (el.toLowerCase().match(userResearchByTag)) {
+			if (el.toLowerCase().match(userResearchByTag)) {//on vérifie si le terme entrée par l'utilisateur est présent dans les ustensils
 				ustensilsFilteredByAdvancedSearchField.push(el.toLowerCase())
 				recipesFilteredByAdvancedSearchField.push(recipe)
 			}
@@ -104,10 +105,11 @@ function filteredByAdvancedSearchField(
 	})
 
 
-
+	//supression des doublons
 	let setIngredientsFilteredByAdvancedSearchField = [...new Set(ingredientsFilteredByAdvancedSearchField)]
 	let setAppliancesFilteredByAdvancedSearchField = [...new Set(appliancesFilteredByAdvancedSearchField)]
 	let setUstensilsFilteredByAdvancedSearchField = [...new Set(ustensilsFilteredByAdvancedSearchField)]
+	//génération des spans filtrés
 	setIngredientsFilteredByAdvancedSearchField.forEach(el => ingredientsContainer.innerHTML += `<span  class="list list__ingredients">${el}</span>`)
 	setAppliancesFilteredByAdvancedSearchField.forEach(el => appliancesContainer.innerHTML += `<span  class="list list__appliances">${el}</span>`)
 	setUstensilsFilteredByAdvancedSearchField.forEach(el => ustensilesContainer.innerHTML += `<span  class="list list__ustensiles">${el}</span>`)
@@ -123,30 +125,31 @@ let recipesFilteredByAdvancedSearchField2
 
 for (const el of inputsAdvancedSearch) {
 	el.addEventListener('input', (e) => {
-		console.log(filteredRecipesBy1Tag)
 
-		let userResearchByTag = e.target.value.toLowerCase()
-		let numberOfTagsSelected = divKeywords.children.length
+		let userResearchByTag = e.target.value.toLowerCase() //  terme recherché dans un champ de recherche avancée
+		let numberOfTagsSelected = divKeywords.children.length// nombre de tags déjà sélectionné
 		let recipesFilteredByAdvancedSearchField = []
 	
-		// on commence par le click sur un tag			
+		//si un tag a déjà été sélectionné		
 		
 		if(numberOfTagsSelected==1){
+			console.log('numberOfTagsSelected==1')
 			filteredByAdvancedSearchField(
 				userResearchByTag,
-				filteredRecipesBy1Tag,
+				filteredRecipesBy1Tag, //tableau des recettes renvoyé par la fonction filterByTag
 				recipesFilteredByAdvancedSearchField
 			)
 		}
 		else if(numberOfTagsSelected==2){
+			console.log(('numberOfTagsSelected==2'))
 			filteredByAdvancedSearchField(
 				userResearchByTag,
-				filteredRecipesBy2Tag,
+				filteredRecipesBy2Tag,//tableau des recettes renvoyé par la fonction filterByTag
 				recipesFilteredByAdvancedSearchField
 			)
 		}
 			
-		// si le champ de recherche principal n'est pas rempli
+		// si le champ de recherche principal n'est pas rempli et qu'on rentre un terme directement dans un des champs de recherche avancé
 		else if((userResearch === undefined || userResearch.length < 2)  ){
 			if(numberOfTagsSelected == 0){
 				filteredByAdvancedSearchField(
