@@ -45,16 +45,18 @@ searchInput.addEventListener('input', (e) => {
 	}
 
 	if (userResearch.length > 2) {
-		let filterRecipe = [] // recettes filtrées par la barre de recherche
-		container.innerHTML = ''
-		filter(userResearch, filterRecipe, recipes)
+		container.innerHTML = ''	
+		console.time('filter')	
+		const filterRecipe = filter(userResearch, recipes)
+		console.timeEnd('filter')
 		setFilterRecipeBySearchBar = [...new Set(filterRecipe)]
 		//génération des recettes filtrées
 		setFilterRecipeBySearchBar.forEach(recipe => container.innerHTML += new Recipe(recipe).render())
 
-		//maj des ingrédients appareils et ustensiles
+		//maj des ingrédients appareils et ustensiles	
 
 		filterIngAppUst(setFilterRecipeBySearchBar)
+
 
 		// affichage du message si aucune recette ne correspond à la recherche par barre de recherche
 		if (setFilterRecipeBySearchBar.length === 0) {
@@ -112,15 +114,17 @@ function filteredByAdvancedSearchField(
 
 }
 const divKeywords = document.querySelector('.keyword')
-const inputs = document.querySelectorAll('.input')
+const inputsAdvancedSearch = document.querySelectorAll('.input')
 const ingredientsContainer = document.querySelector('.ingredients__container')
 const appliancesContainer = document.querySelector('.appliances__container')
 const ustensilesContainer = document.querySelector('.ustensiles__container')
 let recipesFilteredByAdvancedSearchField1
 let recipesFilteredByAdvancedSearchField2
-inputs.forEach(input => {
 
-	input.addEventListener('input', (e) => {
+for (const el of inputsAdvancedSearch) {
+	el.addEventListener('input', (e) => {
+		console.log(filteredRecipesBy1Tag)
+
 		let userResearchByTag = e.target.value.toLowerCase()
 		let numberOfTagsSelected = divKeywords.children.length
 		let recipesFilteredByAdvancedSearchField = []
@@ -220,5 +224,5 @@ inputs.forEach(input => {
 		})
 		
 	})
-})
+}
 
