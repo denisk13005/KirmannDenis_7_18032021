@@ -45,9 +45,9 @@ searchInput.addEventListener('input', (e) => {
 	}
 	if (userResearch.length > 2) {
 		container.innerHTML = ''
-		console.time('filter')
+		console.time('filter')//lance un timer pour mesurer le temp d'execution de la fonction filter()
 		const filterRecipe = filter(userResearch, recipes)
-		console.timeEnd('filter')
+		console.timeEnd('filter')//arrête le timer 
 		setFilterRecipeBySearchBar = [...new Set(filterRecipe)]
 		//génération des recettes filtrées
 		setFilterRecipeBySearchBar.forEach(recipe => container.innerHTML += new Recipe(recipe).render())
