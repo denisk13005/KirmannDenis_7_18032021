@@ -73,6 +73,10 @@ searchInput.addEventListener('input', (e) => {
  * @param {Array} arrayOfRecipes tableau des recettes a filtrer
  * @param {Array} recipesFilteredByAdvancedSearchField tableau de recettes filtrées
  */
+
+const ingredientsContainer = document.querySelector('.ingredients__container')
+const appliancesContainer = document.querySelector('.appliances__container')
+const ustensilesContainer = document.querySelector('.ustensiles__container')
 function filteredByAdvancedSearchField(
 	userResearchByTag,
 	arrayOfRecipes,
@@ -117,9 +121,7 @@ function filteredByAdvancedSearchField(
 }
 const divKeywords = document.querySelector('.keyword')
 const inputsAdvancedSearch = document.querySelectorAll('.input')
-const ingredientsContainer = document.querySelector('.ingredients__container')
-const appliancesContainer = document.querySelector('.appliances__container')
-const ustensilesContainer = document.querySelector('.ustensiles__container')
+
 let recipesFilteredByAdvancedSearchField1
 let recipesFilteredByAdvancedSearchField2
 
