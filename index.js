@@ -133,7 +133,6 @@ for (const el of inputsAdvancedSearch) {
 		//si un tag a déjà été sélectionné		
 		
 		if(numberOfTagsSelected==1){
-			console.log('numberOfTagsSelected==1')
 			filteredByAdvancedSearchField(
 				userResearchByTag,
 				filteredRecipesBy1Tag, //tableau des recettes renvoyé par la fonction filterByTag
@@ -141,7 +140,6 @@ for (const el of inputsAdvancedSearch) {
 			)
 		}
 		else if(numberOfTagsSelected==2){
-			console.log(('numberOfTagsSelected==2'))
 			filteredByAdvancedSearchField(
 				userResearchByTag,
 				filteredRecipesBy2Tag,//tableau des recettes renvoyé par la fonction filterByTag
