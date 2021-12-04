@@ -43,7 +43,7 @@ searchInput.addEventListener('input', (e) => {
 		)
 		filterIngAppUst(recipes)
 	}
-
+	//lance la recherche par la barre de recherche principale au bout du 3 ème caractère
 	if (userResearch.length > 2) {
 		container.innerHTML = ''	
 		console.time('filter')	//lance un timer pour mesurer la durée d'exécution de la fonction filter()
